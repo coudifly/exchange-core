@@ -7,6 +7,7 @@ REQUIREMENTS = [
 	'django>=2.0', 
 	'django-model-utils', 
 	'Pillow', 
+	'lxml',
 	'django-two-factor-auth', 
 	'dj_database_url', 
 	'prettyconf', 
