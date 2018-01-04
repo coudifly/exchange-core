@@ -21,17 +21,20 @@ from .models import Users, Accounts
 @method_decorator([login_required], name='dispatch')
 class WalletsView(TemplateView):
     template_name = 'core/wallets.html'
-    fields = [
-        'pk',
-        'currency__icon',
-        'currency__name',
-        'currency__symbol',
-        'deposit',
-        'reserved',
-    ]
 
     def get(self, request):
-        wallets = Accounts.objects.filter(user=request.user).values(*self.fields)
+        wallets = []
+
+        for account in Accounts.objects.filter(user=request.user):
+            wallets.append({
+                'pk': account.pk,
+                'icon': account.currency.icon.url,
+                'name': account.currency.name,
+                'symbol': account.currency.symbol,
+                'deposit': account.deposit,
+                'reserved': account.reserved
+            })
+
         return render(request, self.template_name, {'wallets': list(wallets)})
 
 

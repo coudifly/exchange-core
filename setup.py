@@ -8,6 +8,8 @@ REQUIREMENTS = [
 	'django-model-utils', 
 	'Pillow', 
 	'lxml',
+	'cssselect',
+	'html5lib',
 	'django-two-factor-auth', 
 	'dj_database_url', 
 	'prettyconf', 
