@@ -19,6 +19,7 @@ REQUIREMENTS = [
 	'django-anymail',
 	'django-passwords',
 	'django-storages',
+	'django-jsonview',
 	'easy-thumbnails',
 	'django-widget-tweaks==0.0.0.1.1',
 	'django-session-security==0.0.0.1.1',

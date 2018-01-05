@@ -1,4 +1,5 @@
 {% load scripts %}
+{% load i18n %}
 
 <script>
 	jQuery(function($) {
@@ -6,6 +7,21 @@
 			el: '#wallets-app',
 			data: {
 				wallets: {{ wallets|serialize|safe }} 
+			},
+			methods: {
+				createAddress: function(coin) {
+					swal({
+						title: '{% trans "Loading" %}',
+						text: '...',
+						showConfirmButton: false
+					})
+					$.post('{% url "payments>get-address" %}', {coin: coin}, function(response) {
+						swal({
+							title: '{% trans "Your {coin} address" %}'.replace('{coin}', coin), 
+							text: response.address
+						});
+					});
+				}
 			}
 		});
 	});
