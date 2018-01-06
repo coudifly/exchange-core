@@ -9,16 +9,15 @@
 				wallets: {{ wallets|serialize|safe }} 
 			},
 			methods: {
-				createAddress: function(coin) {
-					swal({
-						title: '{% trans "Loading" %}',
-						text: '...',
-						showConfirmButton: false
-					})
+				createAddress: function(coin, name) {
+					swal.showLoading();
+					
 					$.post('{% url "payments>get-address" %}', {coin: coin}, function(response) {
+						var qrcode_src = 'https://chart.googleapis.com/chart?cht=qr&chs=230x230&chl=' + name.toLowerCase() + ':' + response.address
 						swal({
-							title: '{% trans "Your {coin} address" %}'.replace('{coin}', coin), 
-							text: response.address
+							title: '{% trans "Your {coin} address" %}<br> <img src="{qrcode}">'.replace('{coin}', coin).replace('{qrcode}', qrcode_src), 
+							html: response.address,
+							confirmButtonClass: 'btn btn-primary'
 						});
 					});
 				}
