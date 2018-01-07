@@ -23,11 +23,11 @@ class ResetTokenForm(account.forms.PasswordResetTokenForm):
 
 
 class AccountSettingsForm(account.forms.SettingsForm):
-    form_alias = forms.CharField(widget=forms.HiddenInput(), initial='settings')
+    form_name = forms.CharField(widget=forms.HiddenInput(), initial='settings')
 
 
 class AvatarForm(forms.ModelForm):
-    form_alias = forms.CharField(widget=forms.HiddenInput(), initial='avatar')
+    form_name = forms.CharField(widget=forms.HiddenInput(), initial='avatar')
     
     class Meta:
         model = Users
@@ -35,7 +35,7 @@ class AvatarForm(forms.ModelForm):
 
 
 class BankAccountForm(forms.ModelForm):
-    form_alias = forms.CharField(widget=forms.HiddenInput(), initial='bank_account')
+    form_name = forms.CharField(widget=forms.HiddenInput(), initial='bank_account')
 
     class Meta:
         model = BankAccounts

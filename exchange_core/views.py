@@ -16,52 +16,9 @@ from account.hooks import hookset
 
 import account.views
 
-from . import forms
-from .models import Users, Accounts, BankAccounts
-
-
-class MultiFormView(TemplateView):
-    forms = {}
-
-    def get_context_data(self):
-        context = super().get_context_data()
-        for alias, form in self.forms.items():
-            kwargs = self.get_kwargs(alias)
-            context['form_' + alias] = form(**kwargs)
-        return context
-
-    def get_kwargs(self, alias):
-        kwargs = {}
-        instance_method = self.get_method('get_{}_instance'.format(alias))
-        if instance_method:
-            kwargs = {'instance': instance_method()}
-        return kwargs
-
-    def get_current_form(self):
-        self.alias = self.request.POST['form_alias']
-        return self.forms[self.alias]
-
-    def get_method(self, method_name):
-        if hasattr(self, method_name):
-            method = getattr(self, method_name)
-            return method
-
-    def get(self, request):
-        context = self.get_context_data()
-        return render(request, self.template_name, context)
-
-    def post(self, request):
-        current_form = self.get_current_form()
-        kwargs = self.get_kwargs(self.alias)
-        form = current_form(request.POST, request.FILES, **kwargs)
-
-        if form.is_valid():
-            form_valid_method = self.get_method('{}_form_valid'.format(self.alias))
-            return form_valid_method(form)
-
-        context = self.get_context_data()
-        context['form_' + self.alias] = form
-        return render(request, self.template_name, context)
+from exchange_core.base_views import MultiFormView
+from exchange_core import forms
+from exchange_core.models import Users, Accounts, BankAccounts
 
 
 class SignupView(account.views.SignupView):
@@ -119,9 +76,11 @@ class WalletsView(TemplateView):
         wallets = []
 
         for account in Accounts.objects.filter(user=request.user):
+            icon = account.currency.icon.url if account.currency.icon else None
+
             wallets.append({
                 'pk': account.pk,
-                'icon': account.currency.icon.url,
+                'icon': icon,
                 'name': account.currency.name,
                 'symbol': account.currency.symbol,
                 'deposit': account.deposit,
