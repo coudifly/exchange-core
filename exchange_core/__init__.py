@@ -26,6 +26,9 @@ PACKAGE_NAME = 'exchange_core'
 # Diz ao Django aonde está a configuração desse modulo
 default_app_config = PACKAGE_NAME + '.apps.Config'
 
+# Armazena o nome do projeto
+settings.PROJECT_NAME = config('PROJECT_NAME')
+
 # https://github.com/Bouke/django-two-factor-auth
 # https://github.com/django-extensions/django-extensions
 # https://github.com/jazzband/django-widget-tweaks
@@ -67,8 +70,10 @@ settings.LOGIN_REDIRECT_URL = reverse_lazy('core>wallets')
 
 # Adiciona o contexto do pacote django-user-accounts para os templates
 # Adiciona o contexto do pacote django-session-security para os templates
+# Adiciona o para o nome do projeto
 settings.TEMPLATES[0]['OPTIONS']['context_processors'] += [
     'account.context_processors.account',
+    'exchange_core.context_processors.project_name',
 ]
 
 # Define o ID do site
