@@ -40,3 +40,10 @@ class BankAccountForm(forms.ModelForm):
     class Meta:
         model = BankAccounts
         fields = ('bank', 'agency', 'account_type', 'account_number',)
+
+
+class ChangePasswordForm(forms.Form):
+    form_name = forms.CharField(widget=forms.HiddenInput(), initial='change_password')
+    password = PasswordField(label=_("Password"), strip=settings.ACCOUNT_PASSWORD_STRIP)
+    repeat_password = forms.CharField(widget=forms.PasswordInput())
+    current_password = forms.CharField(widget=forms.PasswordInput())

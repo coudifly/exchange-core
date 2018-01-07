@@ -95,9 +95,9 @@ class AccountSettingsView(MultiFormView):
     template_name = 'account/settings.html'
 
     forms = {
-        'settings': forms.AccountSettingsForm,
+        'bank_account': forms.BankAccountForm,
         'avatar': forms.AvatarForm,
-        'bank_account': forms.BankAccountForm
+        'change_password': forms.ChangePasswordForm
     }
 
     def get_bank_account_instance(self):
@@ -111,15 +111,14 @@ class AccountSettingsView(MultiFormView):
         bank_account.account = account
         bank_account.save()
 
-        messages.success(self.request, _('Your bank account settings were updated'))
-
+        messages.success(self.request, _('Your bank account settings has been updated'))
         return redirect(reverse('core>settings'))
 
+    def get_avatar_instance(self):
+        return self.request.user
 
-@method_decorator([login_required], name='dispatch')
-class AvatarView(TemplateView):
-    def post(self, request):
-        avatar_form = forms.AvatarForm(request.POST, request.FILES, instance=request.user)
-        if avatar_form.is_valid():
-            avatar_form.save()
+    def avatar_form_valid(self, form):
+        form.save()
+
+        messages.success(self.request, _('Your avatar image has been updated'))
         return redirect(reverse('core>settings'))

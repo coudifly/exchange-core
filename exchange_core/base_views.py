@@ -33,9 +33,14 @@ class MultiFormView(TemplateView):
         form_kwargs = self.get_form_kwargs(self.form_name)
         form = current_form(request.POST, request.FILES, **form_kwargs)
 
+        print(form)
+
         if form.is_valid():
             form_valid_method = self.get_method(self.form_name + '_form_valid')
-            return form_valid_method(form)
+            if form_valid_method:
+                return form_valid_method(form)
+        else:
+            print(form.errors)
 
         context = self.get_context_data()
         context['form_' + self.form_name] = form
