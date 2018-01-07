@@ -7,7 +7,7 @@ from passwords.fields import PasswordField
 
 import account.forms
 
-from .models import Users
+from .models import Users, BankAccounts
 
 
 class SignupForm(account.forms.SignupForm):
@@ -23,10 +23,20 @@ class ResetTokenForm(account.forms.PasswordResetTokenForm):
 
 
 class AccountSettingsForm(account.forms.SettingsForm):
-    pass
+    form_alias = forms.CharField(widget=forms.HiddenInput(), initial='settings')
 
 
 class AvatarForm(forms.ModelForm):
+    form_alias = forms.CharField(widget=forms.HiddenInput(), initial='avatar')
+    
     class Meta:
         model = Users
         fields = ('avatar',)
+
+
+class BankAccountForm(forms.ModelForm):
+    form_alias = forms.CharField(widget=forms.HiddenInput(), initial='bank_account')
+
+    class Meta:
+        model = BankAccounts
+        fields = ('bank', 'agency', 'account_type', 'account_number',)

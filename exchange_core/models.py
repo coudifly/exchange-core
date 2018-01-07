@@ -11,6 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel, StatusModel
 from model_utils import Choices
 
+from .choices import BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES
+
 
 class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -53,7 +55,6 @@ class Accounts(TimeStampedModel, BaseModel):
     deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
     reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
     deposit_address = models.CharField(max_length=255, null=True, blank=True)
-    withdraw_address = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Currency Account'
@@ -66,6 +67,42 @@ class Accounts(TimeStampedModel, BaseModel):
     @property
     def balance(self):
         return self.deposit + self.reserved
+
+
+class BankAccounts(TimeStampedModel, BaseModel):
+    bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES)
+    agency = models.CharField(max_length=10)
+    account_type = models.CharField(max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES)
+    account_number = models.CharField(max_length=20)
+    account = models.ForeignKey(Accounts, related_name='bank_accounts', on_delete=models.CASCADE)
+
+
+# Base class para saques
+class BaseWithdraw(models.Model):
+    STATUS = Choices('requested', 'paid')
+
+    deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
+    reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
+    amount = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
+    status = models.CharField(max_length=20, default=STATUS.requested, choices=STATUS)
+
+    class Meta:
+        abstract = True
+
+
+# Saques bancários
+class BankWithdraw(TimeStampedModel, BaseWithdraw, BaseModel):
+    bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES)
+    agency = models.CharField(max_length=10)
+    account_type = models.CharField(max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES)
+    account_number = models.CharField(max_length=20)
+    account = models.ForeignKey(Accounts, related_name='bank_withdraw', on_delete=models.CASCADE)
+
+
+# Saques de criptomoedas
+class CryptoWithdraw(BaseWithdraw):
+    address = models.CharField(max_length=255)
+    account = models.ForeignKey(Accounts, related_name='crypto_withdraw', on_delete=models.CASCADE)
 
 
 # Cria as contas do usuário
