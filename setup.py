@@ -32,7 +32,6 @@ setup(
 	author_email='juliano@neosacode.com',
 	keywords='exchange, neosacode, coins',
 	install_requires=REQUIREMENTS,
-	dependency_links=DEPENDENCIES,
 	packages=find_packages(exclude=[]),
 	python_requires='>=3.5'
 )
