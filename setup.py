@@ -22,13 +22,6 @@ REQUIREMENTS = [
 	'django-storages',
 	'django-jsonview',
 	'easy-thumbnails',
-	'django-widget-tweaks==0.0.0.1.1',
-	'django-session-security==0.0.0.1.1',
-]
-
-DEPENDENCIES = [
-	'https://github.com/jazzband/django-widget-tweaks/tarball/35822bf5bd29fa8ec9976993b9a3bf9b5241c8d6#egg=django-widget-tweaks-0.0.0.1.1',
-	'https://github.com/yourlabs/django-session-security/tarball/aff5adb5f884ecd20f7c160ef26bd25c5114fd78#egg=django-session-security-0.0.0.1.1',
 ]
 
 setup(
