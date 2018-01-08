@@ -5,6 +5,7 @@ __VERSION__ = '0.1'
 
 REQUIREMENTS = [
 	'django>=2.0', 
+	'whitenoise',
 	'django-model-utils', 
 	'Pillow', 
 	'lxml',

@@ -21,6 +21,11 @@ from exchange_core import forms
 from exchange_core.models import Users, Accounts, BankAccounts
 
 
+class HomeView(TemplateView):
+    def get(self, request):
+        return redirect('two_factor:login')
+
+
 class SignupView(account.views.SignupView):
     form_class = forms.SignupForm
 

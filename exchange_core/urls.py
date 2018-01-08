@@ -10,6 +10,7 @@ urlpatterns = [
 	re_path(r'session_security/', include('session_security.urls')),
 
 	# URLs do pacote
+	path('', views.HomeView.as_view(), name='core>home'),
 	path('account/reset-password/', views.ResetPasswordView.as_view(), name='core>reset-password'),
 	path('account/reset-token/<uidb36>/<token>/', views.ResetTokenView.as_view(), name='core>reset-token'),
 	path('account/wallets/', views.WalletsView.as_view(), name='core>wallets'),
