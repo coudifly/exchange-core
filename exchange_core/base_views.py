@@ -4,6 +4,8 @@ from django.shortcuts import render
 
 class MultiFormView(TemplateView):
     forms = {}
+    # Armazena os formulário que usam o usuário logado
+    pass_user = []
 
     def get_context_data(self):
         context = super().get_context_data()
@@ -15,8 +17,15 @@ class MultiFormView(TemplateView):
         return context
 
     def get_form_kwargs(self, form_name):
+        form_kwargs = {}
         form_instance_method = self.get_method('get_{}_instance'.format(form_name))
-        return {'instance': form_instance_method()} if form_instance_method else {}
+
+        if form_instance_method:
+            form_kwargs['instance'] = form_instance_method()
+        if form_name in self.pass_user:
+            form_kwargs['user'] = self.request.user
+
+        return form_kwargs
 
     def get_current_form(self):
         self.form_name = self.request.POST['form_name']
@@ -32,8 +41,6 @@ class MultiFormView(TemplateView):
         current_form = self.get_current_form()
         form_kwargs = self.get_form_kwargs(self.form_name)
         form = current_form(request.POST, request.FILES, **form_kwargs)
-
-        print(form)
 
         if form.is_valid():
             form_valid_method = self.get_method(self.form_name + '_form_valid')

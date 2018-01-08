@@ -84,7 +84,6 @@ class WalletsView(TemplateView):
                 'name': account.currency.name,
                 'symbol': account.currency.symbol,
                 'deposit': account.deposit,
-                'reserved': account.reserved
             })
 
         return render(request, self.template_name, {'wallets': list(wallets)})
@@ -99,6 +98,10 @@ class AccountSettingsView(MultiFormView):
         'avatar': forms.AvatarForm,
         'change_password': forms.ChangePasswordForm
     }
+
+    pass_user = [
+        'change_password'
+    ]
 
     def get_bank_account_instance(self):
         bank_accounts = BankAccounts.objects.filter(account__currency__symbol=settings.BRL_CURRENCY_SYMBOL, account__user=self.request.user)
@@ -122,3 +125,11 @@ class AccountSettingsView(MultiFormView):
 
         messages.success(self.request, _('Your avatar image has been updated'))
         return redirect(reverse('core>settings'))
+
+    def change_password_form_valid(self, form):
+        user = self.request.user
+        user.set_password(form.cleaned_data['password'])
+        user.save()
+
+        messages.success(self.request, _('Your password has been updated'))
+        return redirect(reverse('two_factor:login'))

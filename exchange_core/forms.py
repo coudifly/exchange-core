@@ -44,6 +44,25 @@ class BankAccountForm(forms.ModelForm):
 
 class ChangePasswordForm(forms.Form):
     form_name = forms.CharField(widget=forms.HiddenInput(), initial='change_password')
-    password = PasswordField(label=_("Password"), strip=settings.ACCOUNT_PASSWORD_STRIP)
+    password = PasswordField(label=_("New Password"), strip=settings.ACCOUNT_PASSWORD_STRIP)
     repeat_password = forms.CharField(widget=forms.PasswordInput())
     current_password = forms.CharField(widget=forms.PasswordInput())
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+
+    def clean_repeat_password(self):
+        password = self.cleaned_data['password']
+        repeat_password = self.cleaned_data['repeat_password']
+
+        if password != repeat_password:
+            raise forms.ValidationError(_("The passwords aren't equals"))
+        return repeat_password
+
+    def clean_current_password(self):
+        current_password = self.cleaned_data['current_password']
+
+        if not self.user.check_password(current_password):
+            raise forms.ValidationError(_("The passwords aren't equals"))
+        return current_password
