@@ -105,6 +105,34 @@ class CryptoWithdraw(BaseWithdraw):
     account = models.ForeignKey(Accounts, related_name='crypto_withdraw', on_delete=models.CASCADE)
 
 
+# Documentos
+class Documents(TimeStampedModel, BaseModel):
+    TYPES = Choices('id_front', 'id_back', 'selfie', 'contract')
+    STATUS = Choices('pending', 'disapproved', 'approved')
+
+    user = models.ForeignKey(Users, related_name='documents', on_delete=models.CASCADE)
+    file = models.ImageField()
+    type = models.CharField(max_length=20, choices=TYPES)
+    status = models.CharField(max_length=20, choices=STATUS, default=STATUS.pending)
+
+    class Meta:
+        verbose_name = 'Document'
+        verbose_name_plural = 'Documents'
+        ordering = ['status']
+
+    def status_title(self):
+        return self.status.title()
+
+    # Propriedade para pegar a classe de alerta no template
+    def status_alert_class(self):
+        if self.status == self.STATUS.pending:
+            return 'alert-warning'
+        if self.status == self.STATUS.disapproved:
+            return 'alert-danger'
+        if self.status == self.STATUS.approved:
+            return 'alert-success'
+
+
 # Cria as contas do usuário
 @receiver(post_save, sender=Users, dispatch_uid='create_user_accounts')
 def create_user_accounts(sender, instance, created, **kwargs):
@@ -147,3 +175,8 @@ class CurrenciesAdmin(admin.ModelAdmin):
 @admin.register(Accounts)
 class AccountsAdmin(admin.ModelAdmin):
     list_display = ['user', 'currency', 'balance', 'deposit', 'reserved']
+
+
+@admin.register(Documents)
+class DocumentsAdmin(admin.ModelAdmin):
+    list_display = ['user', 'file', 'type', 'status']

@@ -18,7 +18,7 @@ import account.views
 
 from exchange_core.base_views import MultiFormView
 from exchange_core import forms
-from exchange_core.models import Users, Accounts, BankAccounts
+from exchange_core.models import Users, Accounts, BankAccounts, Documents
 
 
 class HomeView(TemplateView):
@@ -138,3 +138,30 @@ class AccountSettingsView(MultiFormView):
 
         messages.success(self.request, _('Your password has been updated'))
         return redirect(reverse('two_factor:login'))
+
+
+@method_decorator([login_required], name='dispatch')
+class DocumentsView(MultiFormView):
+    template_name = 'core/documents.html'
+
+    forms = {
+        'contract': forms.DocumentForm,
+        'id_front': forms.DocumentForm,
+        'id_back': forms.DocumentForm,
+        'selfie': forms.DocumentForm
+    }
+
+    def get_instance(self, type_name):
+        documents = Documents.objects.filter(user=self.request.user, type=type_name)
+
+        if documents.exists():
+            return documents.first()
+
+    def form_valid(self, form, type_name):
+        instance = form.save(commit=False)
+        instance.type = type_name
+        instance.user = self.request.user
+        instance.save()
+
+        messages.success(self.request, _("Document has been updated!"))
+        return redirect(reverse('core>documents'))

@@ -7,7 +7,7 @@ from passwords.fields import PasswordField
 
 import account.forms
 
-from .models import Users, BankAccounts
+from .models import Users, BankAccounts, Documents
 
 
 class SignupForm(account.forms.SignupForm):
@@ -66,3 +66,11 @@ class ChangePasswordForm(forms.Form):
         if not self.user.check_password(current_password):
             raise forms.ValidationError(_("The passwords aren't equals"))
         return current_password
+
+
+class DocumentForm(forms.ModelForm):
+    form_name = forms.CharField(widget=forms.HiddenInput())
+    
+    class Meta:
+        model = Documents
+        fields = ('file',)
