@@ -2,26 +2,41 @@
 {% load i18n %}
 
 <script>
-	jQuery(function($) {
-		var wallets_app = new Vue({
-			el: '#wallets-app',
-			data: {
-				wallets: {{ wallets|serialize|safe }} 
-			},
-			methods: {
-				createAddress: function(coin, name) {
-					swal.showLoading();
-					
-					$.post('{% url "payments>get-address" %}', {coin: coin}, function(response) {
-						var qrcode_src = 'https://chart.googleapis.com/chart?cht=qr&chs=230x230&chl=' + name.toLowerCase() + ':' + response.address
-						swal({
-							title: '<i class="zmdi zmdi-balance-wallet"></i> {% trans "Your {coin} address" %}<br> <img src="{qrcode}">'.replace('{coin}', coin).replace('{qrcode}', qrcode_src), 
-							html: response.address,
-							confirmButtonClass: 'btn btn-primary'
+		jQuery(function($) {
+			var wallets_app = new Vue({
+				el: '#wallets-app',
+				data: {
+					wallets: {{ wallets|serialize|safe }} 
+				},
+				methods: {
+					createAddress: function(coin, name) {
+						swal.showLoading();
+						
+						$.post('{% url "payments>get-address" %}', {coin: coin}, function(response) {
+							var qrcode_src = 'https://chart.googleapis.com/chart?cht=qr&chs=230x230&chl=' + name.toLowerCase() + ':' + response.address
+							swal({
+								title: '<i class="zmdi zmdi-balance-wallet"></i> {% trans "Your {coin} address" %}<br> <img src="{qrcode}">'.replace('{coin}', coin).replace('{qrcode}', qrcode_src), 
+								html: response.address,
+								confirmButtonClass: 'btn btn-primary'
+							});
 						});
-					});
+					},
+					createWithdraw: function(coin, name) {
+						if (coin == '{{ settings.BRL_CURRENCY_SYMBOL }}' && '{{ request.user.has_br_bank_account }}' == 'no') {
+							swal({
+								title: '{% trans "You must have a BRL bank account configured for your account" %}',
+								showCancelButton: true,
+								cancelButtonText: '{% trans "Cancel" %}',
+								confirmButtonText: '<i class="zmdi zmdi-settings"></i> {% trans "Set bank account" %}',
+								type: 'info'
+							}).then(function(result) {
+								if (result.value == true) {
+									window.location.href = '{% url "core>settings" %}'
+								}
+							});
+						}
+					}
 				}
-			}
+			});
 		});
-	});
 </script>
