@@ -8,6 +8,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 from model_utils.models import TimeStampedModel, StatusModel
 from model_utils import Choices
 
@@ -33,6 +34,12 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     class Meta:
         verbose_name = _("User")
         verbose_name_plural = _("Users")
+
+    # Retorna Yes/No se o usuario tem uma conta bancaria associada a sua conta BRL
+    @property
+    def has_br_bank_account(self):
+        br_account = self.accounts.get(currency__symbol=settings.BRL_CURRENCY_SYMBOL)
+        return 'yes' if br_account.bank_accounts.count() > 0 else 'no'
 
 
 class Currencies(TimeStampedModel, BaseModel):
