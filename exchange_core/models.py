@@ -44,7 +44,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
 
 class Currencies(TimeStampedModel, BaseModel):
     name = models.CharField(max_length=100)
-    symbol = models.CharField(max_length=10)
+    symbol = models.CharField(max_length=10, unique=True)
     icon = models.ImageField(null=True, blank=True, verbose_name=_("Icon"))
 
     class Meta:
