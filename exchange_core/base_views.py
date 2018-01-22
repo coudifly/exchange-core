@@ -46,10 +46,12 @@ class MultiFormView(TemplateView):
     def get_method(self, method_name):
         return getattr(self, method_name, None)
 
-    def get(self, request):
+    def get(self, request, **kwargs):
+        self.kwargs = kwargs
         return render(request, self.template_name, self.get_context_data())
 
-    def post(self, request):
+    def post(self, request, **kwargs):
+        self.kwargs = kwargs
         current_form = self.get_current_form()
         form_kwargs = self.get_form_kwargs(self.form_name)
         form = current_form(request.POST, request.FILES, **form_kwargs)
