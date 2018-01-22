@@ -14,6 +14,7 @@ REQUIREMENTS = [
 	'html5lib',
 	'django-two-factor-auth', 
 	'dj_database_url', 
+	'dj-pagination',
 	'prettyconf', 
 	'psycopg2',
 	'django-extensions',

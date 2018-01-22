@@ -42,6 +42,7 @@ settings.INSTALLED_APPS += [
 	'django_otp',
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
+    'dj_pagination',
     'two_factor',
     'django_extensions',
     'widget_tweaks',
@@ -60,6 +61,7 @@ settings.MIDDLEWARE += [
     'account.middleware.TimezoneMiddleware',
     'account.middleware.ExpiredPasswordMiddleware',
     'session_security.middleware.SessionSecurityMiddleware',
+    'dj_pagination.middleware.PaginationMiddleware',
 ]
 
 # Define a model do usuário como sendo a model Users desse modulo
