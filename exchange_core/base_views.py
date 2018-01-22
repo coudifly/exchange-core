@@ -17,6 +17,11 @@ class MultiFormView(TemplateView):
                 context[form_name + '_instance'] = form_kwargs.get('instance') 
 
             context['form_' + form_name] = form(**form_kwargs)
+
+        get_view_data_method = self.get_method('get_view_data')
+        
+        if get_view_data_method:
+            context.update(get_view_data_method())
         
         return context
 
