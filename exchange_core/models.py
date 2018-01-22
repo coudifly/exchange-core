@@ -127,10 +127,12 @@ class Documents(TimeStampedModel, BaseModel):
         verbose_name_plural = 'Documents'
         ordering = ['status']
 
+    @property
     def status_title(self):
         return self.status.title()
 
     # Propriedade para pegar a classe de alerta no template
+    @property
     def status_alert_class(self):
         if self.status == self.STATUS.pending:
             return 'alert-warning'
