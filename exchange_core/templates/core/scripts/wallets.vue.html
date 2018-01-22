@@ -10,6 +10,11 @@
 				},
 				methods: {
 					createAddress: function(coin, name) {
+						if (coin == '{{ settings.BRL_CURRENCY_SYMBOL }}') {
+							window.location.href = '{% url "payments>bank-deposit" %}';
+							return;
+						}
+
 						swal.showLoading();
 						
 						$.post('{% url "payments>get-address" %}', {coin: coin}, function(response) {
