@@ -29,6 +29,9 @@ default_app_config = PACKAGE_NAME + '.apps.Config'
 # Armazena o nome do projeto
 settings.PROJECT_NAME = config('PROJECT_NAME')
 
+# Dominio do site
+settings.DOMAIN = config('DOMAIN', default='example.com')
+
 # https://github.com/Bouke/django-two-factor-auth
 # https://github.com/django-extensions/django-extensions
 # https://github.com/jazzband/django-widget-tweaks
