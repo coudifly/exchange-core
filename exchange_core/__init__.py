@@ -29,6 +29,9 @@ default_app_config = PACKAGE_NAME + '.apps.Config'
 # Armazena o nome do projeto
 settings.PROJECT_NAME = config('PROJECT_NAME')
 
+# Admins do sistema, recebem e-mails de erros 500
+settings.ADMINS = [(v, v) for v in config('ADMINS', cast=config.list)]
+
 # Dominio do site
 settings.DOMAIN = config('DOMAIN', default='example.com')
 
