@@ -154,3 +154,29 @@ settings.SECURE_HSTS_INCLUDE_SUBDOMAINS = config('SESSION_COOKIE_SECURE', defaul
 settings.SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
 settings.CSRF_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
 settings.X_FRAME_OPTIONS = config('X_FRAME_OPTIONS', default='DENY')
+
+# Silencia os checks de seguranca do Django, caso configurado
+settings.DISABLE_CHECKS = config('SESSION_COOKIE_SECURE', default=False, cast=config.boolean)
+
+if settings.DISABLE_CHECKS:
+    settings.SILENCED_SYSTEM_CHECKS = [
+        'security.W001',
+        'security.W002',
+        'security.W003',
+        'security.W004',
+        'security.W005',
+        'security.W006',
+        'security.W007',
+        'security.W008',
+        'security.W009',
+        'security.W010',
+        'security.W011',
+        'security.W012',
+        'security.W013',
+        'security.W014',
+        'security.W015',
+        'security.W016',
+        'security.W017',
+        'security.W018',
+        'security.W019'
+    ]
