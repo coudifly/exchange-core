@@ -149,5 +149,8 @@ settings.SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=True, cast=
 settings.SECURE_CONTENT_TYPE_NOSNIFF = config('SECURE_CONTENT_TYPE_NOSNIFF', default=True, cast=config.boolean)
 settings.SECURE_BROWSER_XSS_FILTER = config('SECURE_BROWSER_XSS_FILTER', default=True, cast=config.boolean)
 settings.SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=config.boolean)
+settings.SECURE_HSTS_PRELOAD = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
+settings.SECURE_HSTS_INCLUDE_SUBDOMAINS = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
 settings.SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
+settings.CSRF_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
 settings.X_FRAME_OPTIONS = config('X_FRAME_OPTIONS', default='DENY')
