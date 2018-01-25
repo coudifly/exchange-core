@@ -156,7 +156,7 @@ settings.CSRF_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast
 settings.X_FRAME_OPTIONS = config('X_FRAME_OPTIONS', default='DENY')
 
 # Silencia os checks de seguranca do Django, caso configurado
-settings.DISABLE_CHECKS = config('SESSION_COOKIE_SECURE', default=False, cast=config.boolean)
+settings.DISABLE_CHECKS = config('DISABLE_CHECKS', default=False, cast=config.boolean)
 
 if settings.DISABLE_CHECKS:
     settings.SILENCED_SYSTEM_CHECKS = [
