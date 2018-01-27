@@ -142,6 +142,20 @@ class Documents(TimeStampedModel, BaseModel):
             return 'alert-success'
 
 
+# Extrato das contas
+class Statement(TimeStampedModel, BaseModel):
+    TYPES = Choices('deposit', 'withdrawal')
+
+    account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
+    description = models.CharField(max_length=100, verbose_name=_("Description"))
+    amount = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
+    type = models.CharField(max_length=30, choices=TYPES, verbose_name=_("Type"))
+
+    class Meta:
+        verbose_name = _("Statement")
+        verbose_name_plural = _("Statement")
+
+
 # Cria as contas do usuário
 @receiver(post_save, sender=Users, dispatch_uid='create_user_accounts')
 def create_user_accounts(sender, instance, created, **kwargs):
