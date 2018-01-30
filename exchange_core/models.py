@@ -41,6 +41,12 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
         br_account = self.accounts.get(currency__symbol=settings.BRL_CURRENCY_SYMBOL)
         return 'yes' if br_account.bank_accounts.count() > 0 else 'no'
 
+    @property
+    def br_bank_account(self):
+        br_account = self.accounts.get(currency__symbol=settings.BRL_CURRENCY_SYMBOL)
+        if br_account.bank_accounts.exists():
+            return br_account.bank_accounts.first()
+
 
 class Currencies(TimeStampedModel, BaseModel):
     name = models.CharField(max_length=100)
@@ -107,7 +113,7 @@ class BankWithdraw(TimeStampedModel, BaseWithdraw, BaseModel):
 
 
 # Saques de criptomoedas
-class CryptoWithdraw(BaseWithdraw):
+class CryptoWithdraw(TimeStampedModel, BaseWithdraw):
     address = models.CharField(max_length=255)
     account = models.ForeignKey(Accounts, related_name='crypto_withdraw', on_delete=models.CASCADE)
 

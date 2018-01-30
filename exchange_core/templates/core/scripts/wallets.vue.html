@@ -3,6 +3,54 @@
 
 <script>
 		jQuery(function($) {
+			var withdraw_app = new Vue({
+				el: '#withdraw-app',
+				data: {
+					coin: null,
+					available_amount: 0.00,
+					amount: null,
+					address: null,
+					password: null,
+					code: null,
+					is_loading: false,
+					errors: {},
+					is_br_withdraw: false
+				},
+				computed: {
+					available_amount_text: function() {
+						return '{% trans "Available {coin} amount for withdraw is:" %}'.replace('{coin}', this.coin);
+					}
+				},
+				methods: {
+					new_withdraw: function() {
+						var data = {
+							coin: this.coin,
+							amount: this.amount,
+							address: this.address,
+							password: this.password,
+							code: this.code
+						}
+
+						var vm = this;
+						vm.is_loading = true;
+
+						$.post('{% url "payments>new-withdraw" %}', data, function(response) {
+							if (response.status == 'error') {
+								vm.errors = response.errors;
+							}
+							else if (response.status == 'success') {
+								window.location.href = '{% url "core>statement" %}';
+							}
+							else {
+								alert('{% trans "Withdraw error!" %}');
+							}
+							
+							vm.is_loading = false;
+						});
+					}
+				}
+			});
+
 			var wallets_app = new Vue({
 				el: '#wallets-app',
 				data: {
@@ -26,7 +74,7 @@
 							});
 						});
 					},
-					createWithdraw: function(coin, name) {
+					createWithdraw: function(coin, name, deposit) {
 						if (coin == '{{ settings.BRL_CURRENCY_SYMBOL }}' && '{{ request.user.has_br_bank_account }}' == 'no') {
 							swal({
 								title: '{% trans "You must have a BRL bank account configured for your account" %}',
@@ -39,6 +87,13 @@
 									window.location.href = '{% url "core>settings" %}'
 								}
 							});
+						}
+						else {
+							var withdraw_amount_modal = $('#withdraw-app');
+							withdraw_amount_modal.modal('show');
+							withdraw_app.available_amount = deposit;
+							withdraw_app.coin = coin;
+							withdraw_app.is_br_withdraw = coin == '{{ settings.BRL_CURRENCY_SYMBOL }}';
 						}
 					}
 				}

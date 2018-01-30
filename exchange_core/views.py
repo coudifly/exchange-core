@@ -18,7 +18,7 @@ import account.views
 
 from exchange_core.base_views import MultiFormView
 from exchange_core import forms
-from exchange_core.models import Users, Accounts, BankAccounts, Documents
+from exchange_core.models import Users, Accounts, BankAccounts, Documents, Statement, CryptoWithdraw, BankWithdraw
 
 
 class HomeView(TemplateView):
@@ -165,3 +165,15 @@ class DocumentsView(MultiFormView):
 
         messages.success(self.request, _("Document has been updated!"))
         return redirect(reverse('core>documents'))
+
+
+@method_decorator([login_required], name='dispatch')
+class StatementView(TemplateView):
+    template_name = 'core/statement.html'
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['statement'] = Statement.objects.filter(account__user=self.request.user)
+        context['crypto_withdraw'] = CryptoWithdraw.objects.filter(account__user=self.request.user)
+        context['bank_withdraw'] = BankWithdraw.objects.filter(account__user=self.request.user)
+        return context

@@ -18,5 +18,6 @@ urlpatterns = [
 	path('account/email-confirm/<key>/', ConfirmEmailView.as_view(), name='core>email-confirm'),
 	path('account/documents/', views.DocumentsView.as_view(), name='core>documents'),
 	path('account/settings/', views.AccountSettingsView.as_view(), name='core>settings'),
+	path('account/statement/', views.StatementView.as_view(), name='core>statement'),
 	path('account/logout/', LogoutView.as_view(), name='core>logout'),
 ]
