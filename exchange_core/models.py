@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.contrib import admin
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager
+from django.contrib.postgres.fields import JSONField
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
@@ -28,6 +29,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     sponsor = models.ForeignKey('self', null=True, blank=True, verbose_name=_("Sponsor"), on_delete=models.CASCADE)
     status = models.CharField(max_length=30, default=STATUS.created, verbose_name=_("Status"))
     avatar = models.ImageField(blank=True)
+    profile = JSONField(null=True, blank=True, default={})
 
     objects = UserManager()
 

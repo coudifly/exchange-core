@@ -89,6 +89,7 @@ class WalletsView(TemplateView):
                 'name': account.currency.name,
                 'symbol': account.currency.symbol,
                 'deposit': account.deposit,
+                'reserved': account.reserved,
             })
 
         return render(request, self.template_name, {'wallets': list(wallets)})
