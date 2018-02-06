@@ -33,6 +33,12 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
 
     objects = UserManager()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        if self.profile is None:
+            self.profile = {}
+
     class Meta:
         verbose_name = _("User")
         verbose_name_plural = _("Users")
