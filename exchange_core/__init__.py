@@ -141,9 +141,6 @@ settings.THUMBNAIL_ALIASES = {
     },
 }
 
-# Configurações do Real Brasileiro
-settings.BRL_CURRENCY_SYMBOL = config('BRL_CURRENCY_SYMBOL', default='BRL')
-
 # Static files configurações
 settings.STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
