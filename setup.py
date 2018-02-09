@@ -23,6 +23,7 @@ REQUIREMENTS = [
 	'django-passwords',
 	'django-storages',
 	'django-jsonview',
+	'django-templated-email',
 	'easy-thumbnails',
 ]
 
