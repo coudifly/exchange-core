@@ -16,7 +16,7 @@ REQUIREMENTS = [
 	'dj_database_url', 
 	'dj-pagination',
 	'prettyconf', 
-	'psycopg2',
+	'psycopg2-binary',
 	'django-extensions',
 	'django-user-accounts',
 	'django-anymail',
