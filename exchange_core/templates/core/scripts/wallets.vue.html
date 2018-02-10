@@ -54,7 +54,27 @@
 			var wallets_app = new Vue({
 				el: '#wallets-app',
 				data: {
-					wallets: {{ wallets|serialize|safe }} 
+					wallets: {{ wallets|serialize|safe }},
+					raw_wallets: {{ wallets|serialize|safe }},
+					hide_zero_balance: false
+				},
+				watch: {
+					hide_zero_balance: function() {
+						if (this.hide_zero_balance) {
+							this.wallets = [];
+
+							for (var index in this.raw_wallets) {
+								var item = this.raw_wallets[index];
+								var balance = item.deposit + item.reserved;
+
+								if (balance > 0) {
+									this.wallets.push(item);
+								}
+							}
+						} else {
+							this.wallets = this.raw_wallets;
+						}
+					}
 				},
 				methods: {
 					createAddress: function(coin, name) {
