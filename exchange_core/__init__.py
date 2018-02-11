@@ -93,7 +93,6 @@ settings.SITE_ID = 1
 settings.ACCOUNT_LOGIN_URL = 'two_factor:login'
 settings.ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'two_factor:login'
 settings.ACCOUNT_PASSWORD_RESET_REDIRECT_URL = 'two_factor:login'
-settings.ACCOUNT_PASSWORD_CHANGE_REDIRECT_URL = 'two_factor:login'
 settings.ACCOUNT_SETTINGS_REDIRECT_URL = 'core>settings'
 settings.ACCOUNT_EMAIL_UNIQUE = True
 settings.ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
