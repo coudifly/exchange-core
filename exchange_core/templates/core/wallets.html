@@ -9,6 +9,20 @@
     <h4 class="page-title"><i class="zmdi zmdi-balance-wallet"></i> {% trans "Wallets" %}</h4>
 
     <div class="card-box">
+        <div class="row m-b-20" id="wallets-toolbar">
+            <div class="col-md-9">
+                <div class="checkbox" style="margin-top: 5px;">
+                    <input id="hidezerobalance" type="checkbox" v-model="hide_zero_balance">
+                    <label for="hidezerobalance">
+                        {% trans "Hide 0 balance coins" %}
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" v-model="search" placeholder="{% trans "Search coins" %}">
+            </div>
+        </div>
+
         <table class="table" id="wallets-app">
             <thead>
                 <tr>

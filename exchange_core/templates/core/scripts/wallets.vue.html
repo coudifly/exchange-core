@@ -55,26 +55,7 @@
 				el: '#wallets-app',
 				data: {
 					wallets: {{ wallets|serialize|safe }},
-					raw_wallets: {{ wallets|serialize|safe }},
-					hide_zero_balance: false
-				},
-				watch: {
-					hide_zero_balance: function() {
-						if (this.hide_zero_balance) {
-							this.wallets = [];
-
-							for (var index in this.raw_wallets) {
-								var item = this.raw_wallets[index];
-								var balance = item.deposit + item.reserved;
-
-								if (balance > 0) {
-									this.wallets.push(item);
-								}
-							}
-						} else {
-							this.wallets = this.raw_wallets;
-						}
-					}
+					raw_wallets: {{ wallets|serialize|safe }}
 				},
 				methods: {
 					createAddress: function(coin, name) {
@@ -115,6 +96,51 @@
 							withdraw_app.coin = coin;
 							withdraw_app.is_br_withdraw = coin == '{{ settings.BRL_CURRENCY_SYMBOL }}';
 						}
+					}
+				}
+			});
+
+			var wallets_toolbar = new Vue({
+				el: '#wallets-toolbar',
+				data: {
+					hide_zero_balance: false,
+					search: '',
+				},
+				methods: {
+					do_search: function() {
+						wallets_app.wallets = wallets_app.raw_wallets.filter(wallet => {
+							var balance = wallet.deposit + wallet.reserved;
+
+							if (this.hide_zero_balance && balance <= 0) {
+								return false;
+							}
+
+							return (wallet.name.toLowerCase().includes(this.search.toLowerCase()) ||
+								   wallet.symbol.toLowerCase().includes(this.search.toLowerCase()));
+						})
+					}
+				},
+				watch: {
+					hide_zero_balance: function() {
+						if (this.hide_zero_balance) {
+							wallets_app.wallets = [];
+
+							for (var index in wallets_app.raw_wallets) {
+								var item = wallets_app.raw_wallets[index];
+								var balance = item.deposit + item.reserved;
+
+								if (balance > 0) {
+									wallets_app.wallets.push(item);
+								}
+							}
+						} else {
+							wallets_app.wallets = wallets_app.raw_wallets;
+						}
+
+						this.do_search();
+					},
+					search: function() {
+						this.do_search();
 					}
 				}
 			});
