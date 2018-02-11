@@ -25,6 +25,7 @@ REQUIREMENTS = [
 	'django-jsonview',
 	'django-templated-email',
 	'easy-thumbnails',
+	'phonenumbers',
 ]
 
 setup(
