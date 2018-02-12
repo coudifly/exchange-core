@@ -60,6 +60,10 @@ class Currencies(TimeStampedModel, BaseModel):
     name = models.CharField(max_length=100)
     symbol = models.CharField(max_length=10, unique=True)
     icon = models.ImageField(null=True, blank=True, verbose_name=_("Icon"))
+    withdraw_min = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.001'), verbose_name=_("Withdraw Min"))
+    withdraw_max = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('1000000.00'), verbose_name=_("Withdraw Max"))
+    withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Fee"))
+    withdraw_receive_hours = models.IntegerField(default=48)
 
     class Meta:
         verbose_name = 'Currency'
@@ -209,7 +213,7 @@ class UsersAdmin(admin.ModelAdmin):
 
 @admin.register(Currencies)
 class CurrenciesAdmin(admin.ModelAdmin):
-    list_display = ['name', 'symbol', 'icon']
+    list_display = ['name', 'symbol', 'icon', 'withdraw_min', 'withdraw_max', 'withdraw_fee', 'withdraw_receive_hours']
 
 
 @admin.register(Accounts)

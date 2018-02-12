@@ -14,7 +14,8 @@
 					code: null,
 					is_loading: false,
 					errors: {},
-					is_br_withdraw: false
+					is_br_withdraw: false,
+					currency: {}
 				},
 				computed: {
 					available_amount_text: function() {
@@ -22,7 +23,7 @@
 					}
 				},
 				methods: {
-					new_withdraw: function() {
+					new_withdraw: function(item) {
 						var data = {
 							coin: this.coin,
 							amount: this.amount,
@@ -75,7 +76,7 @@
 							});
 						});
 					},
-					createWithdraw: function(coin, name, deposit) {
+					createWithdraw: function(currency, coin, name, deposit) {
 						if (coin == '{{ settings.BRL_CURRENCY_SYMBOL }}' && '{{ request.user.has_br_bank_account }}' == 'no') {
 							swal({
 								title: '{% trans "You must have a BRL bank account configured for your account" %}',
@@ -95,6 +96,7 @@
 							withdraw_app.available_amount = deposit;
 							withdraw_app.coin = coin;
 							withdraw_app.is_br_withdraw = coin == '{{ settings.BRL_CURRENCY_SYMBOL }}';
+							withdraw_app.currency = currency;
 						}
 					}
 				}

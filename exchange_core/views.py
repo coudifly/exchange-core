@@ -90,6 +90,10 @@ class WalletsView(TemplateView):
                 'symbol': account.currency.symbol,
                 'deposit': account.deposit,
                 'reserved': account.reserved,
+                'withdraw_min': account.currency.withdraw_min,
+                'withdraw_max': account.currency.withdraw_max,
+                'withdraw_fee': account.currency.withdraw_fee,
+                'withdraw_receive_hours': account.currency.withdraw_receive_hours
             })
 
         return render(request, self.template_name, {'wallets': list(wallets)})
