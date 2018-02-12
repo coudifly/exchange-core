@@ -112,6 +112,17 @@ class BaseWithdraw(models.Model):
     status = models.CharField(max_length=20, default=STATUS.requested, choices=STATUS)
     tx_id = models.CharField(max_length=150, null=True, blank=True)
 
+    @property
+    def status_name(self):
+        return self.status.title()
+
+    @property
+    def status_class(self):
+        if self.status == self.STATUS.requested:
+            return 'warning'
+        if self.status == self.STATUS.paid:
+            return 'success'
+
     class Meta:
         abstract = True
 

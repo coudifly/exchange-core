@@ -66,7 +66,8 @@
           				<th>{% trans "Deposit" %}</th>
           				<th>{% trans "Reserved" %}</th>
           				<th>{% trans "Address" %}</th>
-          				<th>{% trans "Amount" %}</th>
+                  <th>{% trans "Amount" %}</th>
+          				<th>{% trans "Status" %}</th>
           			</tr>
           		</thead>
           		<tbody class="tx-12">
@@ -78,7 +79,8 @@
           					<td>{{ item.deposit }}</td>
           					<td>{{ item.reserved }}</td>
           					<td>{{ item.address }}</td>
-          					<td>{{ item.amount }}</td>
+                    <td>{{ item.amount }}</td>
+          					<td><span class="badge badge-{{ item.status_class }}">{{ item.status_name }}</span></td>
           				</tr>
           			{% endfor %}
           		</tbody>
@@ -97,7 +99,8 @@
           				<th>{% trans "Bank" %}</th>
           				<th>{% trans "Agency" %}</th>
           				<th>{% trans "Account Type" %}</th>
-          				<th>{% trans "Account Number" %}</th>
+                  <th>{% trans "Account Number" %}</th>
+          				<th>{% trans "Status" %}</th>
           			</tr>
           		</thead>
           		<tbody class="tx-12">
@@ -112,7 +115,8 @@
           					<td>{{ item.bank }}</td>
           					<td>{{ item.agency }}</td>
           					<td>{{ item.account_type }}</td>
-          					<td>{{ item.account_number }}</td>
+                    <td>{{ item.account_number }}</td>
+          					<td><span class="badge badge-{{ item.status_class }}">{{ item.status_name }}</span></td>
           				</tr>
           			{% endfor %}
           		</tbody>
