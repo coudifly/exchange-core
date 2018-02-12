@@ -10,6 +10,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
+from django.utils.text import slugify
 from account.decorators import login_required
 from account.models import EmailAddress
 from account.hooks import hookset
@@ -87,6 +88,7 @@ class WalletsView(TemplateView):
                 'pk': account.pk,
                 'icon': icon,
                 'name': account.currency.name,
+                'slug': slugify(account.currency.name),
                 'symbol': account.currency.symbol,
                 'deposit': account.deposit,
                 'reserved': account.reserved,
