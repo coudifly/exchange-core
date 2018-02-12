@@ -13,9 +13,20 @@ from .models import Users, BankAccounts, Documents
 class SignupForm(account.forms.SignupForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
+    confirm_email = forms.EmailField(label=_("Confirm e-mail"))
     password = PasswordField(label=_("Password"), strip=settings.ACCOUNT_PASSWORD_STRIP)
     
-    field_order = ['first_name', 'last_name', 'username', 'email', 'password', 'password_confirm', 'code']
+    field_order = ['first_name', 'last_name', 'username', 'email', 'confirm_email', 'password', 'password_confirm', 'code']
+
+    # Valida o campo de confirmar e-mail
+    def clean_confirm_email(self):
+        email = self.cleaned_data.get('email')
+        confirm_email = self.cleaned_data.get('confirm_email')
+
+        if not email == confirm_email:
+            raise forms.ValidationError(_("The e-mails aren't equal"))
+
+        return confirm_email
 
 
 class ResetTokenForm(account.forms.PasswordResetTokenForm):

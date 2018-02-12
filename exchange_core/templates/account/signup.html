@@ -36,3 +36,20 @@
     <!-- end wrapper page -->
 
 {% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var confirm_email = $('#id_confirm_email');
+
+            confirm_email.bind('cut copy paste', function (e) {
+                e.preventDefault();
+            });
+
+            confirm_email.on("contextmenu",function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+{% endblock %}
