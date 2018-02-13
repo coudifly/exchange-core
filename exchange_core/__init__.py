@@ -152,5 +152,6 @@ settings.SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=
 settings.SECURE_HSTS_PRELOAD = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
 settings.SECURE_HSTS_INCLUDE_SUBDOMAINS = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
 settings.SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
+settings.SESSION_COOKIE_HTTPONLY = config('SESSION_COOKIE_HTTPONLY', default=True, cast=config.boolean)
 settings.CSRF_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
 settings.X_FRAME_OPTIONS = config('X_FRAME_OPTIONS', default='DENY')
