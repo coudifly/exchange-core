@@ -1,5 +1,6 @@
 from django.urls import re_path, path, include
 from django.conf import settings
+from django.contrib import admin
 from two_factor.urls import urlpatterns as tf_urls
 from account.views import ConfirmEmailView, PasswordResetView, LogoutView, SettingsView
 
