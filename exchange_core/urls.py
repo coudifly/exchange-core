@@ -1,4 +1,5 @@
 from django.urls import re_path, path, include
+from django.conf import settings
 from two_factor.urls import urlpatterns as tf_urls
 from account.views import ConfirmEmailView, PasswordResetView, LogoutView, SettingsView
 
@@ -6,6 +7,10 @@ from . import views
 
 
 urlpatterns = [
+	# URLs do admin
+	path(settings.ADMIN_URL_PREFIX, admin.site.urls),
+
+	# URLs de terceiros
 	re_path(r'', include(tf_urls)),
 	re_path(r'session_security/', include('session_security.urls')),
 

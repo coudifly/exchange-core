@@ -156,3 +156,6 @@ settings.SESSION_COOKIE_HTTPONLY = config('SESSION_COOKIE_HTTPONLY', default=Tru
 settings.CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=True, cast=config.boolean)
 settings.CSRF_COOKIE_HTTPONLY = config('CSRF_COOKIE_HTTPONLY', default=True, cast=config.boolean)
 settings.X_FRAME_OPTIONS = config('X_FRAME_OPTIONS', default='DENY')
+
+# Configura o prefixo da URL do admin
+settings.ADMIN_URL_PREFIX = config('ADMIN_URL_PREFIX', default='admin/')
