@@ -5,7 +5,6 @@ from django.db import models, transaction
 from django.db.models.signals import post_save
 from django.contrib import admin
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import UserManager
 from django.contrib.postgres.fields import JSONField
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
@@ -13,7 +12,8 @@ from django.conf import settings
 from model_utils.models import TimeStampedModel, StatusModel
 from model_utils import Choices
 
-from .choices import BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES
+from exchange_core.managers import CustomUserManager
+from exchange_core.choices import BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES
 
 
 class BaseModel(models.Model):
@@ -31,7 +31,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     avatar = models.ImageField(blank=True)
     profile = JSONField(null=True, blank=True, default={})
 
-    objects = UserManager()
+    objects = CustomUserManager()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
