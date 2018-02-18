@@ -10,6 +10,9 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from prettyconf.configuration import Configuration
 
+from exchange_core.casts import pairs
+
+
 # Diz ao pretty conf o path do .env caso não existam variáveis de ambiente para a respectiva config
 config = Configuration(starting_path=settings.BASE_DIR)
 
@@ -66,8 +69,6 @@ settings.MIDDLEWARE += [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
-    'account.middleware.LocaleMiddleware',
-    'account.middleware.TimezoneMiddleware',
     'account.middleware.ExpiredPasswordMiddleware',
     'session_security.middleware.SessionSecurityMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
@@ -165,10 +166,11 @@ settings.ADMIN_URL_PREFIX = config('ADMIN_URL_PREFIX', default='admin/')
 
 
 # Configuracoes de i18n
+settings.LANGUAGE_CSS_CLASSES = config('LANGUAGE_CSS_CLASSES', default='', cast=pairs)
 settings.LOCALE_PATHS = (os.path.join(settings.BASE_DIR, 'locales'),)
 settings.LANGUAGE_CODE = 'en'
 settings.LANGUAGES = [
     ('en', _('English')),
-    ('pt_BR', _('Portuguese')),
+    ('pt-br', _('Portuguese')),
     ('es', _('Spanish')),
 ]

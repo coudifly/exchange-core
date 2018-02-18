@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load thumbnail %}
+{% load lang %}
 
 <!DOCTYPE html>
 <html>
@@ -24,6 +25,9 @@
 
         <!-- Bootstrap CSS -->
         <link href="{% static "assets/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+
+        <!-- Flags CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.9.0/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
 
         <!-- App CSS -->
         <link href="{% static "assets/css/style.css" %}" rel="stylesheet" type="text/css" />
@@ -80,6 +84,33 @@
                                     </div>
                                 </a>
                                 <!-- End mobile menu toggle-->
+                            </li>
+
+                            {% get_current_language as LANGUAGE_CODE %}
+                            <li class="list-inline-item dropdown notification-list">
+                                <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    <span class="flag-icon {{ LANGUAGE_CODE|language_css_class }}"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview" x-placement="bottom-end" style="position: absolute; transform: translate3d(-241px, 60px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                                    {% get_available_languages as LANGUAGES %}
+                                    {% get_language_info_list for LANGUAGES as languages %}
+
+                                    <div id="change-language-app">
+                                        <form action="{% url 'set_language' %}" method="post" id="change-language-form">{% csrf_token %}
+                                            <input type="hidden" name="language" v-model="language">
+                                            {% for language in languages %}
+                                            <a href="#" @click.prevent="set_language('{{ language.code }}')" class="dropdown-item notify-item">
+                                                <div class="notify-icon">
+                                                    <span class="flag-icon {{ language.code|language_css_class }}"></span>
+                                                </div>
+                                                <p class="notify-details">{{ language.name_local }}<span class="text-muted">{% trans "Change for this" %}</span></p>
+                                            </a>
+                                            {% endfor %}
+                                        </form>
+                                    </div>
+
+                                </div>
                             </li>
 
 

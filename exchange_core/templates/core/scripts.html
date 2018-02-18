@@ -13,5 +13,27 @@
         });
 
         $('.table').stacktable();
+
+        // Change language app
+        var change_language_app = new Vue({
+            el: '#change-language-app',
+            data: {
+                language: null
+            },
+            methods: {
+                set_language: function(code) {
+                    this.language = code;
+                }
+            },
+            updated: function () {
+                vm = this;
+
+                this.$nextTick(function () {
+                    if (vm.language != null) {
+                        this.$el.querySelector('#change-language-form').submit();
+                    }
+                });
+            }
+        });
     });
 </script>

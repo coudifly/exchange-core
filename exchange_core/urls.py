@@ -11,6 +11,9 @@ urlpatterns = [
 	# URLs do admin
 	path(settings.ADMIN_URL_PREFIX, admin.site.urls),
 
+	# i18n
+	path('i18n/', include('django.conf.urls.i18n')),
+
 	# URLs de terceiros
 	re_path(r'', include(tf_urls)),
 	re_path(r'session_security/', include('session_security.urls')),
