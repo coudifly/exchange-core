@@ -1,0 +1,611 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-17 11:01-0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: jorge ugalde <jorgeac66@gmail.com>, 2018\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/neosacode/teams/83636/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: __init__.py:171
+msgid "English"
+msgstr "Inglês "
+
+#: __init__.py:172
+msgid "Portuguese"
+msgstr "Português"
+
+#: __init__.py:173
+msgid "Spanish"
+msgstr "Espanhol"
+
+#: apps.py:7
+msgid "Exchange"
+msgstr "Exchange"
+
+#: forms.py:16
+msgid "Confirm e-mail"
+msgstr "Confirmar e-mail"
+
+#: forms.py:17 forms.py:33
+msgid "Password"
+msgstr "Senha"
+
+#: forms.py:27
+msgid "The e-mails aren't equal"
+msgstr "Os e-mails não são iguais"
+
+#: forms.py:58
+msgid "New Password"
+msgstr "Nova Senha"
+
+#: forms.py:71 forms.py:78
+msgid "The passwords aren't equals"
+msgstr "As senhas não são iguais"
+
+#: models.py:29
+msgid "Sponsor"
+msgstr "Patrocinador"
+
+#: models.py:30 templates/core/statement.html:70
+#: templates/core/statement.html:103
+msgid "Status"
+msgstr "Status"
+
+#: models.py:43 models.py:79
+msgid "User"
+msgstr "Usuário"
+
+#: models.py:44
+msgid "Users"
+msgstr "Usuários"
+
+#: models.py:62 templates/core/wallets.html:29
+msgid "Icon"
+msgstr "Icone"
+
+#: models.py:63
+msgid "Withdraw Min"
+msgstr "Retirada Mínima"
+
+#: models.py:64
+msgid "Withdraw Max"
+msgstr "Retirada Máxima"
+
+#: models.py:65
+msgid "Withdraw Fee"
+msgstr "Taxa de Retirada"
+
+#: models.py:78
+msgid "Currency"
+msgstr "Moeda"
+
+#: models.py:179
+msgid "Account"
+msgstr "Conta"
+
+#: models.py:180 templates/core/statement.html:42
+msgid "Description"
+msgstr "Descrição"
+
+#: models.py:182
+msgid "Type"
+msgstr "Tipo"
+
+#: models.py:187 models.py:188 templates/core/index.html:147
+#: templates/core/statement.html:15
+msgid "Statement"
+msgstr "Extrato"
+
+#: templates/account/delete.html:7 templates/account/delete.html:10
+msgid "Delete Account"
+msgstr "Apagar Conta"
+
+#: templates/account/delete.html:12
+#, python-format
+msgid ""
+"If you go ahead and delete your account, your information will be "
+"<b>expunged within %(ACCOUNT_DELETION_EXPUNGE_HOURS)s hours</b>."
+msgstr ""
+"Se você continuar com esta ação e apaga sua conta, suas informações serão "
+"<b>apagadas definitivamente em %(ACCOUNT_DELETION_EXPUNGE_HOURS)s horas</b>."
+
+#: templates/account/delete.html:16
+msgid "Delete My Account"
+msgstr "Apague Minha Conta"
+
+#: templates/account/email/email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"A user on %(site_name)s has created an account using this email address.\n"
+"\n"
+"To confirm this email address, go to %(activate_url)s\n"
+"\n"
+"If you did not sign up for this site, you can ignore this message.\n"
+msgstr ""
+"Um Usuário em %(site_name)s criou uma conta usando este endereço de e-mail.\n"
+"\n"
+"Para confirmar este endereço de e-mail, vá para %(activate_url)s\n"
+"\n"
+"Se você não criou esta conta, você deve ignorar esta mensagem.\n"
+
+#: templates/account/email/email_confirmation_subject.txt:1
+#, python-format
+msgid "Confirm email address for %(site_name)s"
+msgstr "Confirmar endereço de e-mail para %(site_name)s"
+
+#: templates/account/email/invite_user.txt:1
+#, python-format
+msgid ""
+"You have been invited to sign up at %(name)s.\n"
+"\n"
+"%(signup_url)s\n"
+msgstr ""
+"Você foi convidado para cadastrar-se em %(name)s.\n"
+"\n"
+"%(signup_url)s\n"
+
+#: templates/account/email/invite_user_subject.txt:1
+#, python-format
+msgid "Create an account on %(name)s"
+msgstr "Crie uma conta em %(name)s"
+
+#: templates/account/email/password_change.txt:1
+#, python-format
+msgid ""
+"This is the email notification to confirm your password has been changed on "
+"%(now)s."
+msgstr ""
+"Este é um e-mail de notificação para confirmar que sua senha foi mudada em "
+"%(now)s."
+
+#: templates/account/email/password_change_subject.txt:1
+msgid "Change password email notification"
+msgstr "E-mail de notificação de mudança de senha"
+
+#: templates/account/email/password_reset.txt:1
+#, python-format
+msgid ""
+"You're receiving this email because you or someone else has requested a password for your user account at %(site_name)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
+"\n"
+"%(password_reset_url)s\n"
+msgstr ""
+"Você esta recebendo este e-mail porque alguém solicitou mudança de senha para seu usuário em  %(site_name)s.\n"
+"Se você não fez esta solicitação por favor ignore esta mensagem. Clique no link abaixo para mudar sua senha , se assim desejar.\n"
+"\n"
+"%(password_reset_url)s\n"
+
+#: templates/account/email/password_reset_subject.txt:1
+#, python-format
+msgid "[%(site_name)s] Password reset"
+msgstr "[%(site_name)s] Mudança de senha"
+
+#: templates/account/email_confirm.html:10
+msgid "Confirm Email"
+msgstr "Confirmar e-mail"
+
+#: templates/account/email_confirm.html:13
+#, python-format
+msgid "Confirm email address <b>%(email)s</b>?"
+msgstr "Confirmar o endereço de e-mail <b>%(email)s</b>?"
+
+#: templates/account/email_confirm.html:14
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: templates/account/email_confirmation_sent.html:5
+#: templates/account/email_confirmation_sent.html:8
+msgid "Confirm your email address"
+msgstr "Confirmar seu endereço de e-mail"
+
+#: templates/account/email_confirmation_sent.html:10
+#, python-format
+msgid ""
+"We have sent you an email to <b>%(email)s</b> for verification. Follow the "
+"link provided to finalize the signup process. If you do not receive it "
+"within a few minutes, contact us at <a "
+"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+msgstr ""
+"Nós lhe enviamos um e-mail para <b>%(email)s</b> para verificação. Clique no"
+" link fornecido no e-mail para finalizar seu processo de cadastro. Se você "
+"não receber o e-mail de confirmação em poucos minutos, por favor entre em "
+"contato conosco através do e-mail <a "
+"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+
+#: templates/account/email_confirmation_sent.html:11
+#: templates/account/logout.html:16
+msgid "Go back"
+msgstr "Voltar"
+
+#: templates/account/email_confirmed.html:5
+#: templates/account/email_confirmed.html:8
+msgid "Email confirmed"
+msgstr "E-mail confirmado"
+
+#: templates/account/email_confirmed.html:9
+#, python-format
+msgid "You have confirmed <b>%(email)s</b>"
+msgstr "Você confirmou o e-mail <b>%(email)s</b>"
+
+#: templates/account/login.html:7 templates/account/login.html:19
+msgid "Log in"
+msgstr "Entrar"
+
+#: templates/account/login.html:13
+msgid "Log in to an existing account"
+msgstr "Entrar em uma conta cadastrada"
+
+#: templates/account/login.html:20 templates/two_factor/core/login.html:87
+msgid "Forgot your password?"
+msgstr "Esqueceu sua senha?"
+
+#: templates/account/login.html:25 templates/two_factor/core/login.html:102
+msgid "Don't have an account?"
+msgstr "Não tem uma conta?"
+
+#: templates/account/login.html:25 templates/account/signup_closed.html:5
+msgid "Sign up"
+msgstr "Criar Conta"
+
+#: templates/account/logout.html:5 templates/account/logout.html:11
+#: templates/account/logout.html:15
+msgid "Log out"
+msgstr "Sair"
+
+#: templates/account/logout.html:14
+msgid "Are you sure you want to log out?"
+msgstr "Tem certeza que deseja sair?"
+
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:14
+msgid "Change password"
+msgstr "Nova Senha"
+
+#: templates/account/password_change.html:18
+#: templates/account/password_reset_token.html:34
+#: templates/account/settings.html:48 templates/account/settings.html:74
+msgid "Save"
+msgstr "Salvar"
+
+#: templates/account/password_reset.html:9
+msgid "Password reset"
+msgstr "Mudar Senha"
+
+#: templates/account/password_reset.html:10
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll send you "
+"an email allowing you to reset it."
+msgstr ""
+"Esqueceu sua senha? Digite seu e-mail abaixo e nós lhe enviaremos um e-mail "
+"permitindo a mudança da senha."
+
+#: templates/account/password_reset.html:20
+msgid "Reset my password"
+msgstr "Mudar minha senha"
+
+#: templates/account/password_reset.html:26
+#, python-format
+msgid ""
+"If you have any trouble resetting your password, contact us at <a "
+"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+msgstr ""
+"Se você teve qualquer problema com a mudança de sua senha, por favor entre "
+"em contato através do e-mail <a "
+"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+
+#: templates/account/password_reset_sent.html:8
+msgid "Password reset sent"
+msgstr "Mudança de senha enviada"
+
+#: templates/account/password_reset_sent.html:10
+#, python-format
+msgid ""
+"We have sent you an email. If you do not receive it within a few minutes, "
+"try resending or contact us at <a "
+"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+msgstr ""
+"Nós lhe enviamos um e-mail. Se você não recebê-lo em alguns minutos, "
+"solicite novamente ou entre em contato através do e-mail <a "
+"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+
+#: templates/account/password_reset_sent.html:19
+msgid "Resend"
+msgstr "Re-enviar"
+
+#: templates/account/password_reset_sent.html:24
+#, python-format
+msgid ""
+"We have resent the password email. If you do not receive it within a few "
+"minutes, contact us at <a "
+"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+msgstr ""
+"Re-enviamos o e-mail com a mudança de senha. Se você não recebê-lo em alguns"
+" minuos, entre em contato através do e-mail <a "
+"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+
+#: templates/account/password_reset_token.html:11
+msgid "Set your new password"
+msgstr "Digite sua nova senha"
+
+#: templates/account/password_reset_token_fail.html:5
+#: templates/account/password_reset_token_fail.html:8
+msgid "Bad token"
+msgstr "Token errado ou vencido"
+
+#: templates/account/password_reset_token_fail.html:10
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(url)s\">new password reset</a>."
+msgstr ""
+"O Link para a mudança de senha é inválido, possivelmente porque já foi "
+"utilizado.  Por Favor solicite <a href=\"%(url)s\">nova mudança de "
+"senha</a>."
+
+#: templates/account/settings.html:12
+msgid "My Avatar"
+msgstr "Meu Avatar"
+
+#: templates/account/settings.html:16
+msgid "Select a new avatar image using the field below"
+msgstr "Selecione uma nova imagem para seu Avatar"
+
+#: templates/account/settings.html:23
+msgid "Update"
+msgstr "Atualizar"
+
+#: templates/account/settings.html:38
+msgid "Change My Password"
+msgstr "Mudar Minha Senha"
+
+#: templates/account/settings.html:54
+msgid "Bank Account"
+msgstr "Conta Bancária"
+
+#: templates/account/settings.html:58
+msgid "This bank account must belong to"
+msgstr "Esta conta bancária deve pertencer a"
+
+#: templates/account/settings.html:58
+msgid "Click here to know why."
+msgstr "Clique aqui para saber porque."
+
+#: templates/account/settings.html:59
+msgid ""
+"This bank account will be used for the withdrawals made with the BRL account"
+msgstr ""
+"Esta conta bancária será utilizada para realizar suas retidas em Reais"
+
+#: templates/account/signup-form.html:15
+#: templates/two_factor/core/login.html:102
+msgid "Sign Up"
+msgstr "Cadastrar"
+
+#: templates/account/signup.html:31
+msgid "Already have an account?"
+msgstr "Já possui uma conta?"
+
+#: templates/account/signup.html:31 templates/two_factor/core/login.html:55
+#: templates/two_factor/core/login.html:81
+msgid "Log In"
+msgstr "Entrar"
+
+#: templates/account/signup_closed.html:8
+msgid "This site is in private beta"
+msgstr "Este site esta em teste beta"
+
+#: templates/account/signup_closed.html:9
+msgid "If you have signup code you can enter it below."
+msgstr "Se você recebeu um código de cadastro coloque-o no campo abaixo."
+
+#: templates/account/signup_closed.html:11
+msgid "Your signup code..."
+msgstr "Seu código de cadastro..."
+
+#: templates/core/documents.html:8 templates/core/index.html:108
+msgid "Documents"
+msgstr "Documentos"
+
+#: templates/core/documents.html:14
+msgid "Drivers License or ID - Front"
+msgstr "Frente da Carteira de Motorista ou RG"
+
+#: templates/core/documents.html:30 templates/core/documents.html:62
+#: templates/core/documents.html:95
+msgid "Upload"
+msgstr "Carregar"
+
+#: templates/core/documents.html:47
+msgid "Drivers License or ID - Back"
+msgstr "Verso da carteira de Motorista ou RG"
+
+#: templates/core/documents.html:80
+msgid "Document Selfie"
+msgstr "Selfie com Documento"
+
+#: templates/core/index.html:98
+msgid "Hi, "
+msgstr "Olá,"
+
+#: templates/core/index.html:103
+msgid "Two Factor Auth"
+msgstr "Autenticação de 2 Fatores"
+
+#: templates/core/index.html:113
+msgid "Settings"
+msgstr "Configurações"
+
+#: templates/core/index.html:119
+msgid "Logout"
+msgstr "Sair"
+
+#: templates/core/index.html:141 templates/core/wallets.html:9
+msgid "Wallets"
+msgstr "Carteiras"
+
+#: templates/core/index.html:144
+msgid "Orderbook"
+msgstr "Livro de Ofertas"
+
+#: templates/core/index.html:150
+msgid "Comissions"
+msgstr "Comissões"
+
+#: templates/core/index.html:176
+msgid "Two Factor Authentication"
+msgstr "Autenticação de 2 fatores"
+
+#: templates/core/scripts/wallets.vue.html:22
+#, python-brace-format
+msgid "Available {coin} amount for withdraw is:"
+msgstr "Quantidade de {coin} disponível para retirar é:"
+
+#: templates/core/scripts/wallets.vue.html:46
+msgid "Withdraw error!"
+msgstr "Erro de Retirada!"
+
+#: templates/core/scripts/wallets.vue.html:73
+#, python-brace-format
+msgid "Your {coin} address"
+msgstr "Seu endereço de {coin} "
+
+#: templates/core/scripts/wallets.vue.html:82
+msgid "You must have a BRL bank account configured for your account"
+msgstr "Você necessita ter uma conta bancária configurada em sua conta"
+
+#: templates/core/scripts/wallets.vue.html:84
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/core/scripts/wallets.vue.html:85
+msgid "Set bank account"
+msgstr "Configurar conta bancária"
+
+#: templates/core/statement.html:23
+msgid "Overview"
+msgstr "Resumo"
+
+#: templates/core/statement.html:26
+msgid "Crypto Withdrawals"
+msgstr "Retiradas de Crypto"
+
+#: templates/core/statement.html:29
+msgid "BRL Withdrawals"
+msgstr "Saque em Reais"
+
+#: templates/core/statement.html:39 templates/core/statement.html:63
+#: templates/core/statement.html:93
+msgid "Created"
+msgstr "Criado"
+
+#: templates/core/statement.html:40 templates/core/statement.html:64
+#: templates/core/statement.html:94
+msgid "Coin"
+msgstr "Moeda"
+
+#: templates/core/statement.html:41 templates/core/statement.html:65
+#: templates/core/statement.html:95 templates/core/wallets.html:31
+msgid "Symbol"
+msgstr "Símbolo"
+
+#: templates/core/statement.html:43 templates/core/statement.html:69
+#: templates/core/statement.html:98
+msgid "Amount"
+msgstr "Quantidade"
+
+#: templates/core/statement.html:66 templates/core/statement.html:96
+#: templates/core/wallets.html:33
+msgid "Deposit"
+msgstr "Depósito"
+
+#: templates/core/statement.html:67 templates/core/statement.html:97
+#: templates/core/wallets.html:34
+msgid "Reserved"
+msgstr "Reservado"
+
+#: templates/core/statement.html:68
+msgid "Address"
+msgstr "Endereço"
+
+#: templates/core/statement.html:99
+msgid "Bank"
+msgstr "Banco"
+
+#: templates/core/statement.html:100
+msgid "Agency"
+msgstr "Agência"
+
+#: templates/core/statement.html:101
+msgid "Account Type"
+msgstr "Tipo de conta"
+
+#: templates/core/statement.html:102
+msgid "Account Number"
+msgstr "Número da Conta"
+
+#: templates/core/wallets.html:17
+msgid "Hide 0 balance coins"
+msgstr "Ocultar moedas com saldo \"0\""
+
+#: templates/core/wallets.html:22
+msgid "Search coins"
+msgstr "Procurar moedas"
+
+#: templates/core/wallets.html:30
+msgid "Name"
+msgstr "nome"
+
+#: templates/core/wallets.html:32
+msgid "Balance"
+msgstr "Saldo"
+
+#: templates/core/wallets.html:35
+msgid "Actions"
+msgstr "Ações"
+
+#: templates/core/wallets.html:47
+msgid "Deposit "
+msgstr "Depósito"
+
+#: templates/core/wallets.html:50
+msgid "Withdrawal "
+msgstr "Retirada"
+
+#: templates/pagination/pagination.html:8
+#: templates/pagination/pagination.html:10
+#: templates/pagination/pagination.html:14
+msgid "previous"
+msgstr "Anterior"
+
+#: templates/pagination/pagination.html:39
+#: templates/pagination/pagination.html:42
+msgid "next"
+msgstr "próximo"
+
+#: views.py:129
+msgid "Your bank account settings has been updated"
+msgstr "As configurações de sua conta bancária foram atualizadas"
+
+#: views.py:138
+msgid "Your avatar image has been updated"
+msgstr "A imagem do seu Avatar foi atualizada"
+
+#: views.py:146
+msgid "Your password has been updated"
+msgstr "Sua senha foi atualizada"
+
+#: views.py:173
+msgid "Document has been updated!"
+msgstr "Seus documentos foram atualizados!"

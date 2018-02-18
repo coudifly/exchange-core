@@ -1,3 +1,5 @@
+import os
+
 from decimal import Decimal
 from json import JSONEncoder
 from uuid import UUID
@@ -5,6 +7,7 @@ from uuid import UUID
 from django.conf import settings
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
 from prettyconf.configuration import Configuration
 
 # Diz ao pretty conf o path do .env caso não existam variáveis de ambiente para a respectiva config
@@ -159,3 +162,13 @@ settings.X_FRAME_OPTIONS = config('X_FRAME_OPTIONS', default='DENY')
 
 # Configura o prefixo da URL do admin
 settings.ADMIN_URL_PREFIX = config('ADMIN_URL_PREFIX', default='admin/')
+
+
+# Configuracoes de i18n
+settings.LOCALE_PATHS = (os.path.join(settings.BASE_DIR, 'locales'),)
+settings.LANGUAGE_CODE = 'en'
+settings.LANGUAGES = [
+    ('en', _('English')),
+    ('pt_BR', _('Portuguese')),
+    ('es', _('Spanish')),
+]
