@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load thumbnail %}
 {% load lang %}
+{% load exchange %}
 
 <!DOCTYPE html>
 <html>
@@ -171,15 +172,24 @@
                             <li>
                                 <a href="{% url "core>wallets" %}"><i class="zmdi zmdi-balance-wallet"></i> <span> {% trans "Wallets" %} </span> </a>
                             </li>
-                            <li>
-                                <a href="{% url "orderbook>orders" %}"><i class="zmdi zmdi-assignment"></i> <span> {% trans "Orderbook" %} </span> </a>
-                            </li>
+
+                            {% ex_url_exists 'orderbook>orders' as URL_EXISTS %}
+                            {% if URL_EXISTS %}
+                                <li>
+                                    <a href="{% url "orderbook>orders" %}"><i class="zmdi zmdi-assignment"></i> <span> {% trans "Orderbook" %} </span> </a>
+                                </li>
+                            {% endif %}
+
                             <li>
                                 <a href="{% url "core>statement" %}"><i class="zmdi zmdi-attachment-alt"></i> <span> {% trans "Statement" %} </span> </a>
                             </li>
-                            <li>
-                                <a href="{% url "comissions>dashboard" %}"><i class="zmdi zmdi-accounts"></i> <span> {% trans "Comissions" %} </span> </a>
-                            </li>
+
+                            {% ex_url_exists 'comissions>dashboard' as URL_EXISTS %}
+                            {% if URL_EXISTS %}
+                                <li>
+                                    <a href="{% url "comissions>dashboard" %}"><i class="zmdi zmdi-accounts"></i> <span> {% trans "Comissions" %} </span> </a>
+                                </li>
+                            {% endif %}
                         </ul>
                         <!-- End navigation menu  -->
                     </div>
