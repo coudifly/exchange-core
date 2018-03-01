@@ -62,6 +62,7 @@ settings.INSTALLED_APPS += [
     'anymail',
     'session_security',
     'easy_thumbnails',
+    'cities',
 ]
 
 # Adiciona os middlewares do Two Factor para habilitar a autenticação em dois passos

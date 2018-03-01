@@ -26,6 +26,7 @@ REQUIREMENTS = [
 	'django-templated-email',
 	'easy-thumbnails',
 	'phonenumbers',
+	'django-cities',
 ]
 
 setup(

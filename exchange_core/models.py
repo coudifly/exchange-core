@@ -25,11 +25,15 @@ class BaseModel(models.Model):
 
 class Users(TimeStampedModel, AbstractUser, BaseModel):
     STATUS = Choices('created', 'approved_documentation', 'inactive')
+    TYPES = Choices('person', 'company')
 
     sponsor = models.ForeignKey('self', null=True, blank=True, verbose_name=_("Sponsor"), on_delete=models.CASCADE)
-    status = models.CharField(max_length=30, default=STATUS.created, verbose_name=_("Status"))
+    status = models.CharField(max_length=30, default=STATUS.created, choices=STATUS, verbose_name=_("Status"))
     avatar = models.ImageField(blank=True)
     profile = JSONField(null=True, blank=True, default={})
+    type = models.CharField(max_length=11, choices=TYPES, default=TYPES.person, null=True, blank=False)
+    document_1 = models.CharField(max_length=50, null=True, blank=True)
+    document_2 = models.CharField(max_length=50, null=True, blank=True)
 
     objects = CustomUserManager()
 
