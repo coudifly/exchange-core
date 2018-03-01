@@ -179,3 +179,8 @@ settings.LANGUAGES = [
 # Configuracoes da lib GDAL
 settings.GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH', default=None)
 settings.GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH', default=None)
+
+# Configuracoes do Django Cities
+# https://github.com/coderholic/django-cities
+settings.CITIES_LOCALES = ['LANGUAGES']
+settings.CITIES_POSTAL_CODES = ['BR']
