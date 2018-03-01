@@ -260,4 +260,18 @@ class AccountsAdmin(admin.ModelAdmin):
 
 @admin.register(Documents)
 class DocumentsAdmin(admin.ModelAdmin):
-    list_display = ['user', 'file', 'type', 'status']
+    list_display = ['user', 'file', 'type', 'get_document_1', 'get_document_2', 'status']
+    list_filter = ['type', 'status']
+    search_fields = ['user__username', 'user__document_1', 'user__document_2']
+
+    def get_document_1(self, obj):
+        return obj.user.document_1
+
+    get_document_1.short_description = _("CPF")
+    get_document_1.admin_order_field = _("user__document_1")
+
+    def get_document_2(self, obj):
+        return obj.user.document_2
+
+    get_document_2.short_description = _("RG")
+    get_document_2.admin_order_field = _("user__document_2")
