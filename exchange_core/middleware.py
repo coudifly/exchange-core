@@ -5,10 +5,11 @@ from django.http import HttpResponsePermanentRedirect
 from exchange_core.models import Users
 
 
+# Redirects the user if it yet not send the documents 
 class UserDocumentsMiddleware(MiddlewareMixin):
 	def process_request(self, request):
 		documents_path = reverse('core>documents')
-		
+
 		user_is_authenticated = request.user.is_authenticated
 		user_has_created_status = request.user.status == Users.STATUS.created
 		documents_page = documents_path in request.path
