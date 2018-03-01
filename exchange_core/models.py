@@ -24,7 +24,7 @@ class BaseModel(models.Model):
 
 
 class Users(TimeStampedModel, AbstractUser, BaseModel):
-    STATUS = Choices('created')
+    STATUS = Choices('created', 'approved_documentation', 'inactive')
 
     sponsor = models.ForeignKey('self', null=True, blank=True, verbose_name=_("Sponsor"), on_delete=models.CASCADE)
     status = models.CharField(max_length=30, default=STATUS.created, verbose_name=_("Status"))

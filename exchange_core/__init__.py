@@ -72,6 +72,7 @@ settings.MIDDLEWARE += [
     'account.middleware.ExpiredPasswordMiddleware',
     'session_security.middleware.SessionSecurityMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
+    'exchange_core.middleware.UserDocumentsMiddleware',
 ]
 
 # Define a model do usuário como sendo a model Users desse modulo
