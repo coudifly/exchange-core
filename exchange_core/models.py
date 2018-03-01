@@ -248,6 +248,11 @@ class UsersAdmin(admin.ModelAdmin):
     exclude = ('groups', 'user_permissions', 'is_superuser', 'last_login', 'is_staff', 'is_active', 'date_joined',)
 
 
+@admin.register(Companies)
+class CompaniesAdmin(admin.ModelAdmin):
+    list_display = ['user', 'name', 'document_1', 'document_2']
+
+
 @admin.register(Currencies)
 class CurrenciesAdmin(admin.ModelAdmin):
     list_display = ['name', 'symbol', 'icon', 'withdraw_min', 'withdraw_max', 'withdraw_fee', 'withdraw_receive_hours']
