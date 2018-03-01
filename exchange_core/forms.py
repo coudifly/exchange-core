@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from django.core.files import File
 from passwords.fields import PasswordField
+from localflavor.br.forms import BRCPFField
 
 import account.forms
 
@@ -15,8 +16,10 @@ class SignupForm(account.forms.SignupForm):
     last_name = forms.CharField()
     confirm_email = forms.EmailField(label=_("Confirm e-mail"))
     password = PasswordField(label=_("Password"), strip=settings.ACCOUNT_PASSWORD_STRIP)
+    document_1 = BRCPFField(label=_("CPF"))
+    document_2 = forms.CharField(label=_("RG"))
     
-    field_order = ['first_name', 'last_name', 'username', 'email', 'confirm_email', 'password', 'password_confirm', 'code']
+    field_order = ['first_name', 'last_name', 'username', 'email', 'confirm_email', 'password', 'password_confirm', 'code', 'document_1', 'document_2']
 
     # Valida o campo de confirmar e-mail
     def clean_confirm_email(self):

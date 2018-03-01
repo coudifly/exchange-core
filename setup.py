@@ -27,6 +27,7 @@ REQUIREMENTS = [
 	'easy-thumbnails',
 	'phonenumbers',
 	'django-cities',
+	'django-localflavor',
 ]
 
 setup(

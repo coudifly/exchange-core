@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from model_utils.models import TimeStampedModel, StatusModel
 from model_utils import Choices
+from cities.models import Country, Region, City
 
 from exchange_core.managers import CustomUserManager
 from exchange_core.choices import BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES
@@ -58,6 +59,27 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
         br_account = self.accounts.get(currency__symbol=settings.BRL_CURRENCY_SYMBOL)
         if br_account.bank_accounts.exists():
             return br_account.bank_accounts.first()
+
+
+class Addresses(TimeStampedModel, BaseModel):
+    TYPES = Choices('account')
+
+    user = models.ForeignKey(Users, related_name='addresses', on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, related_name='addresses', on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, related_name='addresses', on_delete=models.CASCADE)
+    city = models.ForeignKey(City, related_name='addresses', on_delete=models.CASCADE)
+    address = models.CharField(max_length=100)
+    number = models.CharField(max_length=20)
+    neighborhood = models.CharField(max_length=50)
+    zipcode = models.CharField(max_length=10)
+    type = models.CharField(max_length=20, choices=TYPES, default=TYPES.account)
+
+
+class Companies(TimeStampedModel, BaseModel):
+    user = models.ForeignKey(Users, related_name='companies', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    document_1 = models.CharField(max_length=50, null=True, blank=True)
+    document_2 = models.CharField(max_length=50, null=True, blank=True)
 
 
 class Currencies(TimeStampedModel, BaseModel):
