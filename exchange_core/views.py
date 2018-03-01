@@ -24,7 +24,7 @@ from exchange_core.models import Users, Accounts, BankAccounts, Documents, State
 
 class HomeView(TemplateView):
     def get(self, request):
-        return redirect('two_factor:login')
+        return redirect(settings.HOME_VIEW)
 
 
 class SignupView(account.views.SignupView):

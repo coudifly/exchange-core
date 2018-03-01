@@ -38,6 +38,9 @@ settings.PROJECT_NAME = config('PROJECT_NAME')
 # Admins do sistema, recebem e-mails de erros 500
 settings.ADMINS = [(v, v) for v in config('ADMINS', cast=config.list)]
 
+# Configura a view padrao para ser exibida como home para o usuario
+settings.HOME_VIEW = config('HOME_VIEW', default='two_factor:login')
+
 # Dominio do site
 settings.DOMAIN = config('DOMAIN', default='example.com')
 
@@ -81,7 +84,7 @@ settings.AUTH_USER_MODEL = PACKAGE_NAME + '.Users'
 
 # Define o template do Two Factor para ser usado no login
 settings.LOGIN_URL = 'two_factor:login'
-settings.LOGIN_REDIRECT_URL = reverse_lazy('core>wallets')
+settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL', default='core>wallets'))
 
 # Adiciona o contexto do pacote django-user-accounts para os templates
 # Adiciona o contexto do pacote django-session-security para os templates

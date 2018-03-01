@@ -13,8 +13,10 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 		user_is_authenticated = request.user.is_authenticated
 		user_has_created_status = user_is_authenticated and request.user.status == Users.STATUS.created
 		documents_page = documents_path in request.path
-		is_admin = '/admin' in request.path
+		is_admin = request.path.startswith('/admin')
+		is_logout = request.path.startswith(reverse('core>logout'))
 
-		if user_is_authenticated and user_has_created_status and not documents_page and not is_admin:
+		if user_is_authenticated and user_has_created_status and not documents_page \
+			and not is_admin and not is_logout:
 			return HttpResponsePermanentRedirect(documents_path)
 
