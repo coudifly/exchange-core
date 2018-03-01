@@ -200,7 +200,7 @@ class Documents(TimeStampedModel, BaseModel):
 
 # Extrato das contas
 class Statement(TimeStampedModel, BaseModel):
-    TYPES = Choices('deposit', 'withdrawal')
+    TYPES = Choices('deposit', 'withdraw')
 
     account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
     description = models.CharField(max_length=100, verbose_name=_("Description"))
