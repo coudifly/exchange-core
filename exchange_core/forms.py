@@ -12,8 +12,8 @@ from .models import Users, BankAccounts, Documents
 
 
 class SignupForm(account.forms.SignupForm):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
+    first_name = forms.CharField(label=_("First name"))
+    last_name = forms.CharField(label=_("Last name"))
     confirm_email = forms.EmailField(label=_("Confirm e-mail"))
     password = PasswordField(label=_("Password"), strip=settings.ACCOUNT_PASSWORD_STRIP)
     document_1 = BRCPFField(label=_("CPF"))
