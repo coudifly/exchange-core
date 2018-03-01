@@ -102,7 +102,7 @@ settings.ACCOUNT_EMAIL_UNIQUE = True
 settings.ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 settings.ACCOUNT_EMAIL_CONFIRMATION_URL = 'core>email-confirm'
 settings.ACCOUNT_PASSWORD_EXPIRY = config('ACCOUNT_PASSWORD_EXPIRY', cast=int) # As senhas expiram em x dias e precisam ser trocas após esse tempo
-settings.ACCOUNT_PASSWORD_USE_HISTORY = True
+settings.ACCOUNT_PASSWORD_USE_HISTORY = False
 
 # Django Anymail configurações
 settings.ANYMAIL = {
@@ -164,10 +164,9 @@ settings.X_FRAME_OPTIONS = config('X_FRAME_OPTIONS', default='DENY')
 # Configura o prefixo da URL do admin
 settings.ADMIN_URL_PREFIX = config('ADMIN_URL_PREFIX', default='admin/')
 
-
 # Configuracoes de i18n
 settings.LANGUAGE_CSS_CLASSES = config('LANGUAGE_CSS_CLASSES', default='', cast=pairs)
-settings.LOCALE_PATHS = (os.path.join(settings.BASE_DIR, 'locales'),)
+settings.LOCALE_PATHS = (os.path.join(settings.BASE_DIR, 'locale'),)
 settings.LANGUAGE_CODE = 'en'
 settings.LANGUAGES = [
     ('en', _('English')),
