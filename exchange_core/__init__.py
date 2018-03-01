@@ -177,5 +177,5 @@ settings.LANGUAGES = [
 ]
 
 # Configuracoes da lib GDAL
-settings.GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH', default=settings.GDAL_LIBRARY_PATH)
-settings.GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH', default=settings.GEOS_LIBRARY_PATH)
+settings.GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH', default=None)
+settings.GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH', default=None)
