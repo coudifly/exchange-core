@@ -135,6 +135,7 @@ class BaseWithdraw(models.Model):
     deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
     reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
     amount = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
+    profit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
     status = models.CharField(max_length=20, default=STATUS.requested, choices=STATUS)
     tx_id = models.CharField(max_length=150, null=True, blank=True)
 
