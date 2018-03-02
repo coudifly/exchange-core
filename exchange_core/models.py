@@ -184,6 +184,7 @@ class Documents(TimeStampedModel, BaseModel):
     file = models.ImageField()
     type = models.CharField(max_length=20, choices=TYPES)
     status = models.CharField(max_length=20, choices=STATUS, default=STATUS.pending)
+    reason = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Disapproved reason"))
 
     class Meta:
         verbose_name = 'Document'
