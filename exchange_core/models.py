@@ -253,7 +253,6 @@ def create_currency_user_accounts(sender, instance, created, **kwargs):
 class UsersAdmin(admin.ModelAdmin):
     list_display = ['username', 'sponsor', 'first_name', 'last_name', 'email', 'created']
     ordering = ('-created',)
-    exclude = ('groups', 'user_permissions', 'is_staff')
 
 
 @admin.register(Companies)
