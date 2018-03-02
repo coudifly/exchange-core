@@ -1,22 +1,30 @@
 from django.utils.deprecation import MiddlewareMixin
 from django.urls import reverse
 from django.http import HttpResponsePermanentRedirect
+from django.conf import settings
 
 from exchange_core.models import Users
 
 
+
 # Redirects the user if it yet not send the documents 
 class UserDocumentsMiddleware(MiddlewareMixin):
+	ignore_paths = [
+		'/admin',
+		'/' + settings.SPONSORSHIP_URL_PREFIX,
+		reverse('core>logout'),
+		reverse('core>documents')
+	]
+
 	def process_request(self, request):
-		documents_path = reverse('core>documents')
+		print(request.path)
+		if not settings.REQUIRE_USER_DOCUMENTS:
+			return
 
-		user_is_authenticated = request.user.is_authenticated
-		user_has_created_status = user_is_authenticated and request.user.status == Users.STATUS.created
-		documents_page = documents_path in request.path
-		is_admin = request.path.startswith('/admin')
-		is_logout = request.path.startswith(reverse('core>logout'))
+		for path in self.ignore_paths:
+			if request.path.startswith(path):
+				return
 
-		if user_is_authenticated and user_has_created_status and not documents_page \
-			and not is_admin and not is_logout:
-			return HttpResponsePermanentRedirect(documents_path)
+		if request.user.is_authenticated and request.user.status == Users.STATUS.created:
+			return HttpResponsePermanentRedirect(reverse('core>documents'))
 
