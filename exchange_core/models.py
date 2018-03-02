@@ -88,7 +88,8 @@ class Currencies(TimeStampedModel, BaseModel):
     icon = models.ImageField(null=True, blank=True, verbose_name=_("Icon"))
     withdraw_min = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.001'), verbose_name=_("Withdraw Min"))
     withdraw_max = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('1000000.00'), verbose_name=_("Withdraw Max"))
-    withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Fee"))
+    withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Percent Fee"))
+    withdraw_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Fixed Fee"))
     withdraw_receive_hours = models.IntegerField(default=48)
 
     class Meta:
@@ -135,7 +136,7 @@ class BaseWithdraw(models.Model):
     deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
     reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
     amount = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
-    profit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
+    fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
     status = models.CharField(max_length=20, default=STATUS.requested, choices=STATUS)
     tx_id = models.CharField(max_length=150, null=True, blank=True)
 
@@ -149,6 +150,11 @@ class BaseWithdraw(models.Model):
             return 'warning'
         if self.status == self.STATUS.paid:
             return 'success'
+
+    # Valor do saque com desconto do fee cobrado
+    @property
+    def amount_with_discount(self):
+        return abs(self.amount) - abs(self.fee)
 
     class Meta:
         abstract = True
