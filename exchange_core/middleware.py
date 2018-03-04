@@ -17,7 +17,6 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 	]
 
 	def process_request(self, request):
-		print(request.path)
 		if not settings.REQUIRE_USER_DOCUMENTS:
 			return
 
