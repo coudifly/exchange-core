@@ -40,6 +40,15 @@ class SignupView(account.views.SignupView):
         user.save()
 
 
+class ResendConfirmationEmailView(account.views.SignupView):
+    def post(self, request):
+        email_address = get_object_or_404(EmailAddress, email=request.POST['email'], verified=False)
+        email_address.send_confirmation(site=get_current_site(self.request))
+        messages.success(request, _("Confirmation e-mail resent!"))
+        self.created_user = email_address.user
+        return self.email_confirmation_required_response()
+
+
 class ResetPasswordView(account.views.PasswordResetView):
 
     def send_email(self, email):

@@ -609,3 +609,12 @@ msgstr "Sua senha foi atualizada"
 #: views.py:173
 msgid "Document has been updated!"
 msgstr "Seus documentos foram atualizados!"
+
+msgid "Check your spam box. If the email does not arrive in 5 minutes, use the button below to resend it."
+msgstr "Verifique a sua caixa de spam. Caso o e-mail não chegue em 5 minutos, utilize o botão abaixo para reenviá-lo."
+
+msgid "Resend confirmation e-mail"
+msgstr "Reenviar e-mail de confirmação"
+
+msgid "Confirmation e-mail resent!"
+msgstr "Confirmação de e-mail reenviada!"

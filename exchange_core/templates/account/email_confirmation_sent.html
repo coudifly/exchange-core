@@ -8,5 +8,14 @@
 	<h2>{% trans "Confirm your email address" %}</h2>
 
     <p>{% blocktrans %}We have sent you an email to <b>{{ email }}</b> for verification. Follow the link provided to finalize the signup process. If you do not receive it within a few minutes, contact us at <a href="mailto:{{ THEME_CONTACT_EMAIL }}">{{ THEME_CONTACT_EMAIL }}</a>.{% endblocktrans %}</p>
-    <p><a href="{% url "two_factor:login" %}" class="btn btn-primary">{% trans "Go back" %}</a></p>
+
+	
+    <p>
+    	{% trans "Check your spam box. If the email does not arrive in 5 minutes, use the button below to resend it." %}<br>
+    	<form action="{% url "core>resend-confirmation-email" %}" method="post">
+    		{% csrf_token %}
+    		<input type="hidden" name="email" value="{{ email }}">
+    		<button class="btn btn-primary">{% trans "Resend confirmation e-mail" %}</button>
+    	</form>	
+    </p>
 {% endblock %}
