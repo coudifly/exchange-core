@@ -252,6 +252,8 @@ def create_currency_user_accounts(sender, instance, created, **kwargs):
 @admin.register(Users)
 class UsersAdmin(admin.ModelAdmin):
     list_display = ['username', 'sponsor', 'first_name', 'last_name', 'email', 'created']
+    list_filter = ['status', 'type']
+    search_fields = ['username', 'document_1', 'document_2']
     ordering = ('-created',)
 
 
