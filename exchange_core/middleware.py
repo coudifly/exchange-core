@@ -7,13 +7,15 @@ from exchange_core.models import Users
 
 
 
-# Redirects the user if it yet not send the documents 
+# Redirects the user if it yet not send the documents
 class UserDocumentsMiddleware(MiddlewareMixin):
 	ignore_paths = [
 		'/admin',
+		reverse('set_language'),
 		'/' + settings.SPONSORSHIP_URL_PREFIX,
 		reverse('core>logout'),
-		reverse('core>documents')
+		reverse('core>documents'),
+
 	]
 
 	def process_request(self, request):
@@ -23,7 +25,6 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 		for path in self.ignore_paths:
 			if request.path.startswith(path):
 				return
-
-		if request.user.is_authenticated and request.user.status == Users.STATUS.created:
+				# and request.user.status == User.STATUS.disapproved_documentation
+		if (request.user.is_authenticated and request.user.status == Users.STATUS.created) or (request.user.is_authenticated and request.user.status == Users.STATUS.disapproved_documentation):
 			return HttpResponsePermanentRedirect(reverse('core>documents'))
-

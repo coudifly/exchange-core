@@ -25,7 +25,10 @@ class BaseModel(models.Model):
 
 
 class Users(TimeStampedModel, AbstractUser, BaseModel):
-    STATUS = Choices('created', 'approved_documentation', 'inactive')
+    STATUS = Choices(
+                'created', 'approved_documentation',
+                'inactive', 'disapproved_documentation'
+                )
     TYPES = Choices('person', 'company')
 
     sponsor = models.ForeignKey('self', null=True, blank=True, verbose_name=_("Sponsor"), on_delete=models.CASCADE)
@@ -40,7 +43,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         if self.profile is None:
             self.profile = {}
 
@@ -227,7 +230,7 @@ class Statement(TimeStampedModel, BaseModel):
 def create_user_accounts(sender, instance, created, **kwargs):
     if created:
         currencies = Currencies.objects.all()
-        
+
         with transaction.atomic():
             for currency in currencies:
                 account = Accounts()
@@ -267,10 +270,11 @@ class CurrenciesAdmin(admin.ModelAdmin):
     list_display = ['name', 'symbol', 'icon', 'withdraw_min', 'withdraw_max', 'withdraw_fee', 'withdraw_receive_hours']
 
 
+
 @admin.register(Accounts)
 class AccountsAdmin(admin.ModelAdmin):
     list_display = ['user', 'currency', 'balance', 'deposit', 'reserved']
-
+    search_fields = ['user__username']
 
 @admin.register(Documents)
 class DocumentsAdmin(admin.ModelAdmin):
