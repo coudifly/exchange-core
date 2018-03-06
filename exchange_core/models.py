@@ -43,7 +43,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        self._original_status = self.status
         if self.profile is None:
             self.profile = {}
 
@@ -270,11 +270,11 @@ class CurrenciesAdmin(admin.ModelAdmin):
     list_display = ['name', 'symbol', 'icon', 'withdraw_min', 'withdraw_max', 'withdraw_fee', 'withdraw_receive_hours']
 
 
-
 @admin.register(Accounts)
 class AccountsAdmin(admin.ModelAdmin):
     list_display = ['user', 'currency', 'balance', 'deposit', 'reserved']
     search_fields = ['user__username']
+
 
 @admin.register(Documents)
 class DocumentsAdmin(admin.ModelAdmin):
