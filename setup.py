@@ -28,6 +28,7 @@ REQUIREMENTS = [
 	'phonenumbers',
 	'django-cities',
 	'django-localflavor',
+	'django-mathfilters',
 ]
 
 setup(
