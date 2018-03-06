@@ -28,3 +28,15 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 				# and request.user.status == User.STATUS.disapproved_documentation
 		if (request.user.is_authenticated and request.user.status == Users.STATUS.created) or (request.user.is_authenticated and request.user.status == Users.STATUS.disapproved_documentation):
 			return HttpResponsePermanentRedirect(reverse('core>documents'))
+
+
+# Redirects the user if it yet not send the documents
+class CheckUserLoggedInMiddleware(MiddlewareMixin):
+
+	def process_request(self, request):
+
+		if not request.user.is_authenticated:
+			return
+		if not request.path.startswith(reverse(settings.LOGIN_URL)):
+			return
+		return HttpResponsePermanentRedirect(reverse('core>wallets'))

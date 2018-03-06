@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from account.decorators import login_required
 from account.models import EmailAddress
+from exchange_core.models import Currencies
 from account.hooks import hookset
 
 import account.views
@@ -93,21 +94,23 @@ class WalletsView(TemplateView):
         wallets = []
 
         for account in Accounts.objects.filter(user=request.user):
-            icon = account.currency.icon.url if account.currency.icon else None
 
-            wallets.append({
-                'pk': account.pk,
-                'icon': icon,
-                'name': account.currency.name,
-                'slug': slugify(account.currency.name),
-                'symbol': account.currency.symbol,
-                'deposit': account.deposit,
-                'reserved': account.reserved,
-                'withdraw_min': account.currency.withdraw_min,
-                'withdraw_max': account.currency.withdraw_max,
-                'withdraw_fee': account.currency.withdraw_fee,
-                'withdraw_receive_hours': account.currency.withdraw_receive_hours
-            })
+            if account.currency.status != Currencies.STATUS.inactive:
+                icon = account.currency.icon.url if account.currency.icon else None
+
+                wallets.append({
+                    'pk': account.pk,
+                    'icon': icon,
+                    'name': account.currency.name,
+                    'slug': slugify(account.currency.name),
+                    'symbol': account.currency.symbol,
+                    'deposit': account.deposit,
+                    'reserved': account.reserved,
+                    'withdraw_min': account.currency.withdraw_min,
+                    'withdraw_max': account.currency.withdraw_max,
+                    'withdraw_fee': account.currency.withdraw_fee,
+                    'withdraw_receive_hours': account.currency.withdraw_receive_hours
+                })
 
         return render(request, self.template_name, {'wallets': list(wallets)})
 

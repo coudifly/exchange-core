@@ -56,7 +56,7 @@ settings.DOMAIN = config('DOMAIN', default='example.com')
 # https://github.com/yourlabs/django-session-security/
 # django.contrib.sites é requerido pelo django-user-accounts
 settings.INSTALLED_APPS += [
-    'django.contrib.sites', 
+    'django.contrib.sites',
 	'django_otp',
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
@@ -80,6 +80,7 @@ settings.MIDDLEWARE += [
     'session_security.middleware.SessionSecurityMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
     'exchange_core.middleware.UserDocumentsMiddleware',
+    'exchange_core.middleware.CheckUserLoggedInMiddleware'
 ]
 
 # Define a model do usuário como sendo a model Users desse modulo

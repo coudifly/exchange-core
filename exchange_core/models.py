@@ -90,9 +90,14 @@ class Companies(TimeStampedModel, BaseModel):
 
 
 class Currencies(TimeStampedModel, BaseModel):
+    STATUS = Choices('active', 'inactive')
     name = models.CharField(max_length=100)
     symbol = models.CharField(max_length=10, unique=True)
     icon = models.ImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=_("Icon"))
+    status = models.CharField(
+                            max_length=30, default=STATUS.active,
+                            choices=STATUS, verbose_name=_("Status")
+                            )
     withdraw_min = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.001'), verbose_name=_("Withdraw Min"))
     withdraw_max = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('1000000.00'), verbose_name=_("Withdraw Max"))
     withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Percent Fee"))
