@@ -32,11 +32,9 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 
 # Redirects the user if it yet not send the documents
 class CheckUserLoggedInMiddleware(MiddlewareMixin):
-
 	def process_request(self, request):
-
-		if not request.user.is_authenticated:
-			return
 		if not request.path.startswith(reverse(settings.LOGIN_URL)):
+			return
+		if not request.user.is_authenticated:
 			return
 		return HttpResponsePermanentRedirect(reverse('core>wallets'))
