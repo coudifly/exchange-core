@@ -12,7 +12,7 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 	ignore_paths = [
 		'/admin',
 		reverse('set_language'),
-		'/' + settings.SPONSORSHIP_URL_PREFIX,
+		'/' + getattr(settings, 'SPONSORSHIP_URL_PREFIX', '0000000000'),
 		reverse('core>logout'),
 		reverse('core>documents'),
 
