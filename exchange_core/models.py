@@ -17,6 +17,10 @@ from exchange_core.managers import CustomUserManager
 from exchange_core.choices import BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES
 
 
+def get_file_path(instance, filename):
+    return '{}.{}'.format(uuid.uuid4(), filename.split('.')[-1])
+
+
 class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -33,7 +37,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
 
     sponsor = models.ForeignKey('self', null=True, blank=True, verbose_name=_("Sponsor"), on_delete=models.CASCADE)
     status = models.CharField(max_length=30, default=STATUS.created, choices=STATUS, verbose_name=_("Status"))
-    avatar = models.ImageField(blank=True)
+    avatar = models.ImageField(upload_to=get_file_path, blank=True)
     profile = JSONField(null=True, blank=True, default={})
     type = models.CharField(max_length=11, choices=TYPES, default=TYPES.person, null=True, blank=False)
     document_1 = models.CharField(max_length=50, null=True, blank=True)
@@ -88,7 +92,7 @@ class Companies(TimeStampedModel, BaseModel):
 class Currencies(TimeStampedModel, BaseModel):
     name = models.CharField(max_length=100)
     symbol = models.CharField(max_length=10, unique=True)
-    icon = models.ImageField(null=True, blank=True, verbose_name=_("Icon"))
+    icon = models.ImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=_("Icon"))
     withdraw_min = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.001'), verbose_name=_("Withdraw Min"))
     withdraw_max = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('1000000.00'), verbose_name=_("Withdraw Max"))
     withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Percent Fee"))
@@ -184,7 +188,7 @@ class Documents(TimeStampedModel, BaseModel):
     STATUS = Choices('pending', 'disapproved', 'approved')
 
     user = models.ForeignKey(Users, related_name='documents', on_delete=models.CASCADE)
-    file = models.ImageField()
+    file = models.ImageField(upload_to=get_file_path)
     type = models.CharField(max_length=20, choices=TYPES)
     status = models.CharField(max_length=20, choices=STATUS, default=STATUS.pending)
     reason = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Disapproved reason"))
