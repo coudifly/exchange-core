@@ -39,7 +39,7 @@ settings.PROJECT_NAME = config('PROJECT_NAME')
 settings.ADMINS = [(v, v) for v in config('ADMINS', cast=config.list)]
 
 # Configura a view padrao para ser exibida como home para o usuario
-settings.HOME_VIEW = config('HOME_VIEW', default='two_factor:login')
+settings.HOME_VIEW = config('HOME_VIEW', default='core>wallets')
 
 # Configura a obrigatoriedade no envio dos documentos
 settings.REQUIRE_USER_DOCUMENTS = config('REQUIRE_USER_DOCUMENTS', default=True, cast=config.boolean)
