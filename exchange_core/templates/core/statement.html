@@ -22,6 +22,11 @@
             <li class="nav-item">
               <a class="nav-link active" data-toggle="tab" href="#tab_overview" aria-expanded="true">{% trans "Overview" %}</a>
             </li>
+            {% if executed_orders is not None %}
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tab_executed_orders" aria-expanded="true">{% trans "Orders History" %}</a>
+            </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#tab_crypto_withdraw" aria-expanded="false">{% trans "Crypto Withdrawals" %}</a>
             </li>
@@ -56,6 +61,32 @@
           		</tbody>
           	</table>
           </div>
+          {% if executed_orders is not None %}
+          <div class="tab-pane" id="tab_executed_orders" aria-expanded="true">
+            <table class="table table-bordered table-v2 table-striped">
+              <thead>
+                <tr>
+                  <th>{% trans "Date" %}</th>
+                  <th>{% trans "Type" %}</th>
+                  <th>{% trans "Price" %}</th>
+                  <th>{% trans "Amount" %}</th>
+                  <th>{% trans "Total" %}</th>
+                </tr>
+              </thead>
+              <tbody class="tx-12">
+                {% for item in executed_orders %}
+                  <tr>
+                    <td>{{ item.modified }}</td>
+                    <td>{{ item.type_name }}</td>
+                    <td>{{ item.price }} - {{ item.market.base_currency.currency.symbol }}</td>
+                    <td>{{ item.amount }} - {{ item.market.currency.symbol }}</td>
+                    <td>{{ item.total|floatformat:8 }} - {{ item.market.base_currency.currency.symbol }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
           <div class="tab-pane" id="tab_crypto_withdraw" aria-expanded="false">
           	<table class="table table-bordered table-v2 table-striped">
           		<thead>

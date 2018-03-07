@@ -282,7 +282,7 @@ class CurrenciesAdmin(admin.ModelAdmin):
 @admin.register(Accounts)
 class AccountsAdmin(admin.ModelAdmin):
     list_display = ['user', 'currency', 'balance', 'deposit', 'reserved']
-    search_fields = ['user__username']
+    search_fields = ['user__username', 'user__email']
 
 
 @admin.register(Documents)
@@ -299,6 +299,31 @@ class DocumentsAdmin(admin.ModelAdmin):
 
     def get_document_2(self, obj):
         return obj.user.document_2
+
+    get_document_2.short_description = _("RG")
+    get_document_2.admin_order_field = _("user__document_2")
+
+
+@admin.register(BankWithdraw)
+class BankWithdrawAdmin(admin.ModelAdmin):
+    list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'account_type', 'account_number', 'amount', 'status']
+    list_filter = ['status']
+    search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
+
+    def get_user(self, obj):
+        return obj.account.user.username
+
+    get_user.short_description = _("Username")
+    get_user.admin_order_field = _("account__user__username")
+
+    def get_document_1(self, obj):
+        return obj.account.user.document_1
+
+    get_document_1.short_description = _("CPF")
+    get_document_1.admin_order_field = _("user__document_1")
+
+    def get_document_2(self, obj):
+        return obj.account.user.document_2
 
     get_document_2.short_description = _("RG")
     get_document_2.admin_order_field = _("user__document_2")

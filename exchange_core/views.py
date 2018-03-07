@@ -22,6 +22,13 @@ from exchange_core.base_views import MultiFormView
 from exchange_core import forms
 from exchange_core.models import Users, Accounts, BankAccounts, Documents, Statement, CryptoWithdraw, BankWithdraw
 
+# Importa do modulo Orderbook e armazena se o modulo existe
+try:
+    from exchange_orderbook.models import Orders
+    ORDER_EXCHANGE_MODULE_EXISTS = True
+except ImportError:
+    ORDER_EXCHANGE_MODULE_EXISTS = False
+
 
 class HomeView(TemplateView):
     def get(self, request):
@@ -197,4 +204,6 @@ class StatementView(TemplateView):
         context['statement'] = Statement.objects.filter(account__user=self.request.user)
         context['crypto_withdraw'] = CryptoWithdraw.objects.filter(account__user=self.request.user)
         context['bank_withdraw'] = BankWithdraw.objects.filter(account__user=self.request.user)
+        if ORDER_EXCHANGE_MODULE_EXISTS:
+            context['executed_orders'] = Orders.objects.filter(user=self.request.user, status=Orders.STATUS.executed)[0:50]
         return context
