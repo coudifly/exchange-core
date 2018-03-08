@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% block subject %}
-{{ project_name }} - Sua documentação foi reprovada {{ user.first_name }}
+{{ project_name }} - Your documentation has been disapproved {{ user.first_name }}
 {% endblock %}
 
 {% block html %}
@@ -87,6 +87,12 @@
   }
 </style>
 <![endif]-->
+  <!--[if !mso]><!-->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+  </style>
+  <!--<![endif]-->
   <style type="text/css">
     @media only screen and (min-width:480px) {
       .mj-column-per-100 {
@@ -117,36 +123,32 @@
                 <table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                   <tbody>
                     <tr>
-                      <td style="word-wrap:break-word;font-size:0;padding:10px 25px" align="center">
-                        <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0" align="center" border="0">
-                          <tbody>
-                            <tr>
-                              <td style="width:200px"><img alt="" height="auto" src="https://exchange.newcoin.cash/static/assets/images/logo-color.png" style="border:none;border-radius:0;display:block;font-size:13px;outline:0;text-decoration:none;width:100%;height:auto" width="200"></td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      <td style="word-wrap:break-word;font-size:0;padding:10px 25px" align="left">
+                        <div style="cursor:auto;color:#000;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:13px;line-height:22px;text-align:left">
+                          <h1>{{ project_name }}</h1>
+                        </div>
                       </td>
                     </tr>
                     <tr>
                       <td style="word-wrap:break-word;font-size:0;padding:10px 25px">
-                        <p style="font-size:1px;margin:0 auto;border-top:4px solid #f24158;width:100%"></p>
-                        <!--[if mso | IE]><table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="font-size:1px;margin:0px auto;border-top:4px solid #f24158;width:100%;" width="600"><tr><td style="height:0;line-height:0;"> </td></tr></table><![endif]-->
+                        <p style="font-size:1px;margin:0 auto;border-top:4px solid #ea0936;width:100%"></p>
+                        <!--[if mso | IE]><table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="font-size:1px;margin:0px auto;border-top:4px solid #ea0936;width:100%;" width="600"><tr><td style="height:0;line-height:0;"> </td></tr></table><![endif]-->
                       </td>
                     </tr>
                     <tr>
                       <td style="word-wrap:break-word;font-size:0;padding:10px 25px" align="left">
-                        <div style="cursor:auto;color:#f24158;font-family:helvetica;font-size:20px;line-height:22px;text-align:left">Prezado {{ user.first_name }}, sua documentação na NewCoin Cash foi reprovada pela nossa equipe.</div>
+                        <div style="cursor:auto;color:#ea0936;font-family:helvetica;font-size:20px;line-height:22px;text-align:left">Dear {{ user.first_name }}, your documentation on {{ project_name }} has been disapproved by our team.</div>
                       </td>
                     </tr>
                     <tr>
                       <td style="word-wrap:break-word;font-size:0;padding:10px 25px" align="left">
-                        <div style="cursor:auto;color:#222;font-family:helvetica;font-size:18px;line-height:22px;text-align:left">Acesse seu painel de usuário para verificar os motivos.</div>
+                        <div style="cursor:auto;color:#000;font-family:helvetica;font-size:20px;line-height:22px;text-align:left">Access your user panel to check the details.</div>
                       </td>
                     </tr>
                     <tr>
                       <td style="word-wrap:break-word;font-size:0;padding:10px 25px">
-                        <p style="font-size:1px;margin:0 auto;border-top:4px solid #f24158;width:100%"></p>
-                        <!--[if mso | IE]><table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="font-size:1px;margin:0px auto;border-top:4px solid #f24158;width:100%;" width="600"><tr><td style="height:0;line-height:0;"> </td></tr></table><![endif]-->
+                        <p style="font-size:1px;margin:0 auto;border-top:4px solid #f2103e;width:100%"></p>
+                        <!--[if mso | IE]><table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" style="font-size:1px;margin:0px auto;border-top:4px solid #f2103e;width:100%;" width="600"><tr><td style="height:0;line-height:0;"> </td></tr></table><![endif]-->
                       </td>
                     </tr>
                     <tr>
@@ -154,7 +156,7 @@
                         <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate" align="center" border="0">
                           <tbody>
                             <tr>
-                              <td style="border:none;border-radius:3px;color:#fff;cursor:auto;padding:10px 25px" align="center" valign="middle" bgcolor="#f24158"><a href="https://exchange.newcoin.cash" style="text-decoration:none;background:#f24158;color:#fff;font-family:Helvetica;font-size:13px;font-weight:400;line-height:120%;text-transform:none;margin:0" target="_blank">Abrir site da NewCoin.Cash</a></td>
+                              <td style="border:none;border-radius:3px;color:#fff;cursor:auto;padding:10px 25px" align="center" valign="middle" bgcolor="#2B3D51"><a href="https://demoexchange.herokuapp.com/" style="text-decoration:none;background:#2b3d51;color:#fff;font-family:Helvetica;font-size:13px;font-weight:400;line-height:120%;text-transform:none;margin:0" target="_blank">Open {{ project_name }} website</a></td>
                             </tr>
                           </tbody>
                         </table>

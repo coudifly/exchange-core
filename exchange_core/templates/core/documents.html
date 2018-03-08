@@ -7,7 +7,31 @@
 {% block content %}
     <h4 class="page-title"><i class="zmdi zmdi-receipt"></i> {% trans "Documents" %}</h4>
 
-        
+    {% if request.user.status == 'created' %}
+		<div class="alert alert-danger">
+					<h3>{% trans "Attention" %}!</h3>
+					{% blocktrans %}
+					Dear user.<br>
+					Any system features will only be available after your documentation has been approved.
+					Only PNG, JPG and JPEG image files are accepted, uploaded to PDF files.
+					Make sure that your documents are legible and according to the data entered in the initial register.
+					Due to the high demand for registrations, the deadline for validating your documents is up to 72 hours.
+					Regards, {{PROJECT_NAME}} - Support team
+					{% endblocktrans %}
+  	</div>
+    {% endif %}
+		{% if request.user.status == 'disapproved_documentation' %}
+		<div class="alert alert-danger">
+					<h3>{% trans "Disapproved Documents" %}!</h3>
+					{% blocktrans %}
+					Dear user, your documents have been disapproved by our staff, <br>
+						please check if your pictures are legible and in good quality.<br>
+						We also do not accept other people's documents or forged data.<br>
+						Thanks.
+					{% endblocktrans %}
+		</div>
+		{% endif %}
+
 		<div class="card-box">
 			<div class="row">
 				<div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
@@ -31,7 +55,7 @@
 			                	</div>
 			                </form>
 		            	</div>
-		                
+
 		                <div class="card-footer">
 			                {% if id_front_instance.file %}
 			                	<img src="{% thumbnail id_front_instance.file 600x250 crop='smart' %}" class="img-fluid">
@@ -44,7 +68,7 @@
 
 	            <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
 	            	<h6 class="text-muted m-t-15 m-b-15 text-center text-uppercase"><i class="zmdi zmdi-picture-in-picture"></i> {% trans "Drivers License or ID - Back" %}</h6>
-		            
+
 		            <div class="card">
 		            	<div class="card-body">
 		            		{% if id_back_instance.status %}
@@ -62,7 +86,7 @@
 			                	</div>
 			                </form>
 		            	</div>
-		                
+
 		                <div class="card-footer">
 			                {% if id_back_instance.file %}
 			                	<img src="{% thumbnail id_back_instance.file 600x250 crop='smart' %}" class="img-fluid">
@@ -76,7 +100,7 @@
 	            <div class="col-xs-12 col-md-6 col-lg-6 col-xl-4">
 
 		            <h6 class="text-muted m-t-15 m-b-15 text-center text-uppercase"><i class="zmdi zmdi-picture-in-picture"></i> {% trans "Document Selfie" %}</h6>
-		            
+
 		            <div class="card">
 		            	<div class="card-body">
 		            		{% if selfie_instance.status %}
@@ -94,7 +118,7 @@
 			                	</div>
 			                </form>
 		            	</div>
-		                
+
 		                <div class="card-footer">
 			                {% if selfie_instance.file %}
 			                	<img src="{% thumbnail selfie_instance.file 600x250 crop='smart' %}" class="img-fluid">
@@ -105,7 +129,7 @@
 		            </div>
 	            </div>
 	        </div>
-		</div>        
+		</div>
 
 
 {% endblock %}

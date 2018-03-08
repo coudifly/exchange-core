@@ -2,31 +2,32 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-17 11:01-0200\n"
+"POT-Creation-Date: 2018-03-08 11:08-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: jorge ugalde <jorgeac66@gmail.com>, 2018\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/neosacode/teams/83636/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/neosacode/"
+"teams/83636/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: __init__.py:171
+#: __init__.py:185
 msgid "English"
 msgstr "Inglês "
 
-#: __init__.py:172
+#: __init__.py:186
 msgid "Portuguese"
 msgstr "Português"
 
-#: __init__.py:173
+#: __init__.py:187
 msgid "Spanish"
 msgstr "Espanhol"
 
@@ -34,79 +35,125 @@ msgstr "Espanhol"
 msgid "Exchange"
 msgstr "Exchange"
 
+#: forms.py:15
+msgid "First name"
+msgstr ""
+
 #: forms.py:16
+msgid "Last name"
+msgstr ""
+
+#: forms.py:17
 msgid "Confirm e-mail"
 msgstr "Confirmar e-mail"
 
-#: forms.py:17 forms.py:33
+#: forms.py:18 forms.py:36
 msgid "Password"
 msgstr "Senha"
 
-#: forms.py:27
+#: forms.py:19 models.py:297 models.py:322
+msgid "CPF"
+msgstr ""
+
+#: forms.py:20 models.py:303 models.py:328
+msgid "RG"
+msgstr ""
+
+#: forms.py:30
 msgid "The e-mails aren't equal"
 msgstr "Os e-mails não são iguais"
 
-#: forms.py:58
+#: forms.py:61
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: forms.py:71 forms.py:78
+#: forms.py:74 forms.py:81
 msgid "The passwords aren't equals"
 msgstr "As senhas não são iguais"
 
-#: models.py:29
+#: models.py:38
 msgid "Sponsor"
 msgstr "Patrocinador"
 
-#: models.py:30 templates/core/statement.html:70
-#: templates/core/statement.html:103
+#: models.py:39 models.py:99 templates/core/statement.html:101
+#: templates/core/statement.html:134
 msgid "Status"
 msgstr "Status"
 
-#: models.py:43 models.py:79
+#: models.py:55 models.py:118
 msgid "User"
 msgstr "Usuário"
 
-#: models.py:44
+#: models.py:56
 msgid "Users"
 msgstr "Usuários"
 
-#: models.py:62 templates/core/wallets.html:29
+#: models.py:96 templates/core/wallets.html:29
 msgid "Icon"
 msgstr "Icone"
 
-#: models.py:63
+#: models.py:101
 msgid "Withdraw Min"
 msgstr "Retirada Mínima"
 
-#: models.py:64
+#: models.py:102
 msgid "Withdraw Max"
 msgstr "Retirada Máxima"
 
-#: models.py:65
-msgid "Withdraw Fee"
+#: models.py:103
+#, fuzzy
+#| msgid "Withdraw Fee"
+msgid "Withdraw Percent Fee"
 msgstr "Taxa de Retirada"
 
-#: models.py:78
+#: models.py:104
+#, fuzzy
+#| msgid "Withdraw Fee"
+msgid "Withdraw Fixed Fee"
+msgstr "Taxa de Retirada"
+
+#: models.py:117
 msgid "Currency"
 msgstr "Moeda"
 
-#: models.py:179
+#: models.py:199
+msgid "Disapproved reason"
+msgstr ""
+
+#: models.py:225
 msgid "Account"
 msgstr "Conta"
 
-#: models.py:180 templates/core/statement.html:42
+#: models.py:226 templates/core/statement.html:47
 msgid "Description"
 msgstr "Descrição"
 
-#: models.py:182
+#: models.py:228 templates/core/statement.html:70
 msgid "Type"
 msgstr "Tipo"
 
-#: models.py:187 models.py:188 templates/core/index.html:147
+#: models.py:233 models.py:234 templates/core/index.html:184
 #: templates/core/statement.html:15
 msgid "Statement"
 msgstr "Extrato"
+
+#: models.py:298 models.py:323
+msgid "user__document_1"
+msgstr ""
+
+#: models.py:304 models.py:329
+msgid "user__document_2"
+msgstr ""
+
+#: models.py:316
+#, fuzzy
+#| msgid "User"
+msgid "Username"
+msgstr "Usuário"
+
+#: models.py:317
+msgid "account__user__username"
+msgstr ""
 
 #: templates/account/delete.html:7 templates/account/delete.html:10
 msgid "Delete Account"
@@ -177,13 +224,17 @@ msgstr "E-mail de notificação de mudança de senha"
 #: templates/account/email/password_reset.txt:1
 #, python-format
 msgid ""
-"You're receiving this email because you or someone else has requested a password for your user account at %(site_name)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
+"You're receiving this email because you or someone else has requested a "
+"password for your user account at %(site_name)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password.\n"
 "\n"
 "%(password_reset_url)s\n"
 msgstr ""
-"Você esta recebendo este e-mail porque alguém solicitou mudança de senha para seu usuário em  %(site_name)s.\n"
-"Se você não fez esta solicitação por favor ignore esta mensagem. Clique no link abaixo para mudar sua senha , se assim desejar.\n"
+"Você esta recebendo este e-mail porque alguém solicitou mudança de senha "
+"para seu usuário em  %(site_name)s.\n"
+"Se você não fez esta solicitação por favor ignore esta mensagem. Clique no "
+"link abaixo para mudar sua senha , se assim desejar.\n"
 "\n"
 "%(password_reset_url)s\n"
 
@@ -215,19 +266,26 @@ msgstr "Confirmar seu endereço de e-mail"
 msgid ""
 "We have sent you an email to <b>%(email)s</b> for verification. Follow the "
 "link provided to finalize the signup process. If you do not receive it "
-"within a few minutes, contact us at <a "
-"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+"within a few minutes, contact us at <a href=\"mailto:%(THEME_CONTACT_EMAIL)s"
+"\">%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
-"Nós lhe enviamos um e-mail para <b>%(email)s</b> para verificação. Clique no"
-" link fornecido no e-mail para finalizar seu processo de cadastro. Se você "
+"Nós lhe enviamos um e-mail para <b>%(email)s</b> para verificação. Clique no "
+"link fornecido no e-mail para finalizar seu processo de cadastro. Se você "
 "não receber o e-mail de confirmação em poucos minutos, por favor entre em "
-"contato conosco através do e-mail <a "
-"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+"contato conosco através do e-mail <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
+"%(THEME_CONTACT_EMAIL)s</a>."
 
-#: templates/account/email_confirmation_sent.html:11
-#: templates/account/logout.html:16
-msgid "Go back"
-msgstr "Voltar"
+#: templates/account/email_confirmation_sent.html:14
+msgid ""
+"Check your spam box. If the email does not arrive in 5 minutes, use the "
+"button below to resend it."
+msgstr ""
+"Verifique a sua caixa de spam. Caso o e-mail não chegue em 5 minutos, "
+"utilize o botão abaixo para reenviá-lo."
+
+#: templates/account/email_confirmation_sent.html:18
+msgid "Resend confirmation e-mail"
+msgstr "Reenviar e-mail de confirmação"
 
 #: templates/account/email_confirmed.html:5
 #: templates/account/email_confirmed.html:8
@@ -268,6 +326,10 @@ msgstr "Sair"
 msgid "Are you sure you want to log out?"
 msgstr "Tem certeza que deseja sair?"
 
+#: templates/account/logout.html:16
+msgid "Go back"
+msgstr "Voltar"
+
 #: templates/account/password_change.html:8
 #: templates/account/password_change.html:14
 msgid "Change password"
@@ -298,12 +360,12 @@ msgstr "Mudar minha senha"
 #: templates/account/password_reset.html:26
 #, python-format
 msgid ""
-"If you have any trouble resetting your password, contact us at <a "
-"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+"If you have any trouble resetting your password, contact us at <a href="
+"\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
 "Se você teve qualquer problema com a mudança de sua senha, por favor entre "
-"em contato através do e-mail <a "
-"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+"em contato através do e-mail <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
+"%(THEME_CONTACT_EMAIL)s</a>."
 
 #: templates/account/password_reset_sent.html:8
 msgid "Password reset sent"
@@ -313,12 +375,12 @@ msgstr "Mudança de senha enviada"
 #, python-format
 msgid ""
 "We have sent you an email. If you do not receive it within a few minutes, "
-"try resending or contact us at <a "
-"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+"try resending or contact us at <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
+"%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
 "Nós lhe enviamos um e-mail. Se você não recebê-lo em alguns minutos, "
-"solicite novamente ou entre em contato através do e-mail <a "
-"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+"solicite novamente ou entre em contato através do e-mail <a href=\"mailto:"
+"%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
 
 #: templates/account/password_reset_sent.html:19
 msgid "Resend"
@@ -328,12 +390,12 @@ msgstr "Re-enviar"
 #, python-format
 msgid ""
 "We have resent the password email. If you do not receive it within a few "
-"minutes, contact us at <a "
-"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+"minutes, contact us at <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
+"%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
-"Re-enviamos o e-mail com a mudança de senha. Se você não recebê-lo em alguns"
-" minuos, entre em contato através do e-mail <a "
-"href=\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
+"Re-enviamos o e-mail com a mudança de senha. Se você não recebê-lo em alguns "
+"minuos, entre em contato através do e-mail <a href=\"mailto:"
+"%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
 
 #: templates/account/password_reset_token.html:11
 msgid "Set your new password"
@@ -351,8 +413,7 @@ msgid ""
 "used.  Please request a <a href=\"%(url)s\">new password reset</a>."
 msgstr ""
 "O Link para a mudança de senha é inválido, possivelmente porque já foi "
-"utilizado.  Por Favor solicite <a href=\"%(url)s\">nova mudança de "
-"senha</a>."
+"utilizado.  Por Favor solicite <a href=\"%(url)s\">nova mudança de senha</a>."
 
 #: templates/account/settings.html:12
 msgid "My Avatar"
@@ -385,8 +446,7 @@ msgstr "Clique aqui para saber porque."
 #: templates/account/settings.html:59
 msgid ""
 "This bank account will be used for the withdrawals made with the BRL account"
-msgstr ""
-"Esta conta bancária será utilizada para realizar suas retidas em Reais"
+msgstr "Esta conta bancária será utilizada para realizar suas retidas em Reais"
 
 #: templates/account/signup-form.html:15
 #: templates/two_factor/core/login.html:102
@@ -414,56 +474,124 @@ msgstr "Se você recebeu um código de cadastro coloque-o no campo abaixo."
 msgid "Your signup code..."
 msgstr "Seu código de cadastro..."
 
-#: templates/core/documents.html:8 templates/core/index.html:108
+#: templates/core/documents.html:8 templates/core/index.html:140
 msgid "Documents"
 msgstr "Documentos"
 
-#: templates/core/documents.html:14
+#: templates/core/documents.html:12
+#| msgid "Actions"
+msgid "Attention"
+msgstr "Atenção"
+
+#: templates/core/documents.html:13
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\tDear user.<br>\n"
+"\t\t\t\t\tAny system features will only be available after your "
+"documentation has been approved.\n"
+"\t\t\t\t\tOnly PNG, JPG and JPEG image files are accepted, uploaded to PDF "
+"files.\n"
+"\t\t\t\t\tMake sure that your documents are legible and according to the "
+"data entered in the initial register.\n"
+"\t\t\t\t\tDue to the high demand for registrations, the deadline for "
+"validating your documents is up to 72 hours.\n"
+"\t\t\t\t\tRegards, %(PROJECT_NAME)s - Support team\n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\tPrezado usuário.<br>\n"
+"\t\t\t\t\tQuaisquer funcionalidades do sistema só estarão disponíveis após "
+"a aprovação de sua documentação.\n"
+"\t\t\t\t\tSão aceitos apenas arquivos de imagem PNG, JPG e JPEG, vedado upload de arquivos. "
+"em PDF.\n"
+"\t\t\t\t\tCertifique-se de que seus documentos encontram-se legíveis e de acordo com  "
+"os dados preenchidos no cadastro inicial.\n"
+"\t\t\t\t\tDevido à alta demanda de cadastros, o prazo para validação "
+"de seus documentos é de até 72 horas.\n"
+"\t\t\t\t\tAtenciosamente, %(PROJECT_NAME)s - Suporte Técnico\n"
+"\t\t\t\t\t"
+
+#: templates/core/documents.html:25
+#| msgid "Documents"
+msgid "Disapproved Documents"
+msgstr "Documentos repovados"
+
+#: templates/core/documents.html:26
+msgid ""
+"\n"
+"\t\t\t\t\tDear user, your documents have been disapproved by our staff, "
+"<br>\n"
+"\t\t\t\t\t\tplease check if your pictures are legible and in good quality."
+"<br>\n"
+"\t\t\t\t\t\tWe also do not accept other people's documents or forged data."
+"<br>\n"
+"\t\t\t\t\t\tThanks.\n"
+"\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\tCaro usuário, seus documentos foram reprovados pela nossa equipe, "
+"<br>\n"
+"\t\t\t\t\t\tverifique por favor se suas imagens estão legíveis e em boa "
+"qualidade.<br>\n"
+"\t\t\t\t\t\tNão aceitamos também documentos de outras pessoas nem dados "
+"falsificados.<br>\n"
+"\t\t\t\t\t\tAbraços.\n"
+"\t\t\t\t\t"
+
+
+#: templates/core/documents.html:38
 msgid "Drivers License or ID - Front"
 msgstr "Frente da Carteira de Motorista ou RG"
 
-#: templates/core/documents.html:30 templates/core/documents.html:62
-#: templates/core/documents.html:95
+#: templates/core/documents.html:53 templates/core/documents.html:84
+#: templates/core/documents.html:116
 msgid "Upload"
 msgstr "Carregar"
 
-#: templates/core/documents.html:47
+#: templates/core/documents.html:70
 msgid "Drivers License or ID - Back"
 msgstr "Verso da carteira de Motorista ou RG"
 
-#: templates/core/documents.html:80
+#: templates/core/documents.html:102
 msgid "Document Selfie"
 msgstr "Selfie com Documento"
 
-#: templates/core/index.html:98
+#: templates/core/index.html:108
+#, fuzzy
+#| msgid "Change password"
+msgid "Change for this"
+msgstr "Nova Senha"
+
+#: templates/core/index.html:130
 msgid "Hi, "
 msgstr "Olá,"
 
-#: templates/core/index.html:103
+#: templates/core/index.html:135
 msgid "Two Factor Auth"
 msgstr "Autenticação de 2 Fatores"
 
-#: templates/core/index.html:113
+#: templates/core/index.html:145
 msgid "Settings"
 msgstr "Configurações"
 
-#: templates/core/index.html:119
+#: templates/core/index.html:151
 msgid "Logout"
 msgstr "Sair"
 
-#: templates/core/index.html:141 templates/core/wallets.html:9
+#: templates/core/index.html:173 templates/core/wallets.html:9
 msgid "Wallets"
 msgstr "Carteiras"
 
-#: templates/core/index.html:144
+#: templates/core/index.html:179
 msgid "Orderbook"
 msgstr "Livro de Ofertas"
 
-#: templates/core/index.html:150
+#: templates/core/index.html:190
 msgid "Comissions"
 msgstr "Comissões"
 
-#: templates/core/index.html:176
+#: templates/core/index.html:217
 msgid "Two Factor Authentication"
 msgstr "Autenticação de 2 fatores"
 
@@ -497,61 +625,77 @@ msgstr "Configurar conta bancária"
 msgid "Overview"
 msgstr "Resumo"
 
-#: templates/core/statement.html:26
+#: templates/core/statement.html:27
+msgid "Orders History"
+msgstr ""
+
+#: templates/core/statement.html:31
 msgid "Crypto Withdrawals"
 msgstr "Retiradas de Crypto"
 
-#: templates/core/statement.html:29
+#: templates/core/statement.html:34
 msgid "BRL Withdrawals"
 msgstr "Saque em Reais"
 
-#: templates/core/statement.html:39 templates/core/statement.html:63
-#: templates/core/statement.html:93
+#: templates/core/statement.html:44 templates/core/statement.html:94
+#: templates/core/statement.html:124
 msgid "Created"
 msgstr "Criado"
 
-#: templates/core/statement.html:40 templates/core/statement.html:64
-#: templates/core/statement.html:94
+#: templates/core/statement.html:45 templates/core/statement.html:95
+#: templates/core/statement.html:125
 msgid "Coin"
 msgstr "Moeda"
 
-#: templates/core/statement.html:41 templates/core/statement.html:65
-#: templates/core/statement.html:95 templates/core/wallets.html:31
+#: templates/core/statement.html:46 templates/core/statement.html:96
+#: templates/core/statement.html:126 templates/core/wallets.html:31
 msgid "Symbol"
 msgstr "Símbolo"
 
-#: templates/core/statement.html:43 templates/core/statement.html:69
-#: templates/core/statement.html:98
+#: templates/core/statement.html:48 templates/core/statement.html:72
+#: templates/core/statement.html:100 templates/core/statement.html:129
 msgid "Amount"
 msgstr "Quantidade"
 
-#: templates/core/statement.html:66 templates/core/statement.html:96
+#: templates/core/statement.html:69
+msgid "Date"
+msgstr ""
+
+#: templates/core/statement.html:71
+msgid "Price"
+msgstr ""
+
+#: templates/core/statement.html:73
+msgid "Total"
+msgstr ""
+
+#: templates/core/statement.html:97 templates/core/statement.html:127
 #: templates/core/wallets.html:33
 msgid "Deposit"
 msgstr "Depósito"
 
-#: templates/core/statement.html:67 templates/core/statement.html:97
+#: templates/core/statement.html:98 templates/core/statement.html:128
 #: templates/core/wallets.html:34
 msgid "Reserved"
 msgstr "Reservado"
 
-#: templates/core/statement.html:68
+#: templates/core/statement.html:99
 msgid "Address"
 msgstr "Endereço"
 
-#: templates/core/statement.html:99
+#: templates/core/statement.html:130
 msgid "Bank"
 msgstr "Banco"
 
-#: templates/core/statement.html:100
+#: templates/core/statement.html:131
 msgid "Agency"
 msgstr "Agência"
 
-#: templates/core/statement.html:101
+#: templates/core/statement.html:132
 msgid "Account Type"
 msgstr "Tipo de conta"
 
-#: templates/core/statement.html:102
+#: templates/core/statement.html:133
 msgid "Account Number"
 msgstr "Número da Conta"
 
@@ -594,27 +738,22 @@ msgstr "Anterior"
 msgid "next"
 msgstr "próximo"
 
-#: views.py:129
+#: views.py:55
+msgid "Confirmation e-mail resent!"
+msgstr "Confirmação de e-mail reenviada!"
+
+#: views.py:150
 msgid "Your bank account settings has been updated"
 msgstr "As configurações de sua conta bancária foram atualizadas"
 
-#: views.py:138
+#: views.py:159
 msgid "Your avatar image has been updated"
 msgstr "A imagem do seu Avatar foi atualizada"
 
-#: views.py:146
+#: views.py:167
 msgid "Your password has been updated"
 msgstr "Sua senha foi atualizada"
 
-#: views.py:173
+#: views.py:194
 msgid "Document has been updated!"
 msgstr "Seus documentos foram atualizados!"
-
-msgid "Check your spam box. If the email does not arrive in 5 minutes, use the button below to resend it."
-msgstr "Verifique a sua caixa de spam. Caso o e-mail não chegue em 5 minutos, utilize o botão abaixo para reenviá-lo."
-
-msgid "Resend confirmation e-mail"
-msgstr "Reenviar e-mail de confirmação"
-
-msgid "Confirmation e-mail resent!"
-msgstr "Confirmação de e-mail reenviada!"
