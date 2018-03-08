@@ -265,7 +265,7 @@ def create_currency_user_accounts(sender, instance, created, **kwargs):
 class UsersAdmin(admin.ModelAdmin):
     list_display = ['username', 'sponsor', 'first_name', 'last_name', 'email', 'created']
     list_filter = ['status', 'type']
-    search_fields = ['username', 'document_1', 'document_2']
+    search_fields = ['username', 'email', 'document_1', 'document_2']
     ordering = ('-created',)
 
 
@@ -289,7 +289,7 @@ class AccountsAdmin(admin.ModelAdmin):
 class DocumentsAdmin(admin.ModelAdmin):
     list_display = ['user', 'file', 'type', 'get_document_1', 'get_document_2', 'status']
     list_filter = ['type', 'status']
-    search_fields = ['user__username', 'user__document_1', 'user__document_2']
+    search_fields = ['user__username', 'user__email', 'user__document_1', 'user__document_2']
 
     def get_document_1(self, obj):
         return obj.user.document_1

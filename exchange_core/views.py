@@ -26,7 +26,7 @@ from exchange_core.models import Users, Accounts, BankAccounts, Documents, State
 try:
     from exchange_orderbook.models import Orders
     ORDER_EXCHANGE_MODULE_EXISTS = True
-except ImportError:
+except (ImportError, RuntimeError):
     ORDER_EXCHANGE_MODULE_EXISTS = False
 
 
@@ -100,7 +100,7 @@ class WalletsView(TemplateView):
     def get(self, request):
         wallets = []
 
-        for account in Accounts.objects.filter(user=request.user):
+        for account in Accounts.objects.select_related('currency').filter(user=request.user):
 
             if account.currency.status != Currencies.STATUS.inactive:
                 icon = account.currency.icon.url if account.currency.icon else None
@@ -180,8 +180,7 @@ class DocumentsView(MultiFormView):
     }
 
     def get_instance(self, type_name):
-        documents = Documents.objects.filter(user=self.request.user, type=type_name)
-
+        documents = Documents.objects.selected_related('user').filter(user=self.request.user, type=type_name)
         if documents.exists():
             return documents.first()
 
@@ -190,7 +189,6 @@ class DocumentsView(MultiFormView):
         instance.type = type_name
         instance.user = self.request.user
         instance.save()
-
         messages.success(self.request, _("Document has been updated!"))
         return redirect(reverse('core>documents'))
 
@@ -205,5 +203,5 @@ class StatementView(TemplateView):
         context['crypto_withdraw'] = CryptoWithdraw.objects.filter(account__user=self.request.user)
         context['bank_withdraw'] = BankWithdraw.objects.filter(account__user=self.request.user)
         if ORDER_EXCHANGE_MODULE_EXISTS:
-            context['executed_orders'] = Orders.objects.filter(user=self.request.user, status=Orders.STATUS.executed)[0:50]
+            context['executed_orders'] = Orders.objects.select_related('market__base_currency__currency', 'market__currency').filter(user=self.request.user, status=Orders.STATUS.executed)[0:50]
         return context
