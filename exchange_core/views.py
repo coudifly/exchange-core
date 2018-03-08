@@ -180,7 +180,7 @@ class DocumentsView(MultiFormView):
     }
 
     def get_instance(self, type_name):
-        documents = Documents.objects.selected_related('user').filter(user=self.request.user, type=type_name)
+        documents = Documents.objects.select_related('user').filter(user=self.request.user, type=type_name)
         if documents.exists():
             return documents.first()
 
