@@ -101,6 +101,10 @@ settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL', default=
 # https://github.com/yandex/django_replicated
 settings.DATABASE_ROUTERS = ['django_replicated.router.ReplicationRouter']
 
+settings.REPLICATED_VIEWS_OVERRIDES = {
+    '/admin/*': 'master',
+}
+
 slave_number = 1
 while True:
     try:
