@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 
 from decimal import Decimal
 from json import JSONEncoder
@@ -9,6 +10,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from prettyconf.configuration import Configuration
+from prettyconf.exceptions import UnknownConfiguration
 
 from exchange_core.casts import pairs
 
@@ -81,10 +83,11 @@ settings.MIDDLEWARE += [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
     'account.middleware.ExpiredPasswordMiddleware',
-    'session_security.middleware.SessionSecurityMiddleware',
-    'dj_pagination.middleware.PaginationMiddleware',
+    'exchange_core.middleware.CoreSessionSecurityMiddleware',
     'exchange_core.middleware.UserDocumentsMiddleware',
-    'exchange_core.middleware.CheckUserLoggedInMiddleware'
+    'exchange_core.middleware.CheckUserLoggedInMiddleware',
+    'dj_pagination.middleware.PaginationMiddleware',
+    'django_replicated.middleware.ReplicationMiddleware',
 ]
 
 # Define a model do usuário como sendo a model Users desse modulo
@@ -93,6 +96,21 @@ settings.AUTH_USER_MODEL = PACKAGE_NAME + '.Users'
 # Define o template do Two Factor para ser usado no login
 settings.LOGIN_URL = 'two_factor:login'
 settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL', default='core>wallets'))
+
+# Configuracoes de database replication
+# https://github.com/yandex/django_replicated
+settings.DATABASE_ROUTERS = ['django_replicated.router.ReplicationRouter']
+
+slave_number = 1
+while True:
+    try:
+        database_key = 'slave{}'.format(slave_number)
+        database_url = dj_database_url.parse(config('DATABASE_SLAVE{}'.format(slave_number)))
+        settings.DATABASES[database_key] = database_url
+        settings.REPLICATED_DATABASE_SLAVES.append(database_key)
+        slave_number += 1
+    except UnknownConfiguration:
+        break
 
 # Adiciona o contexto do pacote django-user-accounts para os templates
 # Adiciona o contexto do pacote django-session-security para os templates
