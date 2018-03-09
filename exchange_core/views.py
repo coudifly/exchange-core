@@ -11,6 +11,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
+from django.db import transaction
 from account.decorators import login_required
 from account.models import EmailAddress
 from exchange_core.models import Currencies
@@ -185,11 +186,19 @@ class DocumentsView(MultiFormView):
             return documents.first()
 
     def form_valid(self, form, type_name):
-        instance = form.save(commit=False)
-        instance.type = type_name
-        instance.user = self.request.user
-        instance.save()
-        messages.success(self.request, _("Document has been updated!"))
+        with transaction.atomic():
+            instance = form.save(commit=False)
+            instance.type = type_name
+            instance.user = self.request.user
+            instance.save()
+
+            user = self.request.user
+
+            if user.status == Users.STATUS.disapproved_documentation:
+                user.status = Users.STATUS.created
+                user.save()
+
+            messages.success(self.request, _("Document has been updated!"))
         return redirect(reverse('core>documents'))
 
 
