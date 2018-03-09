@@ -208,9 +208,9 @@ class StatementView(TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
-        context['statement'] = Statement.objects.filter(account__user=self.request.user)
-        context['crypto_withdraw'] = CryptoWithdraw.objects.filter(account__user=self.request.user)
-        context['bank_withdraw'] = BankWithdraw.objects.filter(account__user=self.request.user)
+        context['statement'] = Statement.objects.filter(account__user=self.request.user).order_by('-created')
+        context['crypto_withdraw'] = CryptoWithdraw.objects.filter(account__user=self.request.user).order_by('-created')
+        context['bank_withdraw'] = BankWithdraw.objects.filter(account__user=self.request.user).order_by('-created')
         if ORDER_EXCHANGE_MODULE_EXISTS:
-            context['executed_orders'] = Orders.objects.select_related('market__base_currency__currency', 'market__currency').filter(user=self.request.user, status=Orders.STATUS.executed)[0:50]
+            context['executed_orders'] = Orders.objects.select_related('market__base_currency__currency', 'market__currency').filter(user=self.request.user, status=Orders.STATUS.executed).order_by('-created')[0:50]
         return context

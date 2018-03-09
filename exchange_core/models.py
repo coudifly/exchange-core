@@ -9,6 +9,7 @@ from django.contrib.postgres.fields import JSONField
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.contrib import messages
 from model_utils.models import TimeStampedModel, StatusModel
 from model_utils import Choices
 from cities.models import Country, Region, City
@@ -143,7 +144,7 @@ class BankAccounts(TimeStampedModel, BaseModel):
 
 # Base class para saques
 class BaseWithdraw(models.Model):
-    STATUS = Choices('requested', 'paid')
+    STATUS = Choices('requested', 'reversed', 'paid')
 
     deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
     reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'))
@@ -162,6 +163,8 @@ class BaseWithdraw(models.Model):
             return 'warning'
         if self.status == self.STATUS.paid:
             return 'success'
+        if self.status == self.STATUS.reversed:
+            return 'info'
 
     # Valor do saque com desconto do fee cobrado
     @property
@@ -220,7 +223,7 @@ class Documents(TimeStampedModel, BaseModel):
 
 # Extrato das contas
 class Statement(TimeStampedModel, BaseModel):
-    TYPES = Choices('deposit', 'withdraw')
+    TYPES = Choices('deposit', 'reverse', 'withdraw')
 
     account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
     description = models.CharField(max_length=100, verbose_name=_("Description"))
@@ -306,9 +309,63 @@ class DocumentsAdmin(admin.ModelAdmin):
 
 @admin.register(BankWithdraw)
 class BankWithdrawAdmin(admin.ModelAdmin):
-    list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'account_type', 'account_number', 'amount', 'status']
+    list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'account_type', 'account_number', 'amount', 'fee', 'status']
     list_filter = ['status']
     search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
+
+    def get_user(self, obj):
+        return obj.account.user.username
+
+    get_user.short_description = _("Username")
+    get_user.admin_order_field = _("account__user__username")
+
+    def get_document_1(self, obj):
+        return obj.account.user.document_1
+
+    get_document_1.short_description = _("CPF")
+    get_document_1.admin_order_field = _("user__document_1")
+
+    def get_document_2(self, obj):
+        return obj.account.user.document_2
+
+    get_document_2.short_description = _("RG")
+    get_document_2.admin_order_field = _("user__document_2")
+
+
+def reverse_crypto_withdraw(modeladmin, request, queryset):
+    with transaction.atomic():
+        for crypto_withdraw in queryset.select_related('account__user', 'account__currency'):
+            account = crypto_withdraw.account
+            account.deposit += abs(crypto_withdraw.amount)
+            account.save()
+
+            statement = Statement()
+            statement.account = account
+            statement.type = Statement.TYPES.reverse
+            statement.description = _("Reverse")
+            statement.save()
+
+            crypto_withdraw.status = CryptoWithdraw.STATUS.reversed
+            crypto_withdraw.save()
+
+            messages.success(request, _("{} amount reversed to {}").format(abs(crypto_withdraw.amount), account.user.username))
+
+
+
+reverse_crypto_withdraw.short_description = _("Reverse selected crypto withdraw")
+
+@admin.register(CryptoWithdraw)
+class CryptoWithdrawAdmin(admin.ModelAdmin):
+    list_display = ['get_user', 'get_document_1', 'get_document_2', 'deposit', 'reserved', 'get_coin', 'amount', 'fee', 'status']
+    list_filter = ['status']
+    search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
+    actions = [reverse_crypto_withdraw]
+
+    def get_coin(self, obj):
+        return obj.account.currency.name
+
+    get_coin.short_description = _("Currency")
+    get_coin.admin_order_field = _("account__currency__name")
 
     def get_user(self, obj):
         return obj.account.user.username
