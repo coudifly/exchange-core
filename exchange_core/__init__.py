@@ -99,6 +99,7 @@ settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL', default=
 
 # Configuracoes de database replication
 # https://github.com/yandex/django_replicated
+settings.DATABASES['default']['CONN_MAX_AGE'] = None
 settings.DATABASE_ROUTERS = ['django_replicated.router.ReplicationRouter']
 
 settings.REPLICATED_VIEWS_OVERRIDES = {
@@ -111,6 +112,7 @@ while True:
         database_key = 'slave{}'.format(slave_number)
         database_url = dj_database_url.parse(config('DATABASE_SLAVE{}'.format(slave_number)))
         settings.DATABASES[database_key] = database_url
+        settings.DATABASES[database_key]['CONN_MAX_AGE'] = None
         settings.REPLICATED_DATABASE_SLAVES.append(database_key)
         slave_number += 1
     except UnknownConfiguration:
