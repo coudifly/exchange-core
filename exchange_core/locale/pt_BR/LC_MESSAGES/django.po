@@ -37,11 +37,11 @@ msgstr "Exchange"
 
 #: forms.py:15
 msgid "First name"
-msgstr ""
+msgstr "Nome"
 
 #: forms.py:16
 msgid "Last name"
-msgstr ""
+msgstr "Sobrenome"
 
 #: forms.py:17
 msgid "Confirm e-mail"
@@ -118,7 +118,7 @@ msgstr "Moeda"
 
 #: models.py:199
 msgid "Disapproved reason"
-msgstr ""
+msgstr "Motivo da rejeição"
 
 #: models.py:225
 msgid "Account"
@@ -627,7 +627,7 @@ msgstr "Resumo"
 
 #: templates/core/statement.html:27
 msgid "Orders History"
-msgstr ""
+msgstr "Histórico de Ordens"
 
 #: templates/core/statement.html:31
 msgid "Crypto Withdrawals"
@@ -659,15 +659,15 @@ msgstr "Quantidade"
 
 #: templates/core/statement.html:69
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: templates/core/statement.html:71
 msgid "Price"
-msgstr ""
+msgstr "Preço"
 
 #: templates/core/statement.html:73
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: templates/core/statement.html:97 templates/core/statement.html:127
 #: templates/core/wallets.html:33
