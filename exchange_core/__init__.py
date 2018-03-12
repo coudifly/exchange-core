@@ -87,7 +87,6 @@ settings.MIDDLEWARE += [
     'exchange_core.middleware.UserDocumentsMiddleware',
     'exchange_core.middleware.CheckUserLoggedInMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
-    'django_replicated.middleware.ReplicationMiddleware',
 ]
 
 # Define a model do usuário como sendo a model Users desse modulo
