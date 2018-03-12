@@ -29,7 +29,6 @@ REQUIREMENTS = [
 	'django-cities',
 	'django-localflavor',
 	'django-mathfilters',
-	'django-replicated',
 	'gevent',
 ]
 
