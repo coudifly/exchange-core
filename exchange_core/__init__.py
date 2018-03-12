@@ -99,6 +99,14 @@ settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL', default=
 
 # Configuracoes de database replication
 # https://github.com/yandex/django_replicated
+settings.DATABASE_USE_KEY_POOL = config('DATABASE_USE_KEY_POOL', default=False, cast=config.boolean)
+
+DATABASE_KEY = 'DATABASE_URL'
+
+if settings.DATABASE_USE_KEY_POOL:
+    DATABASE_KEY = 'DATABASE_CONNECTION_POOL_URL'
+
+settings.DATABASES['default'] = dj_database_url.parse(config(DATABASE_KEY))
 settings.DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 settings.DATABASE_ROUTERS = ['django_replicated.router.ReplicationRouter']
 
