@@ -96,16 +96,12 @@ settings.AUTH_USER_MODEL = PACKAGE_NAME + '.Users'
 settings.LOGIN_URL = 'two_factor:login'
 settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL', default='core>wallets'))
 
-# Configuracoes de database replication
-settings.DATABASE_USE_KEY_POOL = config('DATABASE_USE_KEY_POOL', default=False, cast=config.boolean)
-
-DATABASE_KEY = 'DATABASE_URL'
-
-if settings.DATABASE_USE_KEY_POOL:
-    DATABASE_KEY = 'DATABASE_CONNECTION_POOL_URL'
-
-settings.DATABASES['default'] = dj_database_url.parse(config(DATABASE_KEY))
+# Configuracoes de banco de dados
+settings.DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'))
 settings.DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
+# Session config
+settings.SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # Adiciona o contexto do pacote django-user-accounts para os templates
 # Adiciona o contexto do pacote django-session-security para os templates
