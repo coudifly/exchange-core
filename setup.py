@@ -30,7 +30,7 @@ REQUIREMENTS = [
 	'django-localflavor',
 	'django-mathfilters',
 	'django-replicated',
-	'gevent==1.1.2',
+	'gevent',
 	'django-db-geventpool',
 ]
 
