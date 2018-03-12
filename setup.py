@@ -31,7 +31,6 @@ REQUIREMENTS = [
 	'django-mathfilters',
 	'django-replicated',
 	'gevent',
-	'django-db-geventpool',
 ]
 
 setup(

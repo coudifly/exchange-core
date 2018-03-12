@@ -99,7 +99,7 @@ settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL', default=
 
 # Configuracoes de database replication
 # https://github.com/yandex/django_replicated
-settings.DATABASES['default']['ENGINE'] = 'django_db_geventpool.backends.postgis'
+settings.DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 settings.DATABASE_ROUTERS = ['django_replicated.router.ReplicationRouter']
 
 settings.REPLICATED_VIEWS_OVERRIDES = {
