@@ -101,7 +101,7 @@ settings.DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'))
 settings.DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 # Session config
-settings.SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+settings.SESSION_ENGINE = 'django.contrib.sessions.backends.cache_db'
 
 # Adiciona o contexto do pacote django-user-accounts para os templates
 # Adiciona o contexto do pacote django-session-security para os templates
