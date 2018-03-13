@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.utils.translation import ugettext_lazy as _
 
 from exchange_core.models import Users, Companies, Currencies, Accounts, Documents, BankWithdraw, CryptoWithdraw
@@ -49,20 +49,16 @@ class DocumentsAdmin(admin.ModelAdmin):
 
 def approve_documents(modeladmin, request, queryset):
     with transaction.atomic():
-        for user in queryset:
-            user.status = Users.STATUS.approved_documentation
-            user.save()
-            messages.success(request, _("Documentation approved for {} user").format(user.username))
+        queryset.update(status=Users.STATUS.approved_documentation)
+    messages.success(request, _("Documentation approved for users"))
 
 approve_documents.short_description = _("Approve documentation for selected users")
 
 
 def disapprove_documents(modeladmin, request, queryset):
     with transaction.atomic():
-        for user in queryset:
-            user.status = Users.STATUS.approved_documentation
-            user.save()
-            messages.success(request, _("Documentation disapproved for {} user").format(user.username))
+        queryset.update(status=Users.STATUS.disapproved_documentation)
+    messages.success(request, _("Documentation disapproved for users"))
 
 disapprove_documents.short_description = _("Disapprove documentation for selected users")
 
