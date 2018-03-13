@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from prettyconf.configuration import Configuration
 from prettyconf.exceptions import UnknownConfiguration
 
-from exchange_core.casts import pairs
+from exchange_core.casts import pairs, redis_url
 
 
 # Diz ao pretty conf o path do .env caso não existam variáveis de ambiente para a respectiva config
@@ -100,8 +100,11 @@ settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL', default=
 settings.DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'))
 settings.DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
-# Session config
-settings.SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+# Redis session config
+settings.SESSION_REDIS = config('REDIS_URL', default=None, cast=redis_url)
+
+if settings.SESSION_REDIS:
+    settings.SESSION_ENGINE = 'redis_sessions.session'
 
 # Adiciona o contexto do pacote django-user-accounts para os templates
 # Adiciona o contexto do pacote django-session-security para os templates
