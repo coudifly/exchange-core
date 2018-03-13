@@ -27,7 +27,6 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 		for path in self.ignore_paths:
 			if request.path.startswith(path):
 				return
-				# and request.user.status == User.STATUS.disapproved_documentation
 		if (request.user.is_authenticated and request.user.status == Users.STATUS.created) or (request.user.is_authenticated and request.user.status == Users.STATUS.disapproved_documentation):
 			return HttpResponsePermanentRedirect(reverse('core>documents'))
 
