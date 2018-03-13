@@ -87,7 +87,6 @@ settings.MIDDLEWARE += [
     'exchange_core.middleware.UserDocumentsMiddleware',
     'exchange_core.middleware.CheckUserLoggedInMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
-    'django_replicated.middleware.ReplicationMiddleware',
 ]
 
 # Define a model do usuário como sendo a model Users desse modulo
@@ -97,27 +96,12 @@ settings.AUTH_USER_MODEL = PACKAGE_NAME + '.Users'
 settings.LOGIN_URL = 'two_factor:login'
 settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL', default='core>wallets'))
 
-# Configuracoes de database replication
-# https://github.com/yandex/django_replicated
-settings.DATABASES['default']['ENGINE'] = 'django_db_geventpool.backends.postgis'
-settings.DATABASE_ROUTERS = ['django_replicated.router.ReplicationRouter']
+# Configuracoes de banco de dados
+settings.DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'))
+settings.DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
-settings.REPLICATED_VIEWS_OVERRIDES = {
-    '/admin/*': 'master',
-    '/payments/*': 'master',
-}
-
-slave_number = 1
-while True:
-    try:
-        database_key = 'slave{}'.format(slave_number)
-        database_url = dj_database_url.parse(config('DATABASE_SLAVE{}'.format(slave_number)))
-        settings.DATABASES[database_key] = database_url
-        settings.DATABASES[database_key]['ENGINE'] = 'django_db_geventpool.backends.postgis'
-        settings.REPLICATED_DATABASE_SLAVES.append(database_key)
-        slave_number += 1
-    except UnknownConfiguration:
-        break
+# Session config
+settings.SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 # Adiciona o contexto do pacote django-user-accounts para os templates
 # Adiciona o contexto do pacote django-session-security para os templates

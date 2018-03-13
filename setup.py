@@ -4,22 +4,22 @@ from setuptools import setup, find_packages
 __VERSION__ = '0.1'
 
 REQUIREMENTS = [
-	'django>=2.0', 
+	'django==2.0.1', 
 	'whitenoise',
-	'boto3',
+	'boto3==1.5.20',
 	'django-model-utils', 
 	'Pillow', 
 	'lxml',
 	'cssselect',
 	'html5lib',
 	'django-two-factor-auth', 
-	'dj_database_url', 
+	'dj_database_url==0.4.2', 
 	'dj-pagination',
 	'prettyconf', 
 	'psycopg2-binary',
 	'django-extensions',
 	'django-user-accounts',
-	'django-anymail',
+	'django-anymail==1.2',
 	'django-passwords',
 	'django-storages',
 	'django-jsonview',
@@ -29,9 +29,7 @@ REQUIREMENTS = [
 	'django-cities',
 	'django-localflavor',
 	'django-mathfilters',
-	'django-replicated',
 	'gevent',
-	'django-db-geventpool',
 ]
 
 setup(
