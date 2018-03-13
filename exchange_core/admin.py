@@ -4,12 +4,29 @@ from django.utils.translation import ugettext_lazy as _
 from exchange_core.models import Users, Companies, Currencies, Accounts, Documents, BankWithdraw, CryptoWithdraw
 
 
+def approve_documents(modeladmin, request, queryset):
+    with transaction.atomic():
+        queryset.update(status=Users.STATUS.approved_documentation)
+    messages.success(request, _("Documentation approved for users"))
+
+approve_documents.short_description = _("Approve documentation for selected users")
+
+
+def disapprove_documents(modeladmin, request, queryset):
+    with transaction.atomic():
+        queryset.update(status=Users.STATUS.disapproved_documentation)
+    messages.success(request, _("Documentation disapproved for users"))
+
+disapprove_documents.short_description = _("Disapprove documentation for selected users")
+
+
 @admin.register(Users)
 class UsersAdmin(admin.ModelAdmin):
     list_display = ['username', 'sponsor', 'first_name', 'last_name', 'email', 'created']
     list_filter = ['status', 'type']
     search_fields = ['username', 'email', 'document_1', 'document_2']
     ordering = ('-created',)
+    actions = [approve_documents, disapprove_documents]
 
 
 @admin.register(Companies)
@@ -47,28 +64,11 @@ class DocumentsAdmin(admin.ModelAdmin):
     get_document_2.admin_order_field = _("user__document_2")
 
 
-def approve_documents(modeladmin, request, queryset):
-    with transaction.atomic():
-        queryset.update(status=Users.STATUS.approved_documentation)
-    messages.success(request, _("Documentation approved for users"))
-
-approve_documents.short_description = _("Approve documentation for selected users")
-
-
-def disapprove_documents(modeladmin, request, queryset):
-    with transaction.atomic():
-        queryset.update(status=Users.STATUS.disapproved_documentation)
-    messages.success(request, _("Documentation disapproved for users"))
-
-disapprove_documents.short_description = _("Disapprove documentation for selected users")
-
-
 @admin.register(BankWithdraw)
 class BankWithdrawAdmin(admin.ModelAdmin):
     list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'account_type', 'account_number', 'amount', 'fee', 'status']
     list_filter = ['status']
     search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
-    actions = [approve_documents, disapprove_documents]
 
     def get_user(self, obj):
         return obj.account.user.username
