@@ -40,8 +40,8 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     avatar = models.ImageField(upload_to=get_file_path, blank=True)
     profile = JSONField(null=True, blank=True, default={})
     type = models.CharField(max_length=11, choices=TYPES, default=TYPES.person, null=True, blank=False)
-    document_1 = models.CharField(max_length=50, null=True, blank=True)
-    document_2 = models.CharField(max_length=50, null=True, blank=True)
+    document_1 = models.CharField(max_length=50, null=True, blank=True, unique=True)
+    document_2 = models.CharField(max_length=50, null=True, blank=True, unique=True)
 
     objects = CustomUserManager()
 
