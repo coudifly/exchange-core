@@ -135,6 +135,8 @@ settings.ANYMAIL = {
     'MAILGUN_SENDER_DOMAIN': config('MAILGUN_SENDER_DOMAIN'),
 }
 
+settings.SERVER_EMAIL = config('SERVER_EMAIL', default='server@example.com')
+
 settings.DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 settings.EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
