@@ -134,10 +134,10 @@ class Accounts(TimeStampedModel, BaseModel):
 
 
 class BankAccounts(TimeStampedModel, BaseModel):
-    bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES)
-    agency = models.CharField(max_length=10)
-    account_type = models.CharField(max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES)
-    account_number = models.CharField(max_length=20)
+    bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
+    agency = models.CharField(max_length=10, verbose_name=_("Agency"))
+    account_type = models.CharField(max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES, verbose_name=_("Account type"))
+    account_number = models.CharField(max_length=20, verbose_name=_("Account number"))
     account = models.ForeignKey(Accounts, related_name='bank_accounts', on_delete=models.CASCADE)
 
 
