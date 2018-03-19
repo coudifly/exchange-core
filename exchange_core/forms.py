@@ -36,16 +36,19 @@ class SignupForm(account.forms.SignupForm):
 
 class AddressForm(forms.ModelForm):
     country = forms.ModelChoiceField(queryset=Country.objects.all(), empty_label=_("-- Select your country --"), initial=3469034, required=True)
-    region = forms.ModelChoiceField(queryset=None)
-    city = forms.ModelChoiceField(queryset=None)
+    region = forms.ModelChoiceField(queryset=Region.objects.none())
+    city = forms.ModelChoiceField(queryset=Region.objects.none())
 
     def __init__(self, *args, **kwargs):
         country = kwargs.pop('country')
         region = kwargs.pop('region')
-        super().__init__(*args, **kwargs)
 
-        self.fields['region'].queryset = Region.objects.filter(country_id=country).order_by('name')
-        self.fields['city'].queryset = City.objects.filter(region_id=region).order_by('name')
+        super().__init__(*args, **kwargs)
+        
+        if country and region:
+            self.fields['region'].queryset = Region.objects.filter(country_id=country).order_by('name')
+            self.fields['city'].queryset = City.objects.filter(region_id=region).order_by('name')
+
 
     class Meta:
         model = Addresses

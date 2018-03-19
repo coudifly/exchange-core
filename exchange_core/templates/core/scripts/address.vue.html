@@ -7,37 +7,50 @@
 			el: '#address-app',
 			data: {
 				country: '{{ DEFAULT_ADDRESS_COUNTRY }}',
-				region: '',
+				region: '{{ request.user.addresses.first.region.pk }}',
 				regions: {},
-				city: '',
+				city: '{{ request.user.addresses.first.city.pk }}',
 				cities: {}
 			},
 			methods: {
-				find_regions: function() {
+				find_regions: function(reset) {
 					var vm = this;
-					vm.region = '';
-					vm.regions = {};
+
+					if (reset) {
+						vm.region = '';
+						vm.regions = {};
+					}
 
 					$.get('{% url "core>get-regions" %}?country=' + vm.country, function(regions) {
 						vm.regions = regions;
 					});
-				}
-			},
-			mounted: function() {
-				this.find_regions();
-			},
-			watch: {
-				country: function() {
-					this.find_regions();
 				},
-				region: function() {
+				find_cities: function(reset) {
 					var vm = this;
-					vm.city = '';
-					vm.cities = {};
+
+					if (reset) {
+						vm.city = '';
+						vm.cities = {};
+					}
 
 					$.get('{% url "core>get-cities" %}?region=' + vm.region, function(cities) {
 						vm.cities = cities;
 					});
+				}
+			},
+			mounted: function() {
+				this.find_regions(false);
+
+				if (this.region) {
+					this.find_cities(false);
+				}
+			},
+			watch: {
+				country: function() {
+					this.find_regions(true);
+				},
+				region: function() {
+					this.find_cities(true);
 				}
 			}
 		});

@@ -42,6 +42,28 @@ class HomeView(TemplateView):
 class SignupView(account.views.SignupView):
     form_class = forms.SignupForm
 
+    def proccess_address_form(self):
+        form = forms.AddressForm(country=None, region=None)
+        if self.request.method == 'POST':
+            country = self.request.POST['country']
+            region = self.request.POST['region']
+            form = forms.AddressForm(self.request.POST, country=country, region=region)
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form_address'] = self.proccess_address_form()
+        return context
+
+    def form_valid(self, *args, **kwargs):
+        form_address = self.proccess_address_form()
+        if not form_address.is_valid():
+            return render(self.request, self.template_name, self.get_context_data())
+        self.form_address = form_address
+        
+        with transaction.atomic():
+            return super().form_valid(*args, **kwargs)
+
     # Sobreescreve o metodo after_signup para popular campos adicionais do usuário
     def after_signup(self, form):
         user = self.created_user
@@ -50,6 +72,10 @@ class SignupView(account.views.SignupView):
         user.document_1 = form.cleaned_data['document_1']
         user.document_2 = form.cleaned_data['document_2']
         user.save()
+
+        form_address = self.form_address.save(commit=False)
+        form_address.user = user
+        form_address.save()
 
 
 class ResendConfirmationEmailView(account.views.SignupView):
@@ -156,11 +182,8 @@ class AccountSettingsView(MultiFormView):
         return redirect(reverse('core>settings'))
 
     def get_address_kwargs(self):
-        country = '000'
-        region = '000'
-        if self.request.method == 'POST':
-            country = self.request.POST['country']
-            region = self.request.POST['region']
+        country = self.request.POST.get('country')
+        region = self.request.POST.get('region')
         return {'country': country, 'region': region}
         
 
@@ -240,7 +263,7 @@ class StatementView(TemplateView):
         return context
 
 
-@method_decorator([login_required, json_view], name='dispatch')
+@method_decorator([json_view], name='dispatch')
 class GetRegionsView(View):
     def get(self, request):
         country = request.GET.get('country', settings.DEFAULT_ADDRESS_COUNTRY)
@@ -252,7 +275,7 @@ class GetRegionsView(View):
         return regions
 
 
-@method_decorator([login_required, json_view], name='dispatch')
+@method_decorator([json_view], name='dispatch')
 class GetCitiesView(View):
     def get(self, request):
         region = request.GET.get('region', 3390290)
