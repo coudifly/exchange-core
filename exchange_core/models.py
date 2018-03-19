@@ -191,7 +191,7 @@ class CryptoWithdraw(TimeStampedModel, BaseWithdraw):
 
 # Documentos
 class Documents(TimeStampedModel, BaseModel):
-    TYPES = Choices('id_front', 'id_back', 'selfie', 'contract')
+    TYPES = Choices('id_front', 'id_back', 'selfie', 'contract', 'residence')
     STATUS = Choices('pending', 'disapproved', 'approved')
 
     user = models.ForeignKey(Users, related_name='documents', on_delete=models.CASCADE)

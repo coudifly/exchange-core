@@ -29,6 +29,7 @@ class MultiFormView(TemplateView):
         form_kwargs = {}
         form_base_instance_method = self.get_method('get_instance')
         form_instance_method = self.get_method('get_{}_instance'.format(form_name))
+        form_kwargs_method = self.get_method('get_{}_kwargs'.format(form_name))
 
         if form_base_instance_method:
             form_kwargs['instance'] = form_base_instance_method(form_name)
@@ -36,6 +37,8 @@ class MultiFormView(TemplateView):
             form_kwargs['instance'] = form_instance_method()
         if form_name in self.pass_user:
             form_kwargs['user'] = self.request.user
+        if form_kwargs_method:
+            form_kwargs.update(form_kwargs_method())
 
         return form_kwargs
 

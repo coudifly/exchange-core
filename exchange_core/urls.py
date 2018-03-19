@@ -30,4 +30,8 @@ urlpatterns = [
 	path('account/settings/', views.AccountSettingsView.as_view(), name='core>settings'),
 	path('account/statement/', views.StatementView.as_view(), name='core>statement'),
 	path('account/logout/', LogoutView.as_view(), name='core>logout'),
+
+	# URLs de endereco
+	path('address/get-regions/', views.GetRegionsView.as_view(), name='core>get-regions'),	
+	path('address/get-cities/', views.GetCitiesView.as_view(), name='core>get-cities'),	
 ]

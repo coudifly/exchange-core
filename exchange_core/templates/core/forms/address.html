@@ -1,0 +1,70 @@
+{% load i18n %}
+{% load widget_tweaks %}
+
+<div id="address-app">
+	<input type="hidden" name="form_name" value="address">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group {% if form.country.errors %}has-error has-danger{% endif %}">
+				{{ form.country.label_tag }}
+				{% render_field form.country class="form-control" v-model="country" %}
+				{% if form.country.errors %}
+				  <div class="help-block form-text with-errors form-control-feedback">
+				    <ul class="list-unstyled">
+				        {% for error in form.country.errors %}
+				            <li>{{ error }}</li>
+				        {% endfor %}
+				    </ul>
+				  </div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group {% if form.region.errors %}has-error has-danger{% endif %}">
+				{{ form.region.label_tag }}
+				<select class="form-control" name="{{ form.region.name }}" id="{{ form.region.auto_id }}" v-model="region">
+					<option v-for="item in regions" :value="item.pk" v-text="item.name"></option>
+				</select>
+				{% if form.region.errors %}
+				  <div class="help-block form-text with-errors form-control-feedback">
+				    <ul class="list-unstyled">
+				        {% for error in form.region.errors %}
+				            <li>{{ error }}</li>
+				        {% endfor %}
+				    </ul>
+				  </div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group {% if form.city.errors %}has-error has-danger{% endif %}">
+				{{ form.city.label_tag }}
+				<select class="form-control" name="{{ form.city.name }}" id="{{ form.city.auto_id }}" v-model="city">
+					<option v-for="item in cities" :value="item.pk" v-text="item.name"></option>
+				</select>
+				{% if form.city.errors %}
+				  <div class="help-block form-text with-errors form-control-feedback">
+				    <ul class="list-unstyled">
+				        {% for error in form.city.errors %}
+				            <li>{{ error }}</li>
+				        {% endfor %}
+				    </ul>
+				  </div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-md-4">
+			{% include "core/forms/field.html" with field=form.zipcode %}
+		</div>
+		<div class="col-md-6">
+			{% include "core/forms/field.html" with field=form.address %}
+		</div>
+		<div class="col-md-4">
+			{% include "core/forms/field.html" with field=form.neighborhood %}
+		</div>
+		<div class="col-md-2">
+			{% include "core/forms/field.html" with field=form.number %}
+		</div>
+	</div>
+</div>

@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
+from django.views.generic import View, TemplateView
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.sites.shortcuts import get_current_site
@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
 from django.db import transaction
+from jsonview.decorators import json_view
 from account.decorators import login_required
 from account.models import EmailAddress
 from exchange_core.models import Currencies
@@ -21,7 +22,9 @@ import account.views
 
 from exchange_core.base_views import MultiFormView
 from exchange_core import forms
-from exchange_core.models import Users, Accounts, BankAccounts, Documents, Statement, CryptoWithdraw, BankWithdraw
+from exchange_core.models import Users, Accounts, BankAccounts, Documents, Statement, CryptoWithdraw, BankWithdraw, Addresses
+
+from cities.models import Country, Region, City
 
 # Importa do modulo Orderbook e armazena se o modulo existe
 try:
@@ -129,6 +132,7 @@ class AccountSettingsView(MultiFormView):
 
     forms = {
         'bank_account': forms.BankAccountForm,
+        'address': forms.AddressForm,
         'avatar': forms.AvatarForm,
         'change_password': forms.ChangePasswordForm
     }
@@ -151,20 +155,39 @@ class AccountSettingsView(MultiFormView):
         messages.success(self.request, _('Your bank account settings has been updated'))
         return redirect(reverse('core>settings'))
 
+    def get_address_kwargs(self):
+        country = '000'
+        region = '000'
+        if self.request.method == 'POST':
+            country = self.request.POST['country']
+            region = self.request.POST['region']
+        return {'country': country, 'region': region}
+        
+
+    def get_address_instance(self):
+        addresses = Addresses.objects.filter(user=self.request.user)
+        if addresses.exists():
+            return addresses.first()
+
     def get_avatar_instance(self):
         return self.request.user
 
     def avatar_form_valid(self, form):
         form.save()
-
         messages.success(self.request, _('Your avatar image has been updated'))
+        return redirect(reverse('core>settings'))
+
+    def address_form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.user = self.request.user
+        instance.save()
+        messages.success(self.request, _('Your address has been updated'))
         return redirect(reverse('core>settings'))
 
     def change_password_form_valid(self, form):
         user = self.request.user
         user.set_password(form.cleaned_data['password'])
         user.save()
-
         messages.success(self.request, _('Your password has been updated'))
         return redirect(reverse('two_factor:login'))
 
@@ -174,10 +197,11 @@ class DocumentsView(MultiFormView):
     template_name = 'core/documents.html'
 
     forms = {
-        'contract': forms.DocumentForm,
         'id_front': forms.DocumentForm,
         'id_back': forms.DocumentForm,
-        'selfie': forms.DocumentForm
+        'selfie': forms.DocumentForm,
+        'contract': forms.DocumentForm,
+        'residence': forms.DocumentForm
     }
 
     def get_instance(self, type_name):
@@ -214,3 +238,27 @@ class StatementView(TemplateView):
         if ORDER_EXCHANGE_MODULE_EXISTS:
             context['executed_orders'] = Orders.objects.select_related('market__base_currency__currency', 'market__currency').filter(user=self.request.user, status=Orders.STATUS.executed).order_by('-created')[0:50]
         return context
+
+
+@method_decorator([login_required, json_view], name='dispatch')
+class GetRegionsView(View):
+    def get(self, request):
+        country = request.GET.get('country', settings.DEFAULT_ADDRESS_COUNTRY)
+        regions = [{'pk': '', 'name': _("-- Select your region --")}]
+
+        for region in Region.objects.filter(country_id=country).order_by('name'):
+            regions.append({'pk': region.pk, 'name': region.name})
+
+        return regions
+
+
+@method_decorator([login_required, json_view], name='dispatch')
+class GetCitiesView(View):
+    def get(self, request):
+        region = request.GET.get('region', 3390290)
+        cities = [{'pk': '', 'name': _("-- Select your city --")}]
+
+        for city in City.objects.filter(region_id=region).order_by('name'):
+            cities.append({'pk': city.pk, 'name': city.name})
+
+        return cities

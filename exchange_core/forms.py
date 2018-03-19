@@ -8,7 +8,9 @@ from localflavor.br.forms import BRCPFField
 
 import account.forms
 
-from .models import Users, BankAccounts, Documents
+from exchange_core.mixins import RequiredFieldsMixin
+from exchange_core.models import Users, BankAccounts, Documents, Addresses
+from cities.models import Country, Region, City
 
 
 class SignupForm(account.forms.SignupForm):
@@ -30,6 +32,24 @@ class SignupForm(account.forms.SignupForm):
             raise forms.ValidationError(_("The e-mails aren't equal"))
 
         return confirm_email
+
+
+class AddressForm(forms.ModelForm):
+    country = forms.ModelChoiceField(queryset=Country.objects.all(), empty_label=_("-- Select your country --"), initial=3469034, required=True)
+    region = forms.ModelChoiceField(queryset=None)
+    city = forms.ModelChoiceField(queryset=None)
+
+    def __init__(self, *args, **kwargs):
+        country = kwargs.pop('country')
+        region = kwargs.pop('region')
+        super().__init__(*args, **kwargs)
+
+        self.fields['region'].queryset = Region.objects.filter(country_id=country).order_by('name')
+        self.fields['city'].queryset = City.objects.filter(region_id=region).order_by('name')
+
+    class Meta:
+        model = Addresses
+        fields = ('country', 'region', 'city', 'zipcode', 'address', 'neighborhood', 'number',)
 
 
 class ResetTokenForm(account.forms.PasswordResetTokenForm):

@@ -208,4 +208,6 @@ settings.GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH', default=None)
 # Configuracoes do Django Cities
 # https://github.com/coderholic/django-cities
 settings.CITIES_LOCALES = ['LANGUAGES']
-settings.CITIES_POSTAL_CODES = ['BR']
+settings.CITIES_POSTAL_CODES = []
+settings.CITIES_SKIP_CITIES_WITH_EMPTY_REGIONS = True
+settings.DEFAULT_ADDRESS_COUNTRY = config('DEFAULT_ADDRESS_COUNTRY', default=3469034)
