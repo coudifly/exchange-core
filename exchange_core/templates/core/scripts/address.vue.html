@@ -1,0 +1,45 @@
+{% load exchange %}
+{% load i18n %}
+
+<script>
+	jQuery(function($) {
+		var address_app = new Vue({
+			el: '#address-app',
+			data: {
+				country: '{{ DEFAULT_ADDRESS_COUNTRY }}',
+				region: '',
+				regions: {},
+				city: '',
+				cities: {}
+			},
+			methods: {
+				find_regions: function() {
+					var vm = this;
+					vm.region = '';
+					vm.regions = {};
+
+					$.get('{% url "core>get-regions" %}?country=' + vm.country, function(regions) {
+						vm.regions = regions;
+					});
+				}
+			},
+			mounted: function() {
+				this.find_regions();
+			},
+			watch: {
+				country: function() {
+					this.find_regions();
+				},
+				region: function() {
+					var vm = this;
+					vm.city = '';
+					vm.cities = {};
+
+					$.get('{% url "core>get-cities" %}?region=' + vm.region, function(cities) {
+						vm.cities = cities;
+					});
+				}
+			}
+		});
+	});
+</script>
