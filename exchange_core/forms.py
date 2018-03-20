@@ -76,7 +76,7 @@ class BankAccountForm(forms.ModelForm):
 
     class Meta:
         model = BankAccounts
-        fields = ('bank', 'agency', 'account_type', 'account_number',)
+        fields = ('bank', 'agency', 'agency_digit', 'account_type', 'account_number', 'account_number_digit',)
 
 
 class ChangePasswordForm(forms.Form):

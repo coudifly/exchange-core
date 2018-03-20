@@ -103,6 +103,7 @@ class Currencies(TimeStampedModel, BaseModel):
     withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Percent Fee"))
     withdraw_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Fixed Fee"))
     withdraw_receive_hours = models.IntegerField(default=48)
+    order = models.IntegerField(default=100)
 
     class Meta:
         verbose_name = 'Currency'
@@ -136,8 +137,10 @@ class Accounts(TimeStampedModel, BaseModel):
 class BankAccounts(TimeStampedModel, BaseModel):
     bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
     agency = models.CharField(max_length=10, verbose_name=_("Agency"))
+    agency_digit = models.CharField(max_length=5, null=True, verbose_name=_("Agency Digit"))
     account_type = models.CharField(max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES, verbose_name=_("Account type"))
     account_number = models.CharField(max_length=20, verbose_name=_("Account number"))
+    account_number_digit = models.CharField(max_length=5, null=True, verbose_name=_("Account number digit"))
     account = models.ForeignKey(Accounts, related_name='bank_accounts', on_delete=models.CASCADE)
 
 
@@ -222,7 +225,7 @@ class Documents(TimeStampedModel, BaseModel):
 
 # Extrato das contas
 class Statement(TimeStampedModel, BaseModel):
-    TYPES = Choices('deposit', 'reverse', 'withdraw')
+    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income')
 
     account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
     description = models.CharField(max_length=100, verbose_name=_("Description"))
@@ -230,6 +233,8 @@ class Statement(TimeStampedModel, BaseModel):
     type = models.CharField(max_length=30, choices=TYPES, verbose_name=_("Type"))
     # Campo usado para armazenar o id das transactions e checar se uma transacao ja foi processada ou nao
     tx_id = models.CharField(max_length=150, null=True, blank=True)
+    # Chave estrangeira para outro registro
+    fk = models.UUIDField(null=True, blank=True, editable=False)
 
     class Meta:
         verbose_name = _("Statement")
