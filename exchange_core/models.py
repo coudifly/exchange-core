@@ -59,7 +59,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     @property
     def has_br_bank_account(self):
         br_account = self.accounts.get(currency__symbol=settings.BRL_CURRENCY_SYMBOL)
-        return 'yes' if br_account.bank_accounts.count() > 0 else 'no'
+        return 'yes' if br_account.bank_accounts.exists() else 'no'
 
     @property
     def br_bank_account(self):
@@ -72,14 +72,14 @@ class Addresses(TimeStampedModel, BaseModel):
     TYPES = Choices('account')
 
     user = models.ForeignKey(Users, related_name='addresses', on_delete=models.CASCADE)
-    country = models.ForeignKey(Country, related_name='addresses', on_delete=models.CASCADE)
-    region = models.ForeignKey(Region, related_name='addresses', on_delete=models.CASCADE)
-    city = models.ForeignKey(City, related_name='addresses', on_delete=models.CASCADE)
-    address = models.CharField(max_length=100)
-    number = models.CharField(max_length=20)
-    neighborhood = models.CharField(max_length=50)
-    zipcode = models.CharField(max_length=10)
-    type = models.CharField(max_length=20, choices=TYPES, default=TYPES.account)
+    country = models.ForeignKey(Country, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("Country"))
+    region = models.ForeignKey(Region, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("State"))
+    city = models.ForeignKey(City, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("City"))
+    address = models.CharField(max_length=100, verbose_name=_("Address"))
+    number = models.CharField(max_length=20, verbose_name=_("Number"))
+    neighborhood = models.CharField(max_length=50, verbose_name=_("neighborhood"))
+    zipcode = models.CharField(max_length=10, verbose_name=_("Zipcode"))
+    type = models.CharField(max_length=20, choices=TYPES, default=TYPES.account, verbose_name=_("Type"))
 
 
 class Companies(TimeStampedModel, BaseModel):
@@ -181,8 +181,10 @@ class BaseWithdraw(models.Model):
 class BankWithdraw(TimeStampedModel, BaseWithdraw, BaseModel):
     bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES)
     agency = models.CharField(max_length=10)
+    agency_digit = models.CharField(max_length=5, null=True, verbose_name=_("Agency Digit"))
     account_type = models.CharField(max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES)
     account_number = models.CharField(max_length=20)
+    account_number_digit = models.CharField(max_length=5, null=True, verbose_name=_("Account number digit"))
     account = models.ForeignKey(Accounts, related_name='bank_withdraw', on_delete=models.CASCADE)
 
 
@@ -225,7 +227,7 @@ class Documents(TimeStampedModel, BaseModel):
 
 # Extrato das contas
 class Statement(TimeStampedModel, BaseModel):
-    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income')
+    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income', 'investment')
 
     account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
     description = models.CharField(max_length=100, verbose_name=_("Description"))

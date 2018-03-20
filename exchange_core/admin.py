@@ -66,7 +66,7 @@ class DocumentsAdmin(admin.ModelAdmin):
 
 @admin.register(BankWithdraw)
 class BankWithdrawAdmin(admin.ModelAdmin):
-    list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'account_type', 'account_number', 'amount', 'fee', 'status']
+    list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'agency_digit', 'account_type', 'account_number', 'account_number_digit', 'amount', 'fee', 'status']
     list_filter = ['status']
     search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
 
