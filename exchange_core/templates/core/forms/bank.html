@@ -4,20 +4,19 @@
 	<div class="col-md-5">
 		{% include "core/forms/field.html" with field=form.bank %}
 	</div>
-	<div class="col-md-4">
-		{% include "core/forms/field.html" with field=form.agency %}
-	</div>
-	<div class="col-md-3">
-		{% include "core/forms/field.html" with field=form.agency_digit %}
-	</div>
-
 	<div class="col-md-5">
 		{% include "core/forms/field.html" with field=form.account_type %}
 	</div>
 	<div class="col-md-4">
+		{% include "core/forms/field.html" with field=form.agency %}
+	</div>
+	<div class="col-md-2">
+		{% include "core/forms/field.html" with field=form.agency_digit %}
+	</div>
+	<div class="col-md-4">
 		{% include "core/forms/field.html" with field=form.account_number %}
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-2">
 		{% include "core/forms/field.html" with field=form.account_number_digit %}
 	</div>
 </div>
