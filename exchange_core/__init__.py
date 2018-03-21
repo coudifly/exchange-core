@@ -52,6 +52,9 @@ settings.REQUIRE_USER_DOCUMENTS = config('REQUIRE_USER_DOCUMENTS', default=True,
 # Dominio do site
 settings.DOMAIN = config('DOMAIN', default='example.com')
 
+# Dominio do site
+settings.ENABLE_SIGNUP = config('ENABLE_SIGNUP', default=True, cast=config.boolean)
+
 # https://github.com/Bouke/django-two-factor-auth
 # https://github.com/django-extensions/django-extensions
 # https://github.com/jazzband/django-widget-tweaks

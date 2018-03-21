@@ -24,7 +24,6 @@ urlpatterns = [
 	path('account/resend-confirmation-email/', views.ResendConfirmationEmailView.as_view(), name='core>resend-confirmation-email'),
 	path('account/reset-token/<uidb36>/<token>/', views.ResetTokenView.as_view(), name='core>reset-token'),
 	path('account/wallets/', views.WalletsView.as_view(), name='core>wallets'),
-	path('account/signup/', views.SignupView.as_view(), name='core>signup'),
 	path('account/email-confirm/<key>/', ConfirmEmailView.as_view(), name='core>email-confirm'),
 	path('account/documents/', views.DocumentsView.as_view(), name='core>documents'),
 	path('account/settings/', views.AccountSettingsView.as_view(), name='core>settings'),
@@ -35,3 +34,6 @@ urlpatterns = [
 	path('address/get-regions/', views.GetRegionsView.as_view(), name='core>get-regions'),	
 	path('address/get-cities/', views.GetCitiesView.as_view(), name='core>get-cities'),	
 ]
+
+if settings.ENABLE_SIGNUP:
+	urlpatterns.append(path('account/signup/', views.SignupView.as_view(), name='core>signup'))

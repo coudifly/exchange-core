@@ -137,10 +137,10 @@ class Accounts(TimeStampedModel, BaseModel):
 class BankAccounts(TimeStampedModel, BaseModel):
     bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
     agency = models.CharField(max_length=10, verbose_name=_("Agency"))
-    agency_digit = models.CharField(max_length=5, null=True, verbose_name=_("Agency Digit"))
+    agency_digit = models.CharField(max_length=5, null=True, verbose_name=_("Digit"))
     account_type = models.CharField(max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES, verbose_name=_("Account type"))
     account_number = models.CharField(max_length=20, verbose_name=_("Account number"))
-    account_number_digit = models.CharField(max_length=5, null=True, verbose_name=_("Account number digit"))
+    account_number_digit = models.CharField(max_length=5, null=True, verbose_name=_("Digit"))
     account = models.ForeignKey(Accounts, related_name='bank_accounts', on_delete=models.CASCADE)
 
 
