@@ -24,6 +24,7 @@ REQUIREMENTS = [
 	'django-storages',
 	'django-jsonview',
 	'django-templated-email',
+	'django-widget-tweaks',
 	'easy-thumbnails',
 	'phonenumbers',
 	'django-cities',
@@ -31,6 +32,7 @@ REQUIREMENTS = [
 	'django-mathfilters',
 	'django-redis-sessions',
 	'gevent',
+	'psycogreen',
 ]
 
 setup(
