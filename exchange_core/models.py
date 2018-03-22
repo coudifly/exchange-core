@@ -42,6 +42,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     type = models.CharField(max_length=11, choices=TYPES, default=TYPES.person, null=True, blank=False)
     document_1 = models.CharField(max_length=50, null=True, blank=True, unique=True)
     document_2 = models.CharField(max_length=50, null=True, blank=True, unique=True)
+    mobile_phone = models.CharField(max_length=20, null=True, blank=True)
 
     objects = CustomUserManager()
 
@@ -77,7 +78,7 @@ class Addresses(TimeStampedModel, BaseModel):
     city = models.ForeignKey(City, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("City"))
     address = models.CharField(max_length=100, verbose_name=_("Address"))
     number = models.CharField(max_length=20, verbose_name=_("Number"))
-    neighborhood = models.CharField(max_length=50, verbose_name=_("neighborhood"))
+    neighborhood = models.CharField(max_length=50, verbose_name=_("Neighborhood"))
     zipcode = models.CharField(max_length=10, verbose_name=_("Zipcode"))
     type = models.CharField(max_length=20, choices=TYPES, default=TYPES.account, verbose_name=_("Type"))
 

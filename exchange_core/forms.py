@@ -20,6 +20,7 @@ class SignupForm(account.forms.SignupForm):
     password = PasswordField(label=_("Password"), strip=settings.ACCOUNT_PASSWORD_STRIP)
     document_1 = BRCPFField(label=_("CPF"))
     document_2 = forms.CharField(label=_("RG"))
+    mobile_phone = forms.CharField(label=_("Mobile phone"))
     
     field_order = ['first_name', 'last_name', 'username', 'email', 'confirm_email', 'password', 'password_confirm', 'code', 'document_1', 'document_2']
 

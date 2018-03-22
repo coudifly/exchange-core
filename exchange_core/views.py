@@ -71,6 +71,7 @@ class SignupView(account.views.SignupView):
         user.last_name = form.cleaned_data['last_name']
         user.document_1 = form.cleaned_data['document_1']
         user.document_2 = form.cleaned_data['document_2']
+        user.mobile_phone = form.cleaned_data['mobile_phone']
         user.save()
 
         form_address = self.form_address.save(commit=False)

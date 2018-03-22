@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-08 11:08-0300\n"
+"POT-Creation-Date: 2018-03-22 08:55-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: jorge ugalde <jorgeac66@gmail.com>, 2018\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/neosacode/"
@@ -19,55 +19,117 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: __init__.py:185
+#: __init__.py:202
 msgid "English"
 msgstr "Inglês "
 
-#: __init__.py:186
+#: __init__.py:203
 msgid "Portuguese"
 msgstr "Português"
 
-#: __init__.py:187
+#: __init__.py:204
 msgid "Spanish"
 msgstr "Espanhol"
+
+#: admin.py:10
+msgid "Documentation approved for users"
+msgstr "Usuários com documentação aprovada"
+
+#: admin.py:12
+msgid "Approve documentation for selected users"
+msgstr "Aprovar documentação para usuários selecionados"
+
+#: admin.py:18
+msgid "Documentation disapproved for users"
+msgstr "Usuário com documentação desaprovada"
+
+#: admin.py:20
+msgid "Disapprove documentation for selected users"
+msgstr "Desaprovar documentação para usuários selecionados"
+
+#: admin.py:57 admin.py:82 admin.py:135 forms.py:21
+msgid "CPF"
+msgstr ""
+
+#: admin.py:58 admin.py:83 admin.py:136
+msgid "user__document_1"
+msgstr ""
+
+#: admin.py:63 admin.py:88 admin.py:141 forms.py:22
+msgid "RG"
+msgstr ""
+
+#: admin.py:64 admin.py:89 admin.py:142
+msgid "user__document_2"
+msgstr ""
+
+#: admin.py:76 admin.py:129
+#, fuzzy
+#| msgid "User"
+msgid "Username"
+msgstr "Usuário"
+
+#: admin.py:77 admin.py:130
+msgid "account__user__username"
+msgstr ""
+
+#: admin.py:102
+msgid "Reverse"
+msgstr "Extornar"
+
+#: admin.py:108
+msgid "{} amount reversed to {}"
+msgstr "{} extornado para {}"
+
+#: admin.py:110
+msgid "Reverse selected crypto withdraw"
+msgstr "Extornar saque de criptomoeda selecionado"
+
+#: admin.py:123 models.py:119
+msgid "Currency"
+msgstr "Moeda"
+
+#: admin.py:124
+msgid "account__currency__name"
+msgstr ""
 
 #: apps.py:7
 msgid "Exchange"
 msgstr "Exchange"
 
-#: forms.py:15
+#: forms.py:17
 msgid "First name"
 msgstr "Nome"
 
-#: forms.py:16
+#: forms.py:18
 msgid "Last name"
 msgstr "Sobrenome"
 
-#: forms.py:17
+#: forms.py:19
 msgid "Confirm e-mail"
 msgstr "Confirmar e-mail"
 
-#: forms.py:18 forms.py:36
+#: forms.py:20 forms.py:60
 msgid "Password"
 msgstr "Senha"
 
-#: forms.py:19 models.py:297 models.py:322
-msgid "CPF"
-msgstr ""
+#: forms.py:23
+msgid "Mobile phone"
+msgstr "Telefone celular"
 
-#: forms.py:20 models.py:303 models.py:328
-msgid "RG"
-msgstr ""
-
-#: forms.py:30
+#: forms.py:33
 msgid "The e-mails aren't equal"
 msgstr "Os e-mails não são iguais"
 
-#: forms.py:61
+#: forms.py:39
+msgid "-- Select your country --"
+msgstr "-- Selecione o seu país --"
+
+#: forms.py:85
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: forms.py:74 forms.py:81
+#: forms.py:98 forms.py:105
 msgid "The passwords aren't equals"
 msgstr "As senhas não são iguais"
 
@@ -75,85 +137,133 @@ msgstr "As senhas não são iguais"
 msgid "Sponsor"
 msgstr "Patrocinador"
 
-#: models.py:39 models.py:99 templates/core/statement.html:101
+#: models.py:39 models.py:100 templates/core/statement.html:101
 #: templates/core/statement.html:134
 msgid "Status"
 msgstr "Status"
 
-#: models.py:55 models.py:118
+#: models.py:56 models.py:120
 msgid "User"
 msgstr "Usuário"
 
-#: models.py:56
+#: models.py:57
 msgid "Users"
 msgstr "Usuários"
 
-#: models.py:96 templates/core/wallets.html:29
+#: models.py:76
+#, fuzzy
+#| msgid "Amount"
+msgid "Country"
+msgstr "País"
+
+#: models.py:77
+#, fuzzy
+#| msgid "Status"
+msgid "State"
+msgstr "Estado"
+
+#: models.py:78
+msgid "City"
+msgstr "Cidade"
+
+#: models.py:79 templates/core/statement.html:99
+msgid "Address"
+msgstr "Endereço"
+
+#: models.py:80
+#, fuzzy
+#| msgid "Account Number"
+msgid "Number"
+msgstr "Número da Conta"
+
+#: models.py:81
+msgid "Neighborhood"
+msgstr "Bairro"
+
+#: models.py:82
+msgid "Zipcode"
+msgstr "CEP"
+
+#: models.py:83 models.py:236 templates/core/statement.html:70
+msgid "Type"
+msgstr "Tipo"
+
+#: models.py:97 templates/core/wallets.html:29
 msgid "Icon"
 msgstr "Icone"
 
-#: models.py:101
+#: models.py:102
 msgid "Withdraw Min"
 msgstr "Retirada Mínima"
 
-#: models.py:102
+#: models.py:103
 msgid "Withdraw Max"
 msgstr "Retirada Máxima"
 
-#: models.py:103
+#: models.py:104
 #, fuzzy
 #| msgid "Withdraw Fee"
 msgid "Withdraw Percent Fee"
 msgstr "Taxa de Retirada"
 
-#: models.py:104
+#: models.py:105
 #, fuzzy
 #| msgid "Withdraw Fee"
 msgid "Withdraw Fixed Fee"
 msgstr "Taxa de Retirada"
 
-#: models.py:117
-msgid "Currency"
-msgstr "Moeda"
+#: models.py:139 templates/core/statement.html:130
+msgid "Bank"
+msgstr "Banco"
 
-#: models.py:199
+#: models.py:140 templates/core/statement.html:131
+msgid "Agency"
+msgstr "Agência"
+
+#: models.py:141 models.py:144
+msgid "Digit"
+msgstr "Dígito"
+
+#: models.py:142
+#, fuzzy
+#| msgid "Account Type"
+msgid "Account type"
+msgstr "Tipo de conta"
+
+#: models.py:143
+#, fuzzy
+#| msgid "Account Number"
+msgid "Account number"
+msgstr "Número da Conta"
+
+#: models.py:185
+#, fuzzy
+#| msgid "Agency"
+msgid "Agency Digit"
+msgstr "Agência"
+
+#: models.py:188
+#, fuzzy
+#| msgid "Account Number"
+msgid "Account number digit"
+msgstr "Número da Conta"
+
+#: models.py:207
 msgid "Disapproved reason"
 msgstr "Motivo da rejeição"
 
-#: models.py:225
+#: models.py:233
 msgid "Account"
 msgstr "Conta"
 
-#: models.py:226 templates/core/statement.html:47
+#: models.py:234 templates/core/statement.html:47
 msgid "Description"
 msgstr "Descrição"
 
-#: models.py:228 templates/core/statement.html:70
-msgid "Type"
-msgstr "Tipo"
-
-#: models.py:233 models.py:234 templates/core/index.html:184
+#: models.py:243 models.py:244 templates/core/index.html:184
 #: templates/core/statement.html:15
 msgid "Statement"
 msgstr "Extrato"
-
-#: models.py:298 models.py:323
-msgid "user__document_1"
-msgstr ""
-
-#: models.py:304 models.py:329
-msgid "user__document_2"
-msgstr ""
-
-#: models.py:316
-#, fuzzy
-#| msgid "User"
-msgid "Username"
-msgstr "Usuário"
-
-#: models.py:317
-msgid "account__user__username"
-msgstr ""
 
 #: templates/account/delete.html:7 templates/account/delete.html:10
 msgid "Delete Account"
@@ -305,11 +415,11 @@ msgstr "Entrar"
 msgid "Log in to an existing account"
 msgstr "Entrar em uma conta cadastrada"
 
-#: templates/account/login.html:20 templates/two_factor/core/login.html:87
+#: templates/account/login.html:20 templates/two_factor/core/login.html:84
 msgid "Forgot your password?"
 msgstr "Esqueceu sua senha?"
 
-#: templates/account/login.html:25 templates/two_factor/core/login.html:102
+#: templates/account/login.html:25 templates/two_factor/core/login.html:99
 msgid "Don't have an account?"
 msgstr "Não tem uma conta?"
 
@@ -449,7 +559,7 @@ msgid ""
 msgstr "Esta conta bancária será utilizada para realizar suas retidas em Reais"
 
 #: templates/account/signup-form.html:15
-#: templates/two_factor/core/login.html:102
+#: templates/two_factor/core/login.html:99
 msgid "Sign Up"
 msgstr "Cadastrar"
 
@@ -457,8 +567,8 @@ msgstr "Cadastrar"
 msgid "Already have an account?"
 msgstr "Já possui uma conta?"
 
-#: templates/account/signup.html:31 templates/two_factor/core/login.html:55
-#: templates/two_factor/core/login.html:81
+#: templates/account/signup.html:31 templates/two_factor/core/login.html:52
+#: templates/two_factor/core/login.html:78
 msgid "Log In"
 msgstr "Entrar"
 
@@ -479,7 +589,6 @@ msgid "Documents"
 msgstr "Documentos"
 
 #: templates/core/documents.html:12
-#| msgid "Actions"
 msgid "Attention"
 msgstr "Atenção"
 
@@ -501,19 +610,18 @@ msgid ""
 msgstr ""
 "\n"
 "\t\t\t\t\tPrezado usuário.<br>\n"
-"\t\t\t\t\tQuaisquer funcionalidades do sistema só estarão disponíveis após "
-"a aprovação de sua documentação.\n"
-"\t\t\t\t\tSão aceitos apenas arquivos de imagem PNG, JPG e JPEG, vedado upload de arquivos. "
-"em PDF.\n"
-"\t\t\t\t\tCertifique-se de que seus documentos encontram-se legíveis e de acordo com  "
-"os dados preenchidos no cadastro inicial.\n"
-"\t\t\t\t\tDevido à alta demanda de cadastros, o prazo para validação "
-"de seus documentos é de até 72 horas.\n"
+"\t\t\t\t\tQuaisquer funcionalidades do sistema só estarão disponíveis após a "
+"aprovação de sua documentação.\n"
+"\t\t\t\t\tSão aceitos apenas arquivos de imagem PNG, JPG e JPEG, vedado "
+"upload de arquivos. em PDF.\n"
+"\t\t\t\t\tCertifique-se de que seus documentos encontram-se legíveis e de "
+"acordo com  os dados preenchidos no cadastro inicial.\n"
+"\t\t\t\t\tDevido à alta demanda de cadastros, o prazo para validação de seus "
+"documentos é de até 72 horas.\n"
 "\t\t\t\t\tAtenciosamente, %(PROJECT_NAME)s - Suporte Técnico\n"
 "\t\t\t\t\t"
 
 #: templates/core/documents.html:25
-#| msgid "Documents"
 msgid "Disapproved Documents"
 msgstr "Documentos repovados"
 
@@ -539,13 +647,12 @@ msgstr ""
 "\t\t\t\t\t\tAbraços.\n"
 "\t\t\t\t\t"
 
-
 #: templates/core/documents.html:38
 msgid "Drivers License or ID - Front"
 msgstr "Frente da Carteira de Motorista ou RG"
 
 #: templates/core/documents.html:53 templates/core/documents.html:84
-#: templates/core/documents.html:116
+#: templates/core/documents.html:116 templates/core/documents.html:148
 msgid "Upload"
 msgstr "Carregar"
 
@@ -556,6 +663,10 @@ msgstr "Verso da carteira de Motorista ou RG"
 #: templates/core/documents.html:102
 msgid "Document Selfie"
 msgstr "Selfie com Documento"
+
+#: templates/core/documents.html:134
+msgid "Proof of Residence"
+msgstr "Comprovante de residência"
 
 #: templates/core/index.html:108
 #, fuzzy
@@ -679,18 +790,6 @@ msgstr "Depósito"
 msgid "Reserved"
 msgstr "Reservado"
 
-#: templates/core/statement.html:99
-msgid "Address"
-msgstr "Endereço"
-
-#: templates/core/statement.html:130
-msgid "Bank"
-msgstr "Banco"
-
-#: templates/core/statement.html:131
-msgid "Agency"
-msgstr "Agência"
-
 #: templates/core/statement.html:132
 msgid "Account Type"
 msgstr "Tipo de conta"
@@ -738,22 +837,36 @@ msgstr "Anterior"
 msgid "next"
 msgstr "próximo"
 
-#: views.py:55
+#: views.py:86
 msgid "Confirmation e-mail resent!"
 msgstr "Confirmação de e-mail reenviada!"
 
-#: views.py:150
+#: views.py:182
 msgid "Your bank account settings has been updated"
 msgstr "As configurações de sua conta bancária foram atualizadas"
 
-#: views.py:159
+#: views.py:201
 msgid "Your avatar image has been updated"
 msgstr "A imagem do seu Avatar foi atualizada"
 
-#: views.py:167
+#: views.py:208
+#, fuzzy
+#| msgid "Your password has been updated"
+msgid "Your address has been updated"
+msgstr "Sua senha foi atualizada"
+
+#: views.py:215
 msgid "Your password has been updated"
 msgstr "Sua senha foi atualizada"
 
-#: views.py:194
+#: views.py:249
 msgid "Document has been updated!"
 msgstr "Seus documentos foram atualizados!"
+
+#: views.py:271
+msgid "-- Select your region --"
+msgstr "-- Selecione seu estado --"
+
+#: views.py:283
+msgid "-- Select your city --"
+msgstr "-- Selecione sua cidade --"
