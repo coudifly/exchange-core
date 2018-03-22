@@ -38,7 +38,7 @@ default_app_config = PACKAGE_NAME + '.apps.Config'
 settings.PROJECT_NAME = config('PROJECT_NAME')
 
 # Admins do sistema, recebem e-mails de erros 500
-settings.ADMINS = [(v, v) for v in config('ADMINS', cast=config.list)]
+settings.ADMINS = [(v, v) for v in config('ADMINS', default=[], cast=config.list)]
 
 # Configura a view padrao para ser exibida como home para o usuario
 settings.HOME_VIEW = config('HOME_VIEW', default='core>wallets')
