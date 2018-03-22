@@ -32,6 +32,7 @@ REQUIREMENTS = [
 	'django-redis-sessions',
 	'gevent',
 	'psycogreen',
+	'gunicorn',
 ]
 
 setup(
