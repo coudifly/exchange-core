@@ -22,7 +22,7 @@ class SignupForm(account.forms.SignupForm):
     document_2 = forms.CharField(label=_("RG"))
     mobile_phone = forms.CharField(label=_("Mobile phone"))
     
-    field_order = ['first_name', 'last_name', 'username', 'email', 'confirm_email', 'password', 'password_confirm', 'code', 'document_1', 'document_2']
+    field_order = ['first_name', 'last_name', 'username', 'mobile_phone',  'email', 'confirm_email', 'password', 'password_confirm', 'code', 'document_1', 'document_2']
 
     # Valida o campo de confirmar e-mail
     def clean_confirm_email(self):
