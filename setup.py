@@ -30,7 +30,7 @@ REQUIREMENTS = [
 	'django-localflavor',
 	'django-mathfilters',
 	'django-redis-sessions',
-	'gevent',
+	'gevent>=1.2.2',
 	'psycogreen',
 	'gunicorn',
 ]
