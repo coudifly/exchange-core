@@ -5,9 +5,26 @@
 <form class="m-t-20" method="POST" novalidate>
     {% csrf_token %}
 
-    {% for field in form %}
-        {% include "core/forms/field.html" with field=field %}    
-    {% endfor %}
+    <div class="row">
+    	{% for field in form %}
+	        {% if not field.is_hidden %}
+	    		<div class="col-md-6">
+	    	{% endif %}
+
+	        {% include "core/forms/field.html" with field=field %}
+	        
+	        {% if not field.is_hidden %}
+	    		</div>
+	    	{% endif %}
+	    {% endfor %}
+    </div>
+
+    <h4 style="margin-top: 20px;">{% trans "Address" %}</h4>
+    <hr>
+
+    {% with WIDGET_ERROR_CLASS='parsley-error' %}
+          {% include "core/forms/address.html" with form=form_address %}
+    {% endwith %}
     
 
     <div class="form-group text-center row m-t-10">
@@ -17,3 +34,10 @@
     </div>
 
 </form>
+
+{% block scripts %}
+	<script src="{% static "assets/js/jquery.min.js" %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.3.4/sweetalert2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+	{% include "core/scripts/address.vue.html" %}
+{% endblock %}

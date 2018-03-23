@@ -680,7 +680,7 @@ msgstr "Olá,"
 
 #: templates/core/index.html:135
 msgid "Two Factor Auth"
-msgstr "Autenticação de 2 Fatores"
+msgstr "Segurança 2Factor"
 
 #: templates/core/index.html:145
 msgid "Settings"
