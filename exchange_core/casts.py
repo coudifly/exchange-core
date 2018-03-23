@@ -10,6 +10,9 @@ def pairs(value):
 
 
 def redis_url(value):
+    if not value:
+        return
+
     url = urlparse(value)
     path = url.path
 
