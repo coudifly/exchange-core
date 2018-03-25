@@ -1,5 +1,6 @@
 import os
 import dj_database_url
+import django_otp.plugins.otp_totp
 
 from decimal import Decimal
 from json import JSONEncoder
@@ -30,6 +31,9 @@ JSONEncoder.default = JSONEncoder_new
 
 # Define o nome do modulo
 PACKAGE_NAME = 'exchange_core'
+
+# Monkey patch default_app_config django_otp
+django_otp.plugins.otp_totp.default_app_config = PACKAGE_NAME + '.apps.OTPConfig'
 
 # Diz ao Django aonde está a configuração desse modulo
 default_app_config = PACKAGE_NAME + '.apps.Config'
@@ -116,6 +120,11 @@ if settings.SESSION_REDIS:
 settings.TEMPLATES[0]['OPTIONS']['context_processors'] += [
     'account.context_processors.account',
     'exchange_core.context_processors.exchange',
+]
+
+settings.TEMPLATES[0]['DIRS'] = [
+    os.path.join(os.path.dirname(__file__), 'templates'),
+    os.path.join(settings.BASE_DIR, 'templates'),
 ]
 
 # Define o ID do site

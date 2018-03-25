@@ -8,3 +8,9 @@ class Config(AppConfig):
 
 	def ready(self):
 		import exchange_core.signals
+		import exchange_core.unregister
+
+
+class OTPConfig(AppConfig):
+	name = 'django_otp.plugins.otp_totp'
+	verbose_name = _("Two Factor Authentication")

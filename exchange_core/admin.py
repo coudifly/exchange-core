@@ -4,6 +4,26 @@ from django.utils.translation import ugettext_lazy as _
 from exchange_core.models import Users, Companies, Currencies, Accounts, Documents, BankWithdraw, CryptoWithdraw
 
 
+class BaseAdmin(admin.ModelAdmin):
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
+    def log_addition(self, *args, **kwargs):
+        pass
+
+    def log_change(self, *args, **kwargs):
+        pass
+
+    def log_deletion(self, *args, **kwargs):
+        pass
+
+
 def approve_documents(modeladmin, request, queryset):
     with transaction.atomic():
         queryset.update(status=Users.STATUS.approved_documentation)
@@ -21,7 +41,7 @@ disapprove_documents.short_description = _("Disapprove documentation for selecte
 
 
 @admin.register(Users)
-class UsersAdmin(admin.ModelAdmin):
+class UsersAdmin(BaseAdmin):
     list_display = ['username', 'sponsor', 'first_name', 'last_name', 'email', 'created']
     list_filter = ['status', 'type']
     search_fields = ['username', 'email', 'document_1', 'document_2']
@@ -30,23 +50,23 @@ class UsersAdmin(admin.ModelAdmin):
 
 
 @admin.register(Companies)
-class CompaniesAdmin(admin.ModelAdmin):
+class CompaniesAdmin(BaseAdmin):
     list_display = ['user', 'name', 'document_1', 'document_2']
 
 
 @admin.register(Currencies)
-class CurrenciesAdmin(admin.ModelAdmin):
-    list_display = ['name', 'symbol', 'icon', 'withdraw_min', 'withdraw_max', 'withdraw_fee', 'withdraw_receive_hours']
+class CurrenciesAdmin(BaseAdmin):
+    list_display = ['name', 'symbol', 'type', 'icon', 'withdraw_min', 'withdraw_max', 'withdraw_fee', 'withdraw_fixed_fee', 'withdraw_receive_hours']
 
 
 @admin.register(Accounts)
-class AccountsAdmin(admin.ModelAdmin):
+class AccountsAdmin(BaseAdmin):
     list_display = ['user', 'currency', 'balance', 'deposit', 'reserved']
     search_fields = ['user__username', 'user__email']
 
 
 @admin.register(Documents)
-class DocumentsAdmin(admin.ModelAdmin):
+class DocumentsAdmin(BaseAdmin):
     list_display = ['user', 'file', 'type', 'get_document_1', 'get_document_2', 'status']
     list_filter = ['type', 'status']
     search_fields = ['user__username', 'user__email', 'user__document_1', 'user__document_2']
@@ -55,17 +75,17 @@ class DocumentsAdmin(admin.ModelAdmin):
         return obj.user.document_1
 
     get_document_1.short_description = _("CPF")
-    get_document_1.admin_order_field = _("user__document_1")
+    get_document_1.admin_order_field = 'user__document_1'
 
     def get_document_2(self, obj):
         return obj.user.document_2
 
     get_document_2.short_description = _("RG")
-    get_document_2.admin_order_field = _("user__document_2")
+    get_document_2.admin_order_field = 'user__document_2'
 
 
 @admin.register(BankWithdraw)
-class BankWithdrawAdmin(admin.ModelAdmin):
+class BankWithdrawAdmin(BaseAdmin):
     list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'agency_digit', 'account_type', 'account_number', 'account_number_digit', 'amount', 'fee', 'status']
     list_filter = ['status']
     search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
@@ -80,13 +100,13 @@ class BankWithdrawAdmin(admin.ModelAdmin):
         return obj.account.user.document_1
 
     get_document_1.short_description = _("CPF")
-    get_document_1.admin_order_field = _("user__document_1")
+    get_document_1.admin_order_field = "user__document_1"
 
     def get_document_2(self, obj):
         return obj.account.user.document_2
 
     get_document_2.short_description = _("RG")
-    get_document_2.admin_order_field = _("user__document_2")
+    get_document_2.admin_order_field = "user__document_2"
 
 
 def reverse_crypto_withdraw(modeladmin, request, queryset):
@@ -111,7 +131,7 @@ reverse_crypto_withdraw.short_description = _("Reverse selected crypto withdraw"
 
 
 @admin.register(CryptoWithdraw)
-class CryptoWithdrawAdmin(admin.ModelAdmin):
+class CryptoWithdrawAdmin(BaseAdmin):
     list_display = ['get_user', 'get_document_1', 'get_document_2', 'deposit', 'reserved', 'get_coin', 'amount', 'fee', 'status']
     list_filter = ['status']
     search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
@@ -121,22 +141,22 @@ class CryptoWithdrawAdmin(admin.ModelAdmin):
         return obj.account.currency.name
 
     get_coin.short_description = _("Currency")
-    get_coin.admin_order_field = _("account__currency__name")
+    get_coin.admin_order_field = "account__currency__name"
 
     def get_user(self, obj):
         return obj.account.user.username
 
     get_user.short_description = _("Username")
-    get_user.admin_order_field = _("account__user__username")
+    get_user.admin_order_field = "account__user__username"
 
     def get_document_1(self, obj):
         return obj.account.user.document_1
 
     get_document_1.short_description = _("CPF")
-    get_document_1.admin_order_field = _("user__document_1")
+    get_document_1.admin_order_field = "user__document_1"
 
     def get_document_2(self, obj):
         return obj.account.user.document_2
 
     get_document_2.short_description = _("RG")
-    get_document_2.admin_order_field = _("user__document_2")
+    get_document_2.admin_order_field = "user__document_2"
