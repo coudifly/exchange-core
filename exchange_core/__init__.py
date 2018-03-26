@@ -123,8 +123,8 @@ settings.TEMPLATES[0]['OPTIONS']['context_processors'] += [
 ]
 
 settings.TEMPLATES[0]['DIRS'] = [
-    os.path.join(os.path.dirname(__file__), 'templates'),
     os.path.join(settings.BASE_DIR, 'templates'),
+    os.path.join(os.path.dirname(__file__), 'templates'),
 ]
 
 # Define o ID do site
