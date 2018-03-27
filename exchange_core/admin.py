@@ -91,7 +91,7 @@ class BankWithdrawAdmin(BaseAdmin):
     list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'agency_digit', 'account_type', 'account_number', 'account_number_digit', 'amount', 'fee', 'status']
     list_filter = ['status']
     search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
-    read_only_fields = ['account']
+    readonly_fields = ['account']
 
     def get_user(self, obj):
         return obj.account.user.username
@@ -139,7 +139,7 @@ class CryptoWithdrawAdmin(BaseAdmin):
     list_filter = ['status']
     search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
     actions = [reverse_crypto_withdraw]
-    read_only_fields = ['account']
+    readonly_fields = ['account']
 
     def get_coin(self, obj):
         return obj.account.currency.name
