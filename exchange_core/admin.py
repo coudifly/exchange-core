@@ -5,6 +5,9 @@ from exchange_core.models import Users, Companies, Currencies, Accounts, Documen
 
 
 class BaseAdmin(admin.ModelAdmin):
+    list_select_related = True
+    list_per_page = 50
+
     def has_delete_permission(self, request, obj=None):
         return False
 
