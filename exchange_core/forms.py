@@ -37,8 +37,8 @@ class SignupForm(account.forms.SignupForm):
 
 class AddressForm(forms.ModelForm):
     country = forms.ModelChoiceField(queryset=Country.objects.all(), empty_label=_("-- Select your country --"), initial=3469034, required=True)
-    region = forms.ModelChoiceField(queryset=Region.objects.none())
-    city = forms.ModelChoiceField(queryset=Region.objects.none())
+    region = forms.ModelChoiceField(queryset=Region.objects.none(), required=True)
+    city = forms.ModelChoiceField(queryset=Region.objects.none(), required=True)
 
     def __init__(self, *args, **kwargs):
         country = kwargs.pop('country')

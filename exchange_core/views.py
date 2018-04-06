@@ -43,6 +43,8 @@ class SignupView(account.views.SignupView):
     form_class = forms.SignupForm
 
     def proccess_address_form(self):
+        if not getattr(self, '_use_address', True):
+            return
         form = forms.AddressForm(country=None, region=None)
         if self.request.method == 'POST':
             country = self.request.POST['country']
@@ -57,7 +59,7 @@ class SignupView(account.views.SignupView):
 
     def form_valid(self, *args, **kwargs):
         form_address = self.proccess_address_form()
-        if not form_address.is_valid():
+        if form_address and not form_address.is_valid():
             return render(self.request, self.template_name, self.get_context_data())
         self.form_address = form_address
         

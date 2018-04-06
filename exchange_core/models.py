@@ -43,6 +43,9 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
 
     objects = CustomUserManager()
 
+    def __str__(self):
+        return self.username
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._original_status = self.status
