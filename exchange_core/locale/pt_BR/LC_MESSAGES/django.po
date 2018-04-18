@@ -791,7 +791,7 @@ msgstr "Comprovante de residência"
 
 #: exchange_core/templates/core/index.html:108
 msgid "Change for this"
-msgstr "Nova Senha"
+msgstr "Mudar para este"
 
 #: exchange_core/templates/core/index.html:130
 msgid "Hi, "
