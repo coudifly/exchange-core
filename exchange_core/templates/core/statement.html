@@ -31,11 +31,10 @@
 	</div>
 	<div class="tab-content card-box">
 		<div class="tab-pane active" id="tab_overview" aria-expanded="true">
-			<table class="table table-bordered table-v2 table-striped">
-			<div class="container-fluid">
+
 				<div class="row">
-					<div class="col-md-12">
-						<form role="form" action="#tab_overview" class="form-inline">
+					<div class="col-md-2">
+						<form role="form" action="#tab_overview" class="form">
 							<div class="form-group">
 								<label for="type">
 									Type
@@ -43,20 +42,22 @@
 								<select id="type" name="type_statement" class="form-control">
 									<option value="" selected>---</option>
 									{% for option in options_statement %}
-											{% with "type_statement="|add:option.0 as choice %}
-													{% if choice in request.get_full_path %}
-														<option value="{{option.0}}" selected>{% trans option.1 %}</option>
-													{% else %}
-														<option value="{{option.0}}">{% trans option.1 %}</option>
-													{% endif %}
-											{% endwith %}
+									{% with "type_statement="|add:option.0 as choice %}
+									{% if choice in request.get_full_path %}
+									<option value="{{option.0}}" selected>{% trans option.1 %}</option>
+									{% else %}
+									<option value="{{option.0}}">{% trans option.1 %}</option>
+									{% endif %}
+									{% endwith %}
 									{% endfor %}
 								</select>
 							</div>
 						</form>
 					</div>
 				</div>
-			</div>
+
+			<br>
+			<table class="table table-bordered table-v2 table-striped">
 				<thead>
 					<tr>
 						<th class="text-left">{% trans "Created" %}</th>
@@ -82,32 +83,30 @@
 			</table>
 		</div>
 		<div class="tab-pane" id="tab_crypto_withdraw" aria-expanded="false">
-			<table class="table table-bordered table-v2 table-striped">
-				<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-12">
-						<form role="form" action="#tab_crypto_withdraw" class="form-inline">
-							<div class="form-group">
-								<label for="type">
-									Status
-								</label>
-								<select id="type" name="type_crypto" class="form-control">
-									<option  value="" selected>---</option>
-									{% for option in options_cryptowithdraw %}
-											{% with "type_crypto="|add:option.0 as choice %}
-													{% if choice in request.get_full_path %}
-														<option value="{{option.0}}" selected>{% trans option.1 %}</option>
-													{% else %}
-														<option value="{{option.0}}">{% trans option.1 %}</option>
-													{% endif %}
-											{% endwith %}
-									{% endfor %}
-								</select>
-							</div>
-						</form>
-					</div>
+			<div class="row">
+				<div class="col-md-2">
+					<form role="form" action="#tab_crypto_withdraw" class="form">
+						<div class="form-group">
+							<label for="type">
+								Status
+							</label>
+							<select id="type" name="type_crypto" class="form-control">
+								<option  value="" selected>---</option>
+								{% for option in options_cryptowithdraw %}
+								{% with "type_crypto="|add:option.0 as choice %}
+								{% if choice in request.get_full_path %}
+								<option value="{{option.0}}" selected>{% trans option.1 %}</option>
+								{% else %}
+								<option value="{{option.0}}">{% trans option.1 %}</option>
+								{% endif %}
+								{% endwith %}
+								{% endfor %}
+							</select>
+						</div>
+					</form>
 				</div>
 			</div>
+			<table class="table table-bordered table-v2 table-striped">
 				<thead>
 					<tr>
 						<th class="text-left">{% trans "Created" %}</th>
@@ -140,11 +139,9 @@
 			</table>
 		</div>
 		<div class="tab-pane" id="tab_br_withdraw">
-			<table class="table table-bordered table-v2 table-striped">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-12">
-							<form role="form" action="#tab_br_withdraw" class="form-inline">
+			<div class="row">
+						<div class="col-md-2">
+							<form role="form" action="#tab_br_withdraw" class="form">
 								<div class="form-group">
 									<label for="type">
 										Status
@@ -165,7 +162,7 @@
 							</form>
 						</div>
 					</div>
-				</div>
+			<table class="table table-bordered table-v2 table-striped">
 				<thead>
 					<tr>
 						<th class="text-left">{% trans "Created" %}</th>
@@ -208,8 +205,8 @@
 {% block scripts %}
 <script type="text/javascript">
 	$('select').on('change', function(){
-		console.log($(this).parent().parent().children()[0])
-		$(this).parent().parent().children()[0].submit();
+		// console.log($(this).parent().parent());
+		$(this).parent().parent().submit();
 	});
 	var url = document.location.toString();
 		if (url.match('#')) {
