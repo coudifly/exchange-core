@@ -62,7 +62,7 @@ class SignupView(account.views.SignupView):
         if form_address and not form_address.is_valid():
             return render(self.request, self.template_name, self.get_context_data())
         self.form_address = form_address
-        
+
         with transaction.atomic():
             return super().form_valid(*args, **kwargs)
 
@@ -188,7 +188,7 @@ class AccountSettingsView(MultiFormView):
         country = self.request.POST.get('country')
         region = self.request.POST.get('region')
         return {'country': country, 'region': region}
-        
+
 
     def get_address_instance(self):
         addresses = Addresses.objects.filter(user=self.request.user)
@@ -257,10 +257,29 @@ class StatementView(TemplateView):
     template_name = 'core/statement.html'
 
     def get_context_data(self):
-        context = super().get_context_data()
-        context['statement'] = Statement.objects.filter(account__user=self.request.user).order_by('-created')
-        context['crypto_withdraw'] = CryptoWithdraw.objects.filter(account__user=self.request.user).order_by('-created')
-        context['bank_withdraw'] = BankWithdraw.objects.filter(account__user=self.request.user).order_by('-created')
+        context = super().get_context_data(**kwargs)
+        type_statement = self.request.GET.get('type_statement', "")
+        status_crypto = self.request.GET.get('type_crypto', "")
+        status_br_withdraw = self.request.GET.get('type_br_withdraw', "")
+
+        qs_statement = Statement.objects.filter(account__user=self.request.user).order_by('-created')
+        qs_crypto = CryptoWithdraw.objects.filter(account__user=self.request.user).order_by('-created')
+        qs_bank = BankWithdraw.objects.filter(account__user=self.request.user).order_by('-created')
+
+        if type_statement != "":
+            qs_statement = qs_statement.filter(type=type_statement)
+        if status_crypto != "":
+            qs_crypto = qs_crypto.filter(status=status_crypto)
+        if status_br_withdraw != "":
+            qs_bank = qs_bank.filter(status=status_br_withdraw)
+
+        context['statement'] = qs_statement
+        context['crypto_withdraw'] = qs_crypto
+        context['bank_withdraw'] = qs_bank
+        context['options_statement'] = Statement.TYPES
+        context['options'] = Statement.TYPES
+        context['options_cryptowithdraw'] = CryptoWithdraw.STATUS
+        context['options_bankwithdraw'] = BankWithdraw.STATUS
         if ORDER_EXCHANGE_MODULE_EXISTS:
             context['executed_orders'] = Orders.objects.select_related('market__base_currency__currency', 'market__currency').filter(user=self.request.user, status=Orders.STATUS.executed).order_by('-created')[0:50]
         return context

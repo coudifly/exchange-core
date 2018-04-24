@@ -4,158 +4,216 @@
 {% load thumbnail %}
 
 {% block head %}
-	<style>
-		.tx-12 {
-			font-size: 12px;
-		}
-	</style>
+<style>
+.tx-12 {
+	font-size: 12px;
+}
+</style>
 {% endblock %}
 
 {% block content %}
-  <h6 class="page-title">{% trans "Statement" %}</h6>
-      
-  <div>
-        
-      <div class="os-tabs-w">
-        <div class="os-tabs-controls">
-          <ul class="nav nav-tabs smaller">
-            <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#tab_overview" aria-expanded="true">{% trans "Overview" %}</a>
-            </li>
-            {% if executed_orders is not None %}
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab_executed_orders" aria-expanded="true">{% trans "Orders History" %}</a>
-            </li>
-            {% endif %}
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab_crypto_withdraw" aria-expanded="false">{% trans "Crypto Withdrawals" %}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab_br_withdraw" aria-expanded="false">{% trans "BRL Withdrawals" %}</a>
-            </li>
-          </ul>
-          </ul>
-        </div>
-        <div class="tab-content card-box">
-          <div class="tab-pane active" id="tab_overview" aria-expanded="true">
-          	<table class="table table-bordered table-v2 table-striped">
-          		<thead>
-          			<tr>
-          				<th>{% trans "Created" %}</th>
-          				<th>{% trans "Coin" %}</th>
-          				<th>{% trans "Symbol" %}</th>
-          				<th>{% trans "Description" %}</th>
-          				<th>{% trans "Amount" %}</th>
-          			</tr>
-          		</thead>
-          		<tbody class="tx-12">
-          			{% for item in statement %}
-          				<tr>
-          					<td>{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
-          					<td>{{ item.account.currency.name }}</td>
-          					<td>{{ item.account.currency.symbol }}</td>
-          					<td>{{ item.description }}</td>
-          					<td>{{ item.amount }}</td>
-          				</tr>
-          			{% endfor %}
-          		</tbody>
-          	</table>
-          </div>
-          {% if executed_orders is not None %}
-          <div class="tab-pane" id="tab_executed_orders" aria-expanded="true">
-            <table class="table table-bordered table-v2 table-striped">
-              <thead>
-                <tr>
-                  <th>{% trans "Date" %}</th>
-                  <th>{% trans "Type" %}</th>
-                  <th>{% trans "Price" %}</th>
-                  <th>{% trans "Amount" %}</th>
-                  <th>{% trans "Total" %}</th>
-                </tr>
-              </thead>
-              <tbody class="tx-12">
-                {% for item in executed_orders %}
-                  <tr>
-                    <td>{{ item.modified }}</td>
-                    <td>{{ item.type_name }}</td>
-                    <td>{{ item.price }} - {{ item.market.base_currency.currency.symbol }}</td>
-                    <td>{{ item.amount }} - {{ item.market.currency.symbol }}</td>
-                    <td>{{ item.total|floatformat:8 }} - {{ item.market.base_currency.currency.symbol }}</td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-          {% endif %}
-          <div class="tab-pane" id="tab_crypto_withdraw" aria-expanded="false">
-          	<table class="table table-bordered table-v2 table-striped">
-          		<thead>
-          			<tr>
-          				<th>{% trans "Created" %}</th>
-          				<th>{% trans "Coin" %}</th>
-          				<th>{% trans "Symbol" %}</th>
-          				<th>{% trans "Deposit" %}</th>
-          				<th>{% trans "Reserved" %}</th>
-          				<th>{% trans "Address" %}</th>
-                  <th>{% trans "Amount" %}</th>
-          				<th>{% trans "Status" %}</th>
-          			</tr>
-          		</thead>
-          		<tbody class="tx-12">
-          			{% for item in crypto_withdraw %}
-          				<tr>
-          					<td>{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
-          					<td>{{ item.account.currency.name }}</td>
-          					<td>{{ item.account.currency.symbol }}</td>
-          					<td>{{ item.deposit }}</td>
-          					<td>{{ item.reserved }}</td>
-          					<td>{{ item.address }}</td>
-                    <td>{{ item.amount }}</td>
-          					<td><span class="badge badge-{{ item.status_class }}">{{ item.status_name }}</span></td>
-          				</tr>
-          			{% endfor %}
-          		</tbody>
-          	</table>
-          </div>
-          <div class="tab-pane" id="tab_br_withdraw">
-          	<table class="table table-bordered table-v2 table-striped">
-          		<thead>
-          			<tr>
-          				<th>{% trans "Created" %}</th>
-          				<th>{% trans "Coin" %}</th>
-          				<th>{% trans "Symbol" %}</th>
-          				<th>{% trans "Deposit" %}</th>
-          				<th>{% trans "Reserved" %}</th>
-          				<th>{% trans "Amount" %}</th>
-          				<th>{% trans "Bank" %}</th>
-          				<th>{% trans "Agency" %}</th>
-          				<th>{% trans "Account Type" %}</th>
-                  <th>{% trans "Account Number" %}</th>
-          				<th>{% trans "Status" %}</th>
-          			</tr>
-          		</thead>
-          		<tbody class="tx-12">
-          			{% for item in bank_withdraw %}
-          				<tr>
-          					<td>{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
-          					<td>{{ item.account.currency.name }}</td>
-          					<td>{{ item.account.currency.symbol }}</td>
-          					<td>{{ item.deposit }}</td>
-          					<td>{{ item.reserved }}</td>
-          					<td>{{ item.amount }}</td>
-          					<td>{{ item.bank }}</td>
-          					<td>{{ item.agency }}</td>
-          					<td>{{ item.account_type }}</td>
-                    <td>{{ item.account_number }}</td>
-          					<td><span class="badge badge-{{ item.status_class }}">{{ item.status_name }}</span></td>
-          				</tr>
-          			{% endfor %}
-          		</tbody>
-          	</table>
-          </div>
-        </div>
-      </div>
-    </div>
-      
+<h6 class="page-title">{% trans "Statement" %}</h6>
+<div>
+	<div class="os-tabs-w">
+		<div class="os-tabs-controls">
+			<ul class="nav nav-tabs smaller">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#tab_overview" aria-expanded="true">{% trans "Overview" %}</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#tab_crypto_withdraw" aria-expanded="false">{% trans "Crypto Withdrawals" %}</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#tab_br_withdraw" aria-expanded="false">{% trans "BRL Withdrawals" %}</a>
+				</li>
+			</ul>
+		</ul>
+	</div>
+	<div class="tab-content card-box">
+		<div class="tab-pane active" id="tab_overview" aria-expanded="true">
+			<table class="table table-bordered table-v2 table-striped">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<form role="form" action="#tab_overview" class="form-inline">
+							<div class="form-group">
+								<label for="type">
+									Type
+								</label>
+								<select id="type" name="type_statement" class="form-control">
+									<option value="" selected>---</option>
+									{% for option in options_statement %}
+											{% with "type_statement="|add:option.0 as choice %}
+													{% if choice in request.get_full_path %}
+														<option value="{{option.0}}" selected>{% trans option.1 %}</option>
+													{% else %}
+														<option value="{{option.0}}">{% trans option.1 %}</option>
+													{% endif %}
+											{% endwith %}
+									{% endfor %}
+								</select>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+				<thead>
+					<tr>
+						<th class="text-left">{% trans "Created" %}</th>
+						<th class="text-left">{% trans "Coin" %}</th>
+						<th class="text-left">{% trans "Symbol" %}</th>
+						<th class="text-left">{% trans "Description" %}</th>
+						<th class="text-left">{% trans "Amount" %}</th>
+						<th class="text-left">{% trans "TXID" %}</th>
+					</tr>
+				</thead>
+				<tbody class="tx-12">
+					{% for item in statement %}
+					<tr>
+						<td class="text-left">{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
+						<td class="text-left">{{ item.account.currency.name }}</td>
+						<td class="text-left">{{ item.account.currency.symbol }}</td>
+						<td class="text-left">{{ item.description }}</td>
+						<td class="text-left">{{ item.amount }}</td>
+						<td class="text-left">{{ item.tx_id }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane" id="tab_crypto_withdraw" aria-expanded="false">
+			<table class="table table-bordered table-v2 table-striped">
+				<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<form role="form" action="#tab_crypto_withdraw" class="form-inline">
+							<div class="form-group">
+								<label for="type">
+									Status
+								</label>
+								<select id="type" name="type_crypto" class="form-control">
+									<option  value="" selected>---</option>
+									{% for option in options_cryptowithdraw %}
+											{% with "type_crypto="|add:option.0 as choice %}
+													{% if choice in request.get_full_path %}
+														<option value="{{option.0}}" selected>{% trans option.1 %}</option>
+													{% else %}
+														<option value="{{option.0}}">{% trans option.1 %}</option>
+													{% endif %}
+											{% endwith %}
+									{% endfor %}
+								</select>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+				<thead>
+					<tr>
+						<th class="text-left">{% trans "Created" %}</th>
+						<th class="text-left">{% trans "Coin" %}</th>
+						<th class="text-left">{% trans "Symbol" %}</th>
+						<th class="text-left">{% trans "Deposit" %}</th>
+						<th class="text-left">{% trans "Reserved" %}</th>
+						<th class="text-left">{% trans "Address" %}</th>
+						<th class="text-left">{% trans "Amount" %}</th>
+						<th class="text-left">{% trans "TXID" %}</th>
+						<th class="text-left">{% trans "Status" %}</th>
+					</tr>
+				</thead>
+				<tbody class="tx-12">
+					{% for item in crypto_withdraw %}
+					<tr>
+						<td class="text-left">{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
+						<td class="text-left">{{ item.account.currency.name }}</td>
+						<td class="text-left">{{ item.account.currency.symbol }}</td>
+						<td class="text-left">{{ item.deposit }}</td>
+						<td class="text-left">{{ item.reserved }}</td>
+						<td class="text-left">{{ item.address }}</td>
+						<td class="text-left">{{ item.amount }}</td>
+						<td class="text-left">{{ item.tx_id }}</td>
+						<td class="text-left"><span class="badge badge-{{ item.status_class }}">{{ item.status_name }}</span></td>
 
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane" id="tab_br_withdraw">
+			<table class="table table-bordered table-v2 table-striped">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<form role="form" action="#tab_br_withdraw" class="form-inline">
+								<div class="form-group">
+									<label for="type">
+										Status
+									</label>
+									<select id="type" name="type_br_withdraw" class="form-control">
+										<option value="" selected>---</option>
+										{% for option in options_bankwithdraw %}
+												{% with "type_br_withdraw="|add:option.0 as choice %}
+														{% if choice in request.get_full_path %}
+															<option value="{{option.0}}" selected>{% trans option.1 %}</option>
+														{% else %}
+															<option value="{{option.0}}">{% trans option.1 %}</option>
+														{% endif %}
+												{% endwith %}
+										{% endfor %}
+									</select>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<thead>
+					<tr>
+						<th class="text-left">{% trans "Created" %}</th>
+						<th class="text-left">{% trans "Coin" %}</th>
+						<th class="text-left">{% trans "Symbol" %}</th>
+						<th class="text-left">{% trans "Deposit" %}</th>
+						<th class="text-left">{% trans "Reserved" %}</th>
+						<th class="text-left">{% trans "Amount" %}</th>
+						<th class="text-left">{% trans "Bank" %}</th>
+						<th class="text-left">{% trans "Agency" %}</th>
+						<th class="text-left">{% trans "Account Type" %}</th>
+						<th class="text-left">{% trans "Account Number" %}</th>
+						<th class="text-left">{% trans "Status" %}</th>
+					</tr>
+				</thead>
+				<tbody class="tx-12">
+					{% for item in bank_withdraw %}
+					<tr>
+						<td class="text-left">{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
+						<td class="text-left">{{ item.account.currency.name }}</td>
+						<td class="text-left">{{ item.account.currency.symbol }}</td>
+						<td class="text-left">{{ item.deposit }}</td>
+						<td class="text-left">{{ item.reserved }}</td>
+						<td class="text-left">{{ item.amount }}</td>
+						<td class="text-left">{{ item.bank }}</td>
+						<td class="text-left">{{ item.agency }}</td>
+						<td class="text-left">{{ item.account_type }}</td>
+						<td class="text-left">{{ item.account_number }}</td>
+						<td class="text-left"><span class="badge badge-{{ item.status_class }}">{{ item.status_name }}</span></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+	$('select').on('change', function(){
+		console.log($(this).parent().parent().children()[0])
+		$(this).parent().parent().children()[0].submit();
+	});
+	var url = document.location.toString();
+		if (url.match('#')) {
+		    $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+		}
+</script>
 {% endblock %}
