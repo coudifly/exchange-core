@@ -1,3 +1,6 @@
+<a href="#" style="position: absolute; top: -10000px; left: -10000px;" class="copy-address-btn">Copy Address</a>
+
+
 <script src="https://cdn.bootcss.com/stacktable.js/1.0.3/stacktable.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.3.4/sweetalert2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
@@ -23,14 +26,16 @@
                     this.language = code;
                 }
             },
-            updated: function () {
-                vm = this;
+            watch: {
+                language: function () {
+                    vm = this;
 
-                this.$nextTick(function () {
-                    if (vm.language != null) {
-                        this.$el.querySelector('#change-language-form').submit();
-                    }
-                });
+                    this.$nextTick(function () {
+                        if (vm.language != null) {
+                            this.$el.querySelector('#change-language-form').submit();
+                        }
+                    });
+                }
             }
         });
     });
@@ -43,7 +48,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', '{{ GOOGLE_ANALYTICS_TRACK_ID }}');
 </script>
 {% endif %}
