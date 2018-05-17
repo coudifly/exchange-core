@@ -24,7 +24,7 @@ JSONEncoder_default = JSONEncoder.default
 
 def JSONEncoder_new(self, o):
     if isinstance(o, UUID): return str(o)
-    if isinstance(o, Decimal): return round(float(o), 8)
+    if isinstance(o, Decimal): return format(o, '.2f')
     return JSONEncoder_default(self, o)
 
 JSONEncoder.default = JSONEncoder_new
