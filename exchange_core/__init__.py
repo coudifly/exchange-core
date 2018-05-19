@@ -68,6 +68,7 @@ settings.ENABLE_SIGNUP = config('ENABLE_SIGNUP', default=True, cast=config.boole
 # https://github.com/yourlabs/django-session-security/
 # django.contrib.sites é requerido pelo django-user-accounts
 settings.INSTALLED_APPS += [
+    'django.contrib.humanize',
     'django.contrib.sites',
 	'django_otp',
     'django_otp.plugins.otp_static',
@@ -212,6 +213,10 @@ settings.LANGUAGES = [
     ('pt-br', _('Portuguese')),
     ('es', _('Spanish')),
 ]
+
+# Configurações de l10n
+settings.USE_L10N = True
+settings.USE_THOUSAND_SEPARATOR = True
 
 # Configuracoes da lib GDAL
 settings.GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH', default=None)

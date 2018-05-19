@@ -15,6 +15,7 @@ from cities.models import Country, Region, City
 
 from exchange_core.managers import CustomUserManager
 from exchange_core.choices import BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES
+from exchange_core.rates import CurrencyPrice
 
 
 def get_file_path(instance, filename):
@@ -123,6 +124,10 @@ class Currencies(TimeStampedModel, BaseModel):
     def __str__(self):
         return self.name
 
+    @property
+    def type_title(self):
+        return self.type.title() + ' Account'
+
 
 class Accounts(TimeStampedModel, BaseModel):
     currency = models.ForeignKey(Currencies, related_name='accounts', verbose_name=_("Currency"), on_delete=models.CASCADE)
@@ -143,6 +148,15 @@ class Accounts(TimeStampedModel, BaseModel):
     def balance(self):
         return self.deposit + self.reserved
 
+    @property
+    def br_balance(self):
+        br = CurrencyPrice('mercadobitcoin')
+        return br.to_br(self.balance)
+
+    @property
+    def usd_balance(self):
+        usd = CurrencyPrice('coinbase')
+        return usd.to_usd(self.balance)
 
 class BankAccounts(TimeStampedModel, BaseModel):
     bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
