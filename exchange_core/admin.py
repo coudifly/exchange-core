@@ -44,10 +44,12 @@ disapprove_documents.short_description = _("Disapprove documentation for selecte
 
 @admin.register(Users)
 class UsersAdmin(BaseAdmin):
-    list_display = ['username', 'sponsor', 'first_name', 'last_name', 'email', 'created']
+    list_display = ['username', 'first_name', 'last_name', 'email', 'created']
     list_filter = ['status', 'type']
     search_fields = ['username', 'email', 'document_1', 'document_2']
     ordering = ('-created',)
+    exclude = ['password']
+    readonly_fields = ['last_login', 'profile', 'status',]
     actions = [approve_documents, disapprove_documents]
 
 

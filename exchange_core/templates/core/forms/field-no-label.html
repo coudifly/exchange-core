@@ -1,0 +1,18 @@
+{% load widget_tweaks %}
+
+{% if not field.is_hidden %}
+	{% with WIDGET_ERROR_CLASS='parsley-error' %}
+		<div class="form-group {% if field.errors %}has-error has-danger{% endif %}">
+			{% render_field field class="form-control" placeholder=field.label %}
+			{% if field.errors %}
+				<ul class="parsley-errors-list filled">
+					{% for error in field.errors %}
+						<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+	{% endwith %}
+{% else %}
+	{{ field }}
+{% endif %}

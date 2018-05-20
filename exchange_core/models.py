@@ -33,7 +33,6 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     STATUS = Choices('created', 'approved_documentation', 'inactive', 'disapproved_documentation')
     TYPES = Choices('person', 'company')
 
-    sponsor = models.ForeignKey('self', null=True, blank=True, verbose_name=_("Sponsor"), on_delete=models.CASCADE)
     status = models.CharField(max_length=30, default=STATUS.created, choices=STATUS, verbose_name=_("Status"))
     avatar = models.ImageField(upload_to=get_file_path, blank=True, verbose_name=_("Avatar"))
     profile = JSONField(null=True, blank=True, default={}, verbose_name=_("Profile data"))
@@ -108,10 +107,13 @@ class Currencies(TimeStampedModel, BaseModel):
     type = models.CharField(max_length=20, choices=TYPES, default=TYPES.checking, verbose_name=_("Type"))
     icon = models.ImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=_("Icon"))
     status = models.CharField(max_length=30, default=STATUS.active,choices=STATUS, verbose_name=_("Status"))
-    withdraw_min = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.001'), verbose_name=_("Withdraw Min"))
+    withdraw_min = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("Withdraw Min"))
     withdraw_max = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('1000000.00'), verbose_name=_("Withdraw Max"))
-    withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Percent Fee"))
-    withdraw_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.005'), verbose_name=_("Withdraw Fixed Fee"))
+    withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("Withdraw Percent Fee"))
+    withdraw_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("Withdraw Fixed Fee"))
+    # Transfer between system accounts
+    tbsa_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("TBSA Percent Fee"), help_text=_("Transfer between system accounts"))
+    tbsa_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("TBSA Fixed Fee"), help_text=_("Transfer between system accounts"))
     withdraw_receive_hours = models.IntegerField(default=48, verbose_name=_("Withdraw receive hours"))
     order = models.IntegerField(default=100, verbose_name=_("Order"))
 
