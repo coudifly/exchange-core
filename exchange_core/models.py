@@ -160,6 +160,20 @@ class Accounts(TimeStampedModel, BaseModel):
         usd = CurrencyPrice('coinbase')
         return usd.to_usd(self.balance)
 
+    def new_income(self, amount, tx_id, fk):
+        # Transfere o rendimento para a conta do investidor
+        self.deposit += amount
+        self.save()
+
+        # Cria o extrato do rendimento para o investidor
+        statement = Statement(account_id=self.pk, amount=amount, tx_id=tx_id, fk=fk)
+        statement.description = 'Income'
+        statement.type = Statement.TYPES.income
+        statement.save()
+
+        return statement
+
+
 class BankAccounts(TimeStampedModel, BaseModel):
     bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
     agency = models.CharField(max_length=10, verbose_name=_("Agency"))
@@ -265,7 +279,7 @@ class Documents(TimeStampedModel, BaseModel):
 
 # Extrato das contas
 class Statement(TimeStampedModel, BaseModel):
-    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income', 'investment')
+    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income', 'investment', 'tbsa')
 
     account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
     description = models.CharField(max_length=100, verbose_name=_("Description"))
