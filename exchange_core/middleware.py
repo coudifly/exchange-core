@@ -24,6 +24,9 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 	allowed_paths = []
 
 	def must_ignore(self, request):
+		if '.' in request.path:
+			return True
+
 		for path in (self.ignore_paths + settings.IGNORE_PATHS):
 			if request.path.startswith(path) and path not in self.allowed_paths:
 				return True
