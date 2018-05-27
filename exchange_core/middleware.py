@@ -21,9 +21,11 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 		reverse('core>get-cities'),
 	]
 
+	allowed_paths = []
+
 	def must_ignore(self, request):
 		for path in (self.ignore_paths + settings.IGNORE_PATHS):
-			if request.path.startswith(path):
+			if request.path.startswith(path) and path not in self.allowed_paths:
 				return True
 		return False
 

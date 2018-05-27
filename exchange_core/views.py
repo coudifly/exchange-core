@@ -208,10 +208,14 @@ class AccountSettingsView(MultiFormView):
         return redirect(reverse('core>settings'))
 
     def address_form_valid(self, form):
-        instance = form.save(commit=False)
-        instance.user = self.request.user
-        instance.profile['has_address'] = True
-        instance.save()
+        with transaction.atomic():
+            instance = form.save(commit=False)
+            instance.user = self.request.user
+            instance.save()
+            user = instance.user
+            user.profile['has_address'] = True
+            user.save()
+
         messages.success(self.request, _('Your address has been updated'))
         return redirect(reverse('core>settings'))
 
