@@ -12,7 +12,6 @@ register = Library()
 
 @register.filter(is_safe=True)
 def serialize(data):
-    print(data)
     return json.dumps(data)
 
 
