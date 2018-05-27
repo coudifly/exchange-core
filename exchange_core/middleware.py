@@ -16,15 +16,22 @@ class UserDocumentsMiddleware(MiddlewareMixin):
 		'/' + getattr(settings, 'SPONSORSHIP_URL_PREFIX', '0000000000'),
 		reverse('core>logout'),
 		reverse('core>documents'),
-
+		reverse('core>settings'),
+		reverse('core>get-regions'),
+		reverse('core>get-cities'),
 	]
+
+	def must_ignore(self, request):
+		for path in (self.ignore_paths + settings.IGNORE_PATHS):
+			if request.path.startswith(path):
+				return True
+		return False
 
 	def process_request(self, request):
 		if not settings.REQUIRE_USER_DOCUMENTS:
 			return
-		for path in self.ignore_paths:
-			if request.path.startswith(path):
-				return
+		if self.must_ignore(request):
+			return
 		if request.user.is_authenticated and (request.user.status == Users.STATUS.created or request.user.status == Users.STATUS.disapproved_documentation):
 			return HttpResponsePermanentRedirect(reverse('core>documents'))
 
@@ -36,7 +43,7 @@ class CheckUserLoggedInMiddleware(MiddlewareMixin):
 			return
 		if not request.user.is_authenticated:
 			return
-		return HttpResponsePermanentRedirect(reverse('core>wallets'))
+		return HttpResponsePermanentRedirect(settings.LOGIN_REDIRECT_URL)
 
 
 class CoreSessionSecurityMiddleware(SessionSecurityMiddleware):

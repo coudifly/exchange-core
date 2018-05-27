@@ -53,6 +53,9 @@ settings.GOOGLE_ANALYTICS_TRACK_ID = config('GOOGLE_ANALYTICS_TRACK_ID', default
 # Configura a obrigatoriedade no envio dos documentos
 settings.REQUIRE_USER_DOCUMENTS = config('REQUIRE_USER_DOCUMENTS', default=True, cast=config.boolean)
 
+# Ignore URLs
+settings.IGNORE_PATHS = config('IGNORE_PATHS', default=[], cast=config.list)
+
 # Dominio do site
 settings.DOMAIN = config('DOMAIN', default='example.com')
 

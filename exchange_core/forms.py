@@ -36,9 +36,9 @@ class SignupForm(account.forms.SignupForm):
 
 
 class AddressForm(forms.ModelForm):
-    country = forms.ModelChoiceField(queryset=Country.objects.all(), empty_label=_("-- Select your country --"), initial=3469034, required=True)
-    region = forms.ModelChoiceField(queryset=Region.objects.none(), required=True)
-    city = forms.ModelChoiceField(queryset=Region.objects.none(), required=True)
+    country = forms.ModelChoiceField(label=_("Country"), queryset=Country.objects.all(), empty_label=_("-- Select your country --"), initial=3469034, required=True)
+    region = forms.ModelChoiceField(label=_("State"), queryset=Region.objects.none(), required=True)
+    city = forms.ModelChoiceField(label=_("City"), queryset=Region.objects.none(), required=True)
 
     def __init__(self, *args, **kwargs):
         country = kwargs.pop('country')
@@ -54,6 +54,16 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Addresses
         fields = ('country', 'region', 'city', 'zipcode', 'address', 'neighborhood', 'number',)
+
+
+class UserForm(forms.ModelForm):
+    document_1 = forms.CharField(label=_("Fiscal document"))
+    document_2 = forms.CharField(label=_("Registration document"))
+    mobile_phone = forms.CharField(label=_("Mobile phone"))
+
+    class Meta:
+        model = Users
+        fields = ('first_name', 'last_name', 'email', 'document_1', 'document_2', 'mobile_phone')
 
 
 class ResetTokenForm(account.forms.PasswordResetTokenForm):
@@ -82,9 +92,9 @@ class BankAccountForm(forms.ModelForm):
 
 class ChangePasswordForm(forms.Form):
     form_name = forms.CharField(widget=forms.HiddenInput(), initial='change_password')
-    password = PasswordField(label=_("New Password"), strip=settings.ACCOUNT_PASSWORD_STRIP)
-    repeat_password = forms.CharField(widget=forms.PasswordInput())
-    current_password = forms.CharField(widget=forms.PasswordInput())
+    password = PasswordField(label=_("New password"), strip=settings.ACCOUNT_PASSWORD_STRIP)
+    repeat_password = forms.CharField(label=_("Repeat password"), widget=forms.PasswordInput())
+    current_password = forms.CharField(label=_("Current password"), widget=forms.PasswordInput())
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')

@@ -8,83 +8,85 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-25 12:30-0300\n"
+"POT-Creation-Date: 2018-05-27 14:42-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: jorge ugalde <jorgeac66@gmail.com>, 2018\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/neosacode/"
-"teams/83636/pt_BR/)\n"
-"Language: pt_BR\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: exchange_core/__init__.py:202
+#: exchange_core/__init__.py:212
 msgid "English"
-msgstr "Inglês "
+msgstr "Inglês"
 
-#: exchange_core/__init__.py:203
+#: exchange_core/__init__.py:213
 msgid "Portuguese"
 msgstr "Português"
 
-#: exchange_core/__init__.py:204
+#: exchange_core/__init__.py:214
 msgid "Spanish"
 msgstr "Espanhol"
 
-#: exchange_core/admin.py:21
+#: exchange_core/admin.py:33
 msgid "Documentation approved for users"
 msgstr "Usuários com documentação aprovada"
 
-#: exchange_core/admin.py:23
+#: exchange_core/admin.py:35
 msgid "Approve documentation for selected users"
 msgstr "Aprovar documentação para usuários selecionados"
 
-#: exchange_core/admin.py:29
+#: exchange_core/admin.py:41
 msgid "Documentation disapproved for users"
-msgstr "Usuário com documentação desaprovada"
+msgstr "Usuários com documentação desaprovada"
 
-#: exchange_core/admin.py:31
+#: exchange_core/admin.py:43
 msgid "Disapprove documentation for selected users"
-msgstr "Desaprovar documentação para usuários selecionados"
+msgstr "Desaprovar documentação para usuários selecionados "
 
-#: exchange_core/admin.py:68 exchange_core/admin.py:93
-#: exchange_core/admin.py:146 exchange_core/forms.py:21
+#: exchange_core/admin.py:82 exchange_core/admin.py:108
+#: exchange_core/admin.py:162 exchange_core/forms.py:21
 msgid "CPF"
-msgstr ""
+msgstr "CPF"
 
-#: exchange_core/admin.py:74 exchange_core/admin.py:99
-#: exchange_core/admin.py:152 exchange_core/forms.py:22
+#: exchange_core/admin.py:88 exchange_core/admin.py:114
+#: exchange_core/admin.py:168 exchange_core/forms.py:22
 msgid "RG"
-msgstr ""
+msgstr "RG"
 
-#: exchange_core/admin.py:87 exchange_core/admin.py:140
+#: exchange_core/admin.py:102 exchange_core/admin.py:156
 msgid "Username"
 msgstr "Usuário"
 
-#: exchange_core/admin.py:88
+#: exchange_core/admin.py:103
 msgid "account__user__username"
 msgstr ""
 
-#: exchange_core/admin.py:113
+#: exchange_core/admin.py:128
 msgid "Reverse"
 msgstr "Extornar"
 
-#: exchange_core/admin.py:119
+#: exchange_core/admin.py:134
 msgid "{} amount reversed to {}"
 msgstr "{} extornado para {}"
 
-#: exchange_core/admin.py:121
+#: exchange_core/admin.py:136
 msgid "Reverse selected crypto withdraw"
-msgstr "Extornar saque de criptomoeda selecionado"
+msgstr "Extornar saque em cripto"
 
-#: exchange_core/admin.py:134 exchange_core/models.py:115
-#: exchange_core/models.py:125
+#: exchange_core/admin.py:150 exchange_core/models.py:121
+#: exchange_core/models.py:146
 msgid "Currency"
 msgstr "Moeda"
 
 #: exchange_core/apps.py:7
 msgid "Exchange"
 msgstr "Exchange"
+
+#: exchange_core/apps.py:16 exchange_core/templates/core/index.html:217
+msgid "Two Factor Authentication"
+msgstr "Autenticação em 2 passos"
 
 #: exchange_core/forms.py:17
 msgid "First name"
@@ -98,36 +100,64 @@ msgstr "Sobrenome"
 msgid "Confirm e-mail"
 msgstr "Confirmar e-mail"
 
-#: exchange_core/forms.py:20 exchange_core/forms.py:60
+#: exchange_core/forms.py:20 exchange_core/forms.py:70
 msgid "Password"
 msgstr "Senha"
 
-#: exchange_core/forms.py:23 exchange_core/models.py:42
+#: exchange_core/forms.py:23 exchange_core/forms.py:62
+#: exchange_core/models.py:42
 msgid "Mobile phone"
 msgstr "Telefone celular"
 
 #: exchange_core/forms.py:33
 msgid "The e-mails aren't equal"
-msgstr "Os e-mails não são iguais"
+msgstr "Os e-mail não coincidem"
+
+#: exchange_core/forms.py:39 exchange_core/models.py:76
+msgid "Country"
+msgstr "País"
 
 #: exchange_core/forms.py:39
 msgid "-- Select your country --"
 msgstr "-- Selecione o seu país --"
 
-#: exchange_core/forms.py:85
-msgid "New Password"
+#: exchange_core/forms.py:40 exchange_core/models.py:77
+msgid "State"
+msgstr "Estado"
+
+#: exchange_core/forms.py:41 exchange_core/models.py:78
+msgid "City"
+msgstr "Cidade"
+
+#: exchange_core/forms.py:60
+msgid "Fiscal document"
+msgstr "Documento fiscal"
+
+#: exchange_core/forms.py:61
+msgid "Registration document"
+msgstr "Documento de registro"
+
+#: exchange_core/forms.py:95
+#| msgid "New password"
+msgid "New password"
 msgstr "Nova Senha"
 
-#: exchange_core/forms.py:98 exchange_core/forms.py:105
+#: exchange_core/forms.py:96
+#| msgid "Repeat password"
+msgid "Repeat password"
+msgstr "Repita a senha"
+
+#: exchange_core/forms.py:97
+#| msgid "Current Password"
+msgid "Current password"
+msgstr "Senha atual"
+
+#: exchange_core/forms.py:108 exchange_core/forms.py:115
 msgid "The passwords aren't equals"
 msgstr "As senhas não são iguais"
 
-#: exchange_core/models.py:35
-msgid "Sponsor"
-msgstr "Patrocinador"
-
-#: exchange_core/models.py:36 exchange_core/models.py:106
-#: exchange_core/models.py:166 exchange_core/models.py:224
+#: exchange_core/models.py:36 exchange_core/models.py:109
+#: exchange_core/models.py:210 exchange_core/models.py:268
 #: exchange_core/templates/core/statement.html:101
 #: exchange_core/templates/core/statement.html:134
 msgid "Status"
@@ -135,189 +165,189 @@ msgstr "Status"
 
 #: exchange_core/models.py:37
 msgid "Avatar"
-msgstr "Meu Avatar"
+msgstr "Avatar"
 
 #: exchange_core/models.py:38
 msgid "Profile data"
 msgstr "Dados de perfil"
 
-#: exchange_core/models.py:39 exchange_core/models.py:80
-#: exchange_core/models.py:104 exchange_core/models.py:223
-#: exchange_core/models.py:254 exchange_core/templates/core/statement.html:70
+#: exchange_core/models.py:39 exchange_core/models.py:83
+#: exchange_core/models.py:107 exchange_core/models.py:267
+#: exchange_core/models.py:298 exchange_core/templates/core/statement.html:70
 msgid "Type"
 msgstr "Tipo"
 
-#: exchange_core/models.py:40 exchange_core/models.py:90
+#: exchange_core/models.py:40 exchange_core/models.py:93
 msgid "Document 1"
 msgstr "Documento 1"
 
-#: exchange_core/models.py:41 exchange_core/models.py:91
+#: exchange_core/models.py:41 exchange_core/models.py:94
 msgid "Document 2"
 msgstr "Documento 2"
 
-#: exchange_core/models.py:53 exchange_core/models.py:72
-#: exchange_core/models.py:88 exchange_core/models.py:126
-#: exchange_core/models.py:221
+#: exchange_core/models.py:56 exchange_core/models.py:75
+#: exchange_core/models.py:91 exchange_core/models.py:147
+#: exchange_core/models.py:265
 msgid "User"
 msgstr "Usuário"
 
-#: exchange_core/models.py:54
+#: exchange_core/models.py:57
 msgid "Users"
-msgstr "Usuários"
+msgstr "Users"
 
-#: exchange_core/models.py:73
-msgid "Country"
-msgstr "País"
-
-#: exchange_core/models.py:74
-msgid "State"
-msgstr "Estado"
-
-#: exchange_core/models.py:75
-msgid "City"
-msgstr "Cidade"
-
-#: exchange_core/models.py:76 exchange_core/models.py:83
-#: exchange_core/models.py:208
+#: exchange_core/models.py:79 exchange_core/models.py:86
+#: exchange_core/models.py:252
 #: exchange_core/templates/account/signup-form.html:22
 #: exchange_core/templates/core/statement.html:99
 msgid "Address"
 msgstr "Endereço"
 
-#: exchange_core/models.py:77
+#: exchange_core/models.py:80
 msgid "Number"
 msgstr "Número"
 
-#: exchange_core/models.py:78
+#: exchange_core/models.py:81
 msgid "Neighborhood"
 msgstr "Bairro"
 
-#: exchange_core/models.py:79
+#: exchange_core/models.py:82
 msgid "Zipcode"
 msgstr "CEP"
 
-#: exchange_core/models.py:84
+#: exchange_core/models.py:87
 msgid "Addresses"
-msgstr "Endereço"
+msgstr "Endereços"
 
-#: exchange_core/models.py:89
+#: exchange_core/models.py:92
 msgid "Fancy name"
 msgstr "Nome fantasia"
 
-#: exchange_core/models.py:94
+#: exchange_core/models.py:97
 msgid "Company"
 msgstr "Empresa"
 
-#: exchange_core/models.py:95
+#: exchange_core/models.py:98
 msgid "Companies"
 msgstr "Empresas"
 
-#: exchange_core/models.py:102 exchange_core/templates/core/wallets.html:30
+#: exchange_core/models.py:105 exchange_core/templates/core/wallets.html:30
 msgid "Name"
-msgstr "nome"
+msgstr "Nome"
 
-#: exchange_core/models.py:103 exchange_core/templates/core/statement.html:46
+#: exchange_core/models.py:106 exchange_core/templates/core/statement.html:46
 #: exchange_core/templates/core/statement.html:96
 #: exchange_core/templates/core/statement.html:126
 #: exchange_core/templates/core/wallets.html:31
 msgid "Symbol"
 msgstr "Símbolo"
 
-#: exchange_core/models.py:105 exchange_core/templates/core/wallets.html:29
+#: exchange_core/models.py:108 exchange_core/templates/core/wallets.html:29
 msgid "Icon"
 msgstr "Icone"
 
-#: exchange_core/models.py:107
-msgid "Withdraw Min"
-msgstr "Retirada Mínima"
-
-#: exchange_core/models.py:108
-msgid "Withdraw Max"
-msgstr "Retirada Máxima"
-
-#: exchange_core/models.py:109
-msgid "Withdraw Percent Fee"
-msgstr "Porcentagem de Retirada"
-
 #: exchange_core/models.py:110
-msgid "Withdraw Fixed Fee"
-msgstr "Taxa Fixa de Retirada"
+msgid "Withdraw Min"
+msgstr "Saque Minímo"
 
 #: exchange_core/models.py:111
+msgid "Withdraw Max"
+msgstr "Saque Máximo"
+
+#: exchange_core/models.py:112
+msgid "Withdraw Percent Fee"
+msgstr "Taxa Percentual de Saque"
+
+#: exchange_core/models.py:113
+msgid "Withdraw Fixed Fee"
+msgstr "Taxa Fixa de Saque"
+
+#: exchange_core/models.py:115
+msgid "TBSA Percent Fee"
+msgstr "Taxa percentual de TECS"
+
+#: exchange_core/models.py:115 exchange_core/models.py:116
+msgid "Transfer between system accounts"
+msgstr "Transferência entre contas do sistema"
+
+#: exchange_core/models.py:116
+msgid "TBSA Fixed Fee"
+msgstr "Taxa Fixa de TECS"
+
+#: exchange_core/models.py:117
 msgid "Withdraw receive hours"
 msgstr "Horas para recebimento"
 
-#: exchange_core/models.py:112
+#: exchange_core/models.py:118
 msgid "Order"
 msgstr "Ordem"
 
-#: exchange_core/models.py:116
+#: exchange_core/models.py:122
 msgid "Currencies"
 msgstr "Moedas"
 
-#: exchange_core/models.py:127 exchange_core/models.py:162
+#: exchange_core/models.py:148 exchange_core/models.py:206
 #: exchange_core/templates/core/statement.html:97
 #: exchange_core/templates/core/statement.html:127
 #: exchange_core/templates/core/wallets.html:33
 msgid "Deposit"
 msgstr "Depósito"
 
-#: exchange_core/models.py:128 exchange_core/models.py:163
+#: exchange_core/models.py:149 exchange_core/models.py:207
 #: exchange_core/templates/core/statement.html:98
 #: exchange_core/templates/core/statement.html:128
 #: exchange_core/templates/core/wallets.html:34
 msgid "Reserved"
 msgstr "Reservado"
 
-#: exchange_core/models.py:129
+#: exchange_core/models.py:150
 msgid "Deposit address"
-msgstr "Depósito"
+msgstr "Endereço de depósito"
 
-#: exchange_core/models.py:132
+#: exchange_core/models.py:153
 msgid "Currency account"
 msgstr "Conta de moeda"
 
-#: exchange_core/models.py:133
+#: exchange_core/models.py:154
 msgid "Currencies accounts"
 msgstr "Contas de moedas"
 
-#: exchange_core/models.py:145 exchange_core/models.py:193
+#: exchange_core/models.py:189 exchange_core/models.py:237
 #: exchange_core/templates/core/statement.html:130
 msgid "Bank"
 msgstr "Banco"
 
-#: exchange_core/models.py:146 exchange_core/models.py:194
+#: exchange_core/models.py:190 exchange_core/models.py:238
 #: exchange_core/templates/core/statement.html:131
 msgid "Agency"
 msgstr "Agência"
 
-#: exchange_core/models.py:147 exchange_core/models.py:150
-#: exchange_core/models.py:195 exchange_core/models.py:198
+#: exchange_core/models.py:191 exchange_core/models.py:194
+#: exchange_core/models.py:239 exchange_core/models.py:242
 msgid "Digit"
 msgstr "Dígito"
 
-#: exchange_core/models.py:148 exchange_core/models.py:196
+#: exchange_core/models.py:192 exchange_core/models.py:240
 msgid "Account type"
 msgstr "Tipo de conta"
 
-#: exchange_core/models.py:149 exchange_core/models.py:197
+#: exchange_core/models.py:193 exchange_core/models.py:241
 msgid "Account number"
-msgstr "Número da Conta"
+msgstr "Número da conta"
 
-#: exchange_core/models.py:151 exchange_core/models.py:199
-#: exchange_core/models.py:209 exchange_core/models.py:251
+#: exchange_core/models.py:195 exchange_core/models.py:243
+#: exchange_core/models.py:253 exchange_core/models.py:295
 msgid "Account"
 msgstr "Conta"
 
-#: exchange_core/models.py:154
+#: exchange_core/models.py:198
 msgid "Bank account"
-msgstr "Conta Bancária"
+msgstr "Conta bancária"
 
-#: exchange_core/models.py:155
+#: exchange_core/models.py:199
 msgid "Bank accounts"
-msgstr "Contas Bancárias"
+msgstr "Contas bancárias"
 
-#: exchange_core/models.py:164 exchange_core/models.py:253
+#: exchange_core/models.py:208 exchange_core/models.py:297
 #: exchange_core/templates/core/statement.html:48
 #: exchange_core/templates/core/statement.html:72
 #: exchange_core/templates/core/statement.html:100
@@ -325,56 +355,56 @@ msgstr "Contas Bancárias"
 msgid "Amount"
 msgstr "Quantidade"
 
-#: exchange_core/models.py:165
+#: exchange_core/models.py:209
 msgid "Fee"
 msgstr "Taxa"
 
-#: exchange_core/models.py:167 exchange_core/models.py:256
+#: exchange_core/models.py:211 exchange_core/models.py:300
 msgid "Transaction id"
-msgstr "Id da transação"
+msgstr "ID da transação"
 
-#: exchange_core/models.py:202
+#: exchange_core/models.py:246
 msgid "Bank withdraw"
-msgstr "Saque em reais"
+msgstr "Saque bancário"
 
-#: exchange_core/models.py:203
+#: exchange_core/models.py:247
 msgid "Bank withdrawals"
-msgstr "Saques em reais"
+msgstr "Saques bancários"
 
-#: exchange_core/models.py:212
+#: exchange_core/models.py:256
 msgid "Crypto withdraw"
 msgstr "Saque em cripto"
 
-#: exchange_core/models.py:213
+#: exchange_core/models.py:257
 msgid "Crypto withdrawals"
 msgstr "Saques em cripto"
 
-#: exchange_core/models.py:222
+#: exchange_core/models.py:266
 msgid "File"
 msgstr "Arquivo"
 
-#: exchange_core/models.py:225
+#: exchange_core/models.py:269
 msgid "Disapproved reason"
-msgstr "Motivo da desaprovação"
+msgstr "Rasão pela desaprovação"
 
-#: exchange_core/models.py:228
+#: exchange_core/models.py:272
 msgid "Document"
-msgstr "Documentos"
+msgstr "Documento"
 
-#: exchange_core/models.py:229 exchange_core/templates/core/documents.html:8
+#: exchange_core/models.py:273 exchange_core/templates/core/documents.html:8
 #: exchange_core/templates/core/index.html:140
 msgid "Documents"
 msgstr "Documentos"
 
-#: exchange_core/models.py:252 exchange_core/templates/core/statement.html:47
+#: exchange_core/models.py:296 exchange_core/templates/core/statement.html:47
 msgid "Description"
 msgstr "Descrição"
 
-#: exchange_core/models.py:258
+#: exchange_core/models.py:302
 msgid "Foreign key"
 msgstr "Chave estrangeira"
 
-#: exchange_core/models.py:261 exchange_core/models.py:262
+#: exchange_core/models.py:305 exchange_core/models.py:306
 #: exchange_core/templates/core/index.html:184
 #: exchange_core/templates/core/statement.html:15
 msgid "Statement"
@@ -383,7 +413,7 @@ msgstr "Extrato"
 #: exchange_core/templates/account/delete.html:7
 #: exchange_core/templates/account/delete.html:10
 msgid "Delete Account"
-msgstr "Apagar Conta"
+msgstr "Deletar Conta"
 
 #: exchange_core/templates/account/delete.html:12
 #, python-format
@@ -391,12 +421,10 @@ msgid ""
 "If you go ahead and delete your account, your information will be "
 "<b>expunged within %(ACCOUNT_DELETION_EXPUNGE_HOURS)s hours</b>."
 msgstr ""
-"Se você continuar com esta ação e apaga sua conta, suas informações serão "
-"<b>apagadas definitivamente em %(ACCOUNT_DELETION_EXPUNGE_HOURS)s horas</b>."
 
 #: exchange_core/templates/account/delete.html:16
 msgid "Delete My Account"
-msgstr "Apague Minha Conta"
+msgstr ""
 
 #: exchange_core/templates/account/email/email_confirmation_message.txt:1
 #, python-format
@@ -407,11 +435,6 @@ msgid ""
 "\n"
 "If you did not sign up for this site, you can ignore this message.\n"
 msgstr ""
-"Um Usuário em %(site_name)s criou uma conta usando este endereço de e-mail.\n"
-"\n"
-"Para confirmar este endereço de e-mail, vá para %(activate_url)s\n"
-"\n"
-"Se você não criou esta conta, você deve ignorar esta mensagem.\n"
 
 #: exchange_core/templates/account/email/email_confirmation_subject.txt:1
 #, python-format
@@ -425,14 +448,11 @@ msgid ""
 "\n"
 "%(signup_url)s\n"
 msgstr ""
-"Você foi convidado para cadastrar-se em %(name)s.\n"
-"\n"
-"%(signup_url)s\n"
 
 #: exchange_core/templates/account/email/invite_user_subject.txt:1
 #, python-format
 msgid "Create an account on %(name)s"
-msgstr "Crie uma conta em %(name)s"
+msgstr ""
 
 #: exchange_core/templates/account/email/password_change.txt:1
 #, python-format
@@ -440,12 +460,10 @@ msgid ""
 "This is the email notification to confirm your password has been changed on "
 "%(now)s."
 msgstr ""
-"Este é um e-mail de notificação para confirmar que sua senha foi mudada em "
-"%(now)s."
 
 #: exchange_core/templates/account/email/password_change_subject.txt:1
 msgid "Change password email notification"
-msgstr "E-mail de notificação de mudança de senha"
+msgstr ""
 
 #: exchange_core/templates/account/email/password_reset.txt:1
 #, python-format
@@ -457,26 +475,20 @@ msgid ""
 "\n"
 "%(password_reset_url)s\n"
 msgstr ""
-"Você esta recebendo este e-mail porque alguém solicitou mudança de senha "
-"para seu usuário em  %(site_name)s.\n"
-"Se você não fez esta solicitação por favor ignore esta mensagem. Clique no "
-"link abaixo para mudar sua senha , se assim desejar.\n"
-"\n"
-"%(password_reset_url)s\n"
 
 #: exchange_core/templates/account/email/password_reset_subject.txt:1
 #, python-format
 msgid "[%(site_name)s] Password reset"
-msgstr "[%(site_name)s] Mudança de senha"
+msgstr ""
 
 #: exchange_core/templates/account/email_confirm.html:10
 msgid "Confirm Email"
-msgstr "Confirmar e-mail"
+msgstr ""
 
 #: exchange_core/templates/account/email_confirm.html:13
 #, python-format
 msgid "Confirm email address <b>%(email)s</b>?"
-msgstr "Confirmar o endereço de e-mail <b>%(email)s</b>?"
+msgstr ""
 
 #: exchange_core/templates/account/email_confirm.html:14
 msgid "Confirm"
@@ -495,19 +507,12 @@ msgid ""
 "within a few minutes, contact us at <a href=\"mailto:%(THEME_CONTACT_EMAIL)s"
 "\">%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
-"Nós lhe enviamos um e-mail para <b>%(email)s</b> para verificação. Clique no "
-"link fornecido no e-mail para finalizar seu processo de cadastro. Se você "
-"não receber o e-mail de confirmação em poucos minutos, por favor entre em "
-"contato conosco através do e-mail <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
-"%(THEME_CONTACT_EMAIL)s</a>."
 
 #: exchange_core/templates/account/email_confirmation_sent.html:14
 msgid ""
 "Check your spam box. If the email does not arrive in 5 minutes, use the "
 "button below to resend it."
 msgstr ""
-"Verifique a sua caixa de spam. Caso o e-mail não chegue em 5 minutos, "
-"utilize o botão abaixo para reenviá-lo."
 
 #: exchange_core/templates/account/email_confirmation_sent.html:18
 msgid "Resend confirmation e-mail"
@@ -516,36 +521,36 @@ msgstr "Reenviar e-mail de confirmação"
 #: exchange_core/templates/account/email_confirmed.html:5
 #: exchange_core/templates/account/email_confirmed.html:8
 msgid "Email confirmed"
-msgstr "E-mail confirmado"
+msgstr "Email confirmado"
 
 #: exchange_core/templates/account/email_confirmed.html:9
 #, python-format
 msgid "You have confirmed <b>%(email)s</b>"
-msgstr "Você confirmou o e-mail <b>%(email)s</b>"
+msgstr ""
 
 #: exchange_core/templates/account/login.html:7
 #: exchange_core/templates/account/login.html:19
 msgid "Log in"
-msgstr "Entrar"
+msgstr "Logar"
 
 #: exchange_core/templates/account/login.html:13
 msgid "Log in to an existing account"
-msgstr "Entrar em uma conta cadastrada"
+msgstr "Logar em uma conta existente"
 
 #: exchange_core/templates/account/login.html:20
 #: exchange_core/templates/two_factor/core/login.html:84
 msgid "Forgot your password?"
-msgstr "Esqueceu sua senha?"
+msgstr "Esqueci minha senha"
 
 #: exchange_core/templates/account/login.html:25
 #: exchange_core/templates/two_factor/core/login.html:99
 msgid "Don't have an account?"
-msgstr "Não tem uma conta?"
+msgstr "Não possui uma conta?"
 
 #: exchange_core/templates/account/login.html:25
 #: exchange_core/templates/account/signup_closed.html:5
 msgid "Sign up"
-msgstr "Criar Conta"
+msgstr "Cadastrar"
 
 #: exchange_core/templates/account/logout.html:5
 #: exchange_core/templates/account/logout.html:11
@@ -555,7 +560,7 @@ msgstr "Sair"
 
 #: exchange_core/templates/account/logout.html:14
 msgid "Are you sure you want to log out?"
-msgstr "Tem certeza que deseja sair?"
+msgstr "Você tem certeza que deseja sair?"
 
 #: exchange_core/templates/account/logout.html:16
 msgid "Go back"
@@ -564,7 +569,7 @@ msgstr "Voltar"
 #: exchange_core/templates/account/password_change.html:8
 #: exchange_core/templates/account/password_change.html:14
 msgid "Change password"
-msgstr "Nova Senha"
+msgstr "Mudar senha"
 
 #: exchange_core/templates/account/password_change.html:18
 #: exchange_core/templates/account/password_reset_token.html:34
@@ -575,19 +580,17 @@ msgstr "Salvar"
 
 #: exchange_core/templates/account/password_reset.html:9
 msgid "Password reset"
-msgstr "Mudar Senha"
+msgstr "Redefinir senha"
 
 #: exchange_core/templates/account/password_reset.html:10
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll send you "
 "an email allowing you to reset it."
 msgstr ""
-"Esqueceu sua senha? Digite seu e-mail abaixo e nós lhe enviaremos um e-mail "
-"permitindo a mudança da senha."
 
 #: exchange_core/templates/account/password_reset.html:20
 msgid "Reset my password"
-msgstr "Mudar minha senha"
+msgstr "Redefinir minha senha"
 
 #: exchange_core/templates/account/password_reset.html:26
 #, python-format
@@ -595,13 +598,10 @@ msgid ""
 "If you have any trouble resetting your password, contact us at <a href="
 "\"mailto:%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
-"Se você teve qualquer problema com a mudança de sua senha, por favor entre "
-"em contato através do e-mail <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
-"%(THEME_CONTACT_EMAIL)s</a>."
 
 #: exchange_core/templates/account/password_reset_sent.html:8
 msgid "Password reset sent"
-msgstr "Mudança de senha enviada"
+msgstr "Redefinição de senha enviada"
 
 #: exchange_core/templates/account/password_reset_sent.html:10
 #, python-format
@@ -610,13 +610,10 @@ msgid ""
 "try resending or contact us at <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
 "%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
-"Nós lhe enviamos um e-mail. Se você não recebê-lo em alguns minutos, "
-"solicite novamente ou entre em contato através do e-mail <a href=\"mailto:"
-"%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
 
 #: exchange_core/templates/account/password_reset_sent.html:19
 msgid "Resend"
-msgstr "Re-enviar"
+msgstr "Reenviar"
 
 #: exchange_core/templates/account/password_reset_sent.html:24
 #, python-format
@@ -625,18 +622,15 @@ msgid ""
 "minutes, contact us at <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
 "%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
-"Re-enviamos o e-mail com a mudança de senha. Se você não recebê-lo em alguns "
-"minuos, entre em contato através do e-mail <a href=\"mailto:"
-"%(THEME_CONTACT_EMAIL)s\">%(THEME_CONTACT_EMAIL)s</a>."
 
 #: exchange_core/templates/account/password_reset_token.html:11
 msgid "Set your new password"
-msgstr "Digite sua nova senha"
+msgstr "Definir nova senha"
 
 #: exchange_core/templates/account/password_reset_token_fail.html:5
 #: exchange_core/templates/account/password_reset_token_fail.html:8
 msgid "Bad token"
-msgstr "Token errado ou vencido"
+msgstr "Token errado"
 
 #: exchange_core/templates/account/password_reset_token_fail.html:10
 #, python-format
@@ -644,8 +638,6 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a <a href=\"%(url)s\">new password reset</a>."
 msgstr ""
-"O Link para a mudança de senha é inválido, possivelmente porque já foi "
-"utilizado.  Por Favor solicite <a href=\"%(url)s\">nova mudança de senha</a>."
 
 #: exchange_core/templates/account/settings.html:12
 msgid "My Avatar"
@@ -653,7 +645,7 @@ msgstr "Meu Avatar"
 
 #: exchange_core/templates/account/settings.html:16
 msgid "Select a new avatar image using the field below"
-msgstr "Selecione uma nova imagem para seu Avatar"
+msgstr "Selecione uma nova imagem de avatar usando o campo abaixo"
 
 #: exchange_core/templates/account/settings.html:23
 msgid "Update"
@@ -669,16 +661,16 @@ msgstr "Conta Bancária"
 
 #: exchange_core/templates/account/settings.html:58
 msgid "This bank account must belong to"
-msgstr "Esta conta bancária deve pertencer a"
+msgstr "Essa conta bancária deve pertencer a"
 
 #: exchange_core/templates/account/settings.html:58
 msgid "Click here to know why."
-msgstr "Clique aqui para saber porque."
+msgstr "Clique aqui para saber o porque"
 
 #: exchange_core/templates/account/settings.html:59
 msgid ""
 "This bank account will be used for the withdrawals made with the BRL account"
-msgstr "Esta conta bancária será utilizada para realizar suas retidas em Reais"
+msgstr ""
 
 #: exchange_core/templates/account/signup-form.html:32
 #: exchange_core/templates/two_factor/core/login.html:99
@@ -693,19 +685,57 @@ msgstr "Já possui uma conta?"
 #: exchange_core/templates/two_factor/core/login.html:52
 #: exchange_core/templates/two_factor/core/login.html:78
 msgid "Log In"
-msgstr "Entrar"
+msgstr "Acessar"
 
 #: exchange_core/templates/account/signup_closed.html:8
 msgid "This site is in private beta"
-msgstr "Este site esta em teste beta"
+msgstr "Este site está em teste privado"
 
 #: exchange_core/templates/account/signup_closed.html:9
 msgid "If you have signup code you can enter it below."
-msgstr "Se você recebeu um código de cadastro coloque-o no campo abaixo."
+msgstr "Se você possui um código, você pode entrar abaixo."
 
 #: exchange_core/templates/account/signup_closed.html:11
 msgid "Your signup code..."
 msgstr "Seu código de cadastro..."
+
+#: exchange_core/templates/admin/change_form.html:18
+msgid "Home"
+msgstr "Ínicio"
+
+#: exchange_core/templates/admin/change_form.html:21
+#, python-format
+msgid "Add %(name)s"
+msgstr "Adicionar %(name)s"
+
+#: exchange_core/templates/admin/change_form.html:31
+msgid "View on site"
+msgstr "Visualizar no site"
+
+#: exchange_core/templates/admin/change_form.html:43
+msgid "Please correct the error below."
+msgstr "Por favor corrija o erro abaixo."
+
+#: exchange_core/templates/admin/change_form.html:43
+msgid "Please correct the errors below."
+msgstr "Por favor corrija os errors abaixo."
+
+#: exchange_core/templates/admin/index.html:20
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr "Models na aplicação %(name)s"
+
+#: exchange_core/templates/admin/index.html:31
+msgid "Add"
+msgstr "Adicionar"
+
+#: exchange_core/templates/admin/index.html:37
+msgid "Change"
+msgstr "Mudar"
+
+#: exchange_core/templates/admin/index.html:47
+msgid "You don't have permission to edit anything."
+msgstr "Você não possui permissão para editar nada."
 
 #: exchange_core/templates/core/documents.html:12
 msgid "Attention"
@@ -727,22 +757,10 @@ msgid ""
 "\t\t\t\t\tRegards, %(PROJECT_NAME)s - Support team\n"
 "\t\t\t\t\t"
 msgstr ""
-"\n"
-"\t\t\t\t\tPrezado usuário.<br>\n"
-"\t\t\t\t\tQuaisquer funcionalidades do sistema só estarão disponíveis após a "
-"aprovação de sua documentação.\n"
-"\t\t\t\t\tSão aceitos apenas arquivos de imagem PNG, JPG e JPEG, vedado "
-"upload de arquivos. em PDF.\n"
-"\t\t\t\t\tCertifique-se de que seus documentos encontram-se legíveis e de "
-"acordo com  os dados preenchidos no cadastro inicial.\n"
-"\t\t\t\t\tDevido à alta demanda de cadastros, o prazo para validação de seus "
-"documentos é de até 72 horas.\n"
-"\t\t\t\t\tAtenciosamente, %(PROJECT_NAME)s - Suporte Técnico\n"
-"\t\t\t\t\t"
 
 #: exchange_core/templates/core/documents.html:25
 msgid "Disapproved Documents"
-msgstr "Documentos repovados"
+msgstr ""
 
 #: exchange_core/templates/core/documents.html:26
 msgid ""
@@ -756,50 +774,41 @@ msgid ""
 "\t\t\t\t\t\tThanks.\n"
 "\t\t\t\t\t"
 msgstr ""
-"\n"
-"\t\t\t\t\tCaro usuário, seus documentos foram reprovados pela nossa equipe, "
-"<br>\n"
-"\t\t\t\t\t\tverifique por favor se suas imagens estão legíveis e em boa "
-"qualidade.<br>\n"
-"\t\t\t\t\t\tNão aceitamos também documentos de outras pessoas nem dados "
-"falsificados.<br>\n"
-"\t\t\t\t\t\tAbraços.\n"
-"\t\t\t\t\t"
 
 #: exchange_core/templates/core/documents.html:38
 msgid "Drivers License or ID - Front"
-msgstr "Frente da Carteira de Motorista ou RG"
+msgstr ""
 
 #: exchange_core/templates/core/documents.html:53
 #: exchange_core/templates/core/documents.html:84
 #: exchange_core/templates/core/documents.html:116
 #: exchange_core/templates/core/documents.html:148
 msgid "Upload"
-msgstr "Carregar"
+msgstr ""
 
 #: exchange_core/templates/core/documents.html:70
 msgid "Drivers License or ID - Back"
-msgstr "Verso da carteira de Motorista ou RG"
+msgstr ""
 
 #: exchange_core/templates/core/documents.html:102
 msgid "Document Selfie"
-msgstr "Selfie com Documento"
+msgstr ""
 
 #: exchange_core/templates/core/documents.html:134
 msgid "Proof of Residence"
-msgstr "Comprovante de residência"
+msgstr ""
 
 #: exchange_core/templates/core/index.html:108
 msgid "Change for this"
-msgstr "Mudar para este"
+msgstr ""
 
 #: exchange_core/templates/core/index.html:130
 msgid "Hi, "
-msgstr "Olá,"
+msgstr ""
 
 #: exchange_core/templates/core/index.html:135
 msgid "Two Factor Auth"
-msgstr "Segurança 2Factor"
+msgstr ""
 
 #: exchange_core/templates/core/index.html:145
 msgid "Settings"
@@ -822,39 +831,47 @@ msgstr "Livro de Ofertas"
 msgid "Comissions"
 msgstr "Comissões"
 
-#: exchange_core/templates/core/index.html:217
-msgid "Two Factor Authentication"
-msgstr "Autenticação de 2 fatores"
+#: exchange_core/templates/core/scripts/wallets.vue.html:16
+msgid "Success!"
+msgstr "Sucesso!"
 
-#: exchange_core/templates/core/scripts/wallets.vue.html:22
+#: exchange_core/templates/core/scripts/wallets.vue.html:16
+msgid "Wallet address has been copied!"
+msgstr "Endereço da carteira foi copiado!"
+
+#: exchange_core/templates/core/scripts/wallets.vue.html:35
 #, python-brace-format
 msgid "Available {coin} amount for withdraw is:"
-msgstr "Quantidade de {coin} disponível para retirar é:"
+msgstr "Quantidade em {coin} disponível para saque é:"
 
-#: exchange_core/templates/core/scripts/wallets.vue.html:46
+#: exchange_core/templates/core/scripts/wallets.vue.html:59
 msgid "Withdraw error!"
-msgstr "Erro de Retirada!"
+msgstr "Erro no saque!"
 
-#: exchange_core/templates/core/scripts/wallets.vue.html:73
+#: exchange_core/templates/core/scripts/wallets.vue.html:88
 #, python-brace-format
 msgid "Your {coin} address"
-msgstr "Seu endereço de {coin} "
+msgstr "Seu endereço {coin}"
 
-#: exchange_core/templates/core/scripts/wallets.vue.html:82
+#: exchange_core/templates/core/scripts/wallets.vue.html:91
+msgid "Copy address"
+msgstr "Copiar endereço"
+
+#: exchange_core/templates/core/scripts/wallets.vue.html:101
 msgid "You must have a BRL bank account configured for your account"
-msgstr "Você necessita ter uma conta bancária configurada em sua conta"
+msgstr "Você precisa ter uma conta bancária brasileira configurada"
 
-#: exchange_core/templates/core/scripts/wallets.vue.html:84
+#: exchange_core/templates/core/scripts/wallets.vue.html:103
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: exchange_core/templates/core/scripts/wallets.vue.html:85
+#: exchange_core/templates/core/scripts/wallets.vue.html:104
 msgid "Set bank account"
-msgstr "Configurar conta bancária"
+msgstr "Cadastrar conta bancária"
 
 #: exchange_core/templates/core/statement.html:23
 msgid "Overview"
-msgstr "Resumo"
+msgstr "Visão Geral"
 
 #: exchange_core/templates/core/statement.html:27
 msgid "Orders History"
@@ -862,11 +879,11 @@ msgstr "Histórico de Ordens"
 
 #: exchange_core/templates/core/statement.html:31
 msgid "Crypto Withdrawals"
-msgstr "Retiradas de Crypto"
+msgstr "Saques em Cripto"
 
 #: exchange_core/templates/core/statement.html:34
 msgid "BRL Withdrawals"
-msgstr "Saque em Reais"
+msgstr "Saques em BRL"
 
 #: exchange_core/templates/core/statement.html:44
 #: exchange_core/templates/core/statement.html:94
@@ -894,7 +911,7 @@ msgstr "Total"
 
 #: exchange_core/templates/core/statement.html:132
 msgid "Account Type"
-msgstr "Tipo de conta"
+msgstr "Tipo de Conta"
 
 #: exchange_core/templates/core/statement.html:133
 msgid "Account Number"
@@ -902,7 +919,7 @@ msgstr "Número da Conta"
 
 #: exchange_core/templates/core/wallets.html:17
 msgid "Hide 0 balance coins"
-msgstr "Ocultar moedas com saldo \"0\""
+msgstr "Esconder moedas com saldo 0"
 
 #: exchange_core/templates/core/wallets.html:22
 msgid "Search coins"
@@ -922,47 +939,51 @@ msgstr "Depósito"
 
 #: exchange_core/templates/core/wallets.html:50
 msgid "Withdrawal "
-msgstr "Retirada"
+msgstr "Saque "
 
 #: exchange_core/templates/pagination/pagination.html:8
 #: exchange_core/templates/pagination/pagination.html:10
 #: exchange_core/templates/pagination/pagination.html:14
 msgid "previous"
-msgstr "Anterior"
+msgstr "anterior"
 
 #: exchange_core/templates/pagination/pagination.html:39
 #: exchange_core/templates/pagination/pagination.html:42
 msgid "next"
 msgstr "próximo"
 
-#: exchange_core/views.py:86
+#: exchange_core/views.py:88
 msgid "Confirmation e-mail resent!"
-msgstr "Confirmação de e-mail reenviada!"
+msgstr "E-mail de confirmação reenviado!"
 
-#: exchange_core/views.py:182
+#: exchange_core/views.py:185
 msgid "Your bank account settings has been updated"
-msgstr "As configurações de sua conta bancária foram atualizadas"
+msgstr "Seus dados bancários foram atualizados"
 
-#: exchange_core/views.py:201
+#: exchange_core/views.py:207
 msgid "Your avatar image has been updated"
-msgstr "A imagem do seu Avatar foi atualizada"
+msgstr "Sua imagem de avatar foi atualizada"
 
-#: exchange_core/views.py:208
+#: exchange_core/views.py:214
 msgid "Your address has been updated"
-msgstr "Sua senha foi atualizada"
+msgstr "Seu endereço foi atualizado"
 
-#: exchange_core/views.py:215
+#: exchange_core/views.py:219
+msgid "Your personal data has been updated"
+msgstr "Seus dados pessoais foram atualizados"
+
+#: exchange_core/views.py:226
 msgid "Your password has been updated"
 msgstr "Sua senha foi atualizada"
 
-#: exchange_core/views.py:249
+#: exchange_core/views.py:260
 msgid "Document has been updated!"
-msgstr "Seus documentos foram atualizados!"
+msgstr "Documento foi atualizado!"
 
-#: exchange_core/views.py:271
+#: exchange_core/views.py:282
 msgid "-- Select your region --"
-msgstr "-- Selecione seu estado --"
+msgstr "-- Selecione o seu estado --"
 
-#: exchange_core/views.py:283
+#: exchange_core/views.py:294
 msgid "-- Select your city --"
-msgstr "-- Selecione sua cidade --"
+msgstr "-- Selecione a sua cidade --"

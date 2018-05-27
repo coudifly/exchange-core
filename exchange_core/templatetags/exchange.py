@@ -10,9 +10,9 @@ from exchange_core.utils import get_url_patterns
 
 register = Library()
 
-
 @register.filter(is_safe=True)
 def serialize(data):
+    print(data)
     return json.dumps(data)
 
 
@@ -21,6 +21,6 @@ pattern_names = get_url_patterns()
 # Retorna um booleano identificando se a URL existe ou nao
 @register.simple_tag
 def ex_url_exists(pattern_name):
-	if pattern_name in pattern_names:
-		return True
-	return False
+    if pattern_name in pattern_names:
+        return True
+    return False

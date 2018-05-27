@@ -161,6 +161,7 @@ class AccountSettingsView(MultiFormView):
 
     forms = {
         'bank_account': forms.BankAccountForm,
+        'user': forms.UserForm,
         'address': forms.AddressForm,
         'avatar': forms.AvatarForm,
         'change_password': forms.ChangePasswordForm
@@ -198,6 +199,9 @@ class AccountSettingsView(MultiFormView):
     def get_avatar_instance(self):
         return self.request.user
 
+    def get_user_instance(self):
+        return self.request.user
+
     def avatar_form_valid(self, form):
         form.save()
         messages.success(self.request, _('Your avatar image has been updated'))
@@ -206,8 +210,16 @@ class AccountSettingsView(MultiFormView):
     def address_form_valid(self, form):
         instance = form.save(commit=False)
         instance.user = self.request.user
+        instance.profile['has_address'] = True
         instance.save()
         messages.success(self.request, _('Your address has been updated'))
+        return redirect(reverse('core>settings'))
+
+    def user_form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.profile['has_personal'] = True
+        instance.save()
+        messages.success(self.request, _('Your personal data has been updated'))
         return redirect(reverse('core>settings'))
 
     def change_password_form_valid(self, form):

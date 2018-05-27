@@ -130,6 +130,17 @@ class Currencies(TimeStampedModel, BaseModel):
     def type_title(self):
         return self.type.title() + ' Account'
 
+    @property
+    def dict(self):
+        return {
+            'withdraw_min': self.withdraw_min, 
+            'withdraw_max': self.withdraw_max, 
+            'withdraw_fee': self.withdraw_fee, 
+            'withdraw_receive_hours': self.withdraw_receive_hours,
+            'tbsa_fee': self.tbsa_fee,
+            'tbsa_fixed_fee': self.tbsa_fixed_fee
+        }
+
 
 class Accounts(TimeStampedModel, BaseModel):
     currency = models.ForeignKey(Currencies, related_name='accounts', verbose_name=_("Currency"), on_delete=models.CASCADE)
