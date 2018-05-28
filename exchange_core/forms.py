@@ -53,7 +53,7 @@ class AddressForm(forms.ModelForm):
 
     class Meta:
         model = Addresses
-        fields = ('country', 'region', 'city', 'zipcode', 'address', 'neighborhood', 'number',)
+        fields = ('country', 'region', 'city', 'zipcode', 'address', 'neighborhood', 'number', 'complement',)
 
 
 class UserForm(forms.ModelForm):

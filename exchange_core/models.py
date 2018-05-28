@@ -80,6 +80,7 @@ class Addresses(TimeStampedModel, BaseModel):
     number = models.CharField(max_length=20, verbose_name=_("Number"))
     neighborhood = models.CharField(max_length=50, verbose_name=_("Neighborhood"))
     zipcode = models.CharField(max_length=10, verbose_name=_("Zipcode"))
+    complement = models.CharField(max_length=50, null=True, verbose_name=_("Complement"))
     type = models.CharField(max_length=20, choices=TYPES, default=TYPES.account, verbose_name=_("Type"))
 
     class Meta:

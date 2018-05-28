@@ -5,7 +5,7 @@
 	<input type="hidden" name="form_name" value="address">
 
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-4">
 			<div class="form-group {% if form.country.errors %}has-error has-danger{% endif %}">
 				{{ form.country.label_tag }}
 				{% render_field form.country class="form-control" v-model="country" %}
@@ -57,13 +57,16 @@
 		<div class="col-md-4">
 			{% include "core/forms/field.html" with field=form.zipcode %}
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-8">
 			{% include "core/forms/field.html" with field=form.address %}
 		</div>
 		<div class="col-md-2">
 			{% include "core/forms/field.html" with field=form.number %}
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-5">
+			{% include "core/forms/field.html" with field=form.complement %}
+		</div>
+		<div class="col-md-5">
 			{% include "core/forms/field.html" with field=form.neighborhood %}
 		</div>
 	</div>
