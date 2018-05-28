@@ -1,0 +1,4 @@
+from whitenoise.storage import CompressedManifestStaticFilesStorage
+
+class ExchangeCompressedManifestStaticFilesStorage(CompressedManifestStaticFilesStorage):
+	manifest_strict = False
