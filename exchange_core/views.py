@@ -285,7 +285,7 @@ class StatementView(TemplateView):
 @method_decorator([json_view], name='dispatch')
 class GetRegionsView(View):
     def get(self, request):
-        country = request.GET.get('country', settings.DEFAULT_ADDRESS_COUNTRY)
+        country = request.GET.get('country', settings.DEFAULT_ADDRESS_COUNTRY).replace('.', '')
         regions = [{'pk': '', 'name': _("-- Select your region --")}]
 
         for region in Region.objects.filter(country_id=country).order_by('name'):
@@ -297,7 +297,7 @@ class GetRegionsView(View):
 @method_decorator([json_view], name='dispatch')
 class GetCitiesView(View):
     def get(self, request):
-        region = request.GET.get('region', 3390290)
+        region = request.GET.get('region', 3390290).replace('.', '')
         cities = [{'pk': '', 'name': _("-- Select your city --")}]
 
         for city in City.objects.filter(region_id=region).order_by('name'):

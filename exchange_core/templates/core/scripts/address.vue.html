@@ -6,10 +6,10 @@
 		var address_app = new Vue({
 			el: '#address-app',
 			data: {
-				country: '{{ DEFAULT_ADDRESS_COUNTRY }}',
-				region: '{{ request.user.addresses.first.region.pk }}',
+				country: '{{ DEFAULT_ADDRESS_COUNTRY|safe }}',
+				region: '{{ request.user.addresses.first.region.pk|safe }}',
 				regions: {},
-				city: '{{ request.user.addresses.first.city.pk }}',
+				city: '{{ request.user.addresses.first.city.pk|safe }}',
 				cities: {}
 			},
 			methods: {

@@ -12,6 +12,7 @@ class MultiFormView(TemplateView):
         
         for form_name, form in self.forms.items():
             form_kwargs = self.get_form_kwargs(form_name)
+            form_kwargs['auto_id'] = form_name + '_%s'
 
             if form_kwargs.get('instance'):
                 context[form_name + '_instance'] = form_kwargs.get('instance') 
