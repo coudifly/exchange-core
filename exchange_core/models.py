@@ -185,6 +185,10 @@ class Accounts(TimeStampedModel, BaseModel):
 
         return statement
 
+    def takeout(self, amount):
+        self.deposit -= amount
+        self.save()
+
 
 class BankAccounts(TimeStampedModel, BaseModel):
     bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
@@ -291,7 +295,7 @@ class Documents(TimeStampedModel, BaseModel):
 
 # Extrato das contas
 class Statement(TimeStampedModel, BaseModel):
-    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income', 'investment', 'tbsa')
+    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income', 'investment', 'tbsa', 'course_subscription')
 
     account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
     description = models.CharField(max_length=100, verbose_name=_("Description"))
