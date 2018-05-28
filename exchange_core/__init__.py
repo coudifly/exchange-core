@@ -189,7 +189,7 @@ settings.THUMBNAIL_ALIASES = {
 }
 
 # Static files configurações
-settings.STATICFILES_STORAGE = 'exchange_core.staticfiles.ExchangeCompressedManifestStaticFilesStorage'
+settings.STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Opcoes de seguranca
 settings.SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=True, cast=config.boolean)
