@@ -175,6 +175,7 @@ settings.MESSAGE_TAGS = {
 
 # Configurações de armazenamento
 settings.DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+settings.WHITENOISE_USE_FINDERS = True
 
 settings.AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 settings.AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
