@@ -24,6 +24,7 @@ REQUIREMENTS = [
 	'django-storages',
 	'django-jsonview',
 	'django-templated-email',
+	'django-bootstrap-pagination',
 	'easy-thumbnails',
 	'phonenumbers',
 	'django-cities',

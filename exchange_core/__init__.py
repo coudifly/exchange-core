@@ -86,6 +86,7 @@ settings.INSTALLED_APPS += [
     'easy_thumbnails',
     'cities',
     'mathfilters',
+    'bootstrap_pagination',
 ]
 
 # Adiciona os middlewares do Two Factor para habilitar a autenticação em dois passos

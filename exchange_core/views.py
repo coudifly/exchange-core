@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
 from django.db import transaction
+from django.db.models import Q
 from jsonview.decorators import json_view
 from account.decorators import login_required
 from account.models import EmailAddress
@@ -23,6 +24,10 @@ import account.views
 from exchange_core.base_views import MultiFormView
 from exchange_core import forms
 from exchange_core.models import Users, Accounts, BankAccounts, Documents, Statement, CryptoWithdraw, BankWithdraw, Addresses
+from exchange_core.pagination import paginate
+
+if 'apps.investment' in settings.INSTALLED_APPS:
+    from apps.investment.models import Comissions
 
 from cities.models import Country, Region, City
 
@@ -274,11 +279,17 @@ class StatementView(TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
-        context['statement'] = Statement.objects.filter(account__user=self.request.user).order_by('-created')[:50]
-        context['crypto_withdraw'] = CryptoWithdraw.objects.filter(account__user=self.request.user).order_by('-created')[:50]
-        context['bank_withdraw'] = BankWithdraw.objects.filter(account__user=self.request.user).order_by('-created')[:50]
+        context['statement'] = paginate(self.request, Statement.objects.filter(account__user=self.request.user, type__in=['deposit', 'withdraw', 'reverse']).order_by('-created'), url_param_name='statement_page')
+        context['bank_withdraw'] = paginate(self.request, BankWithdraw.objects.filter(account__user=self.request.user).order_by('-created'), url_param_name='bank_withdraw_page')
+        context['crypto_withdraw'] = paginate(self.request, CryptoWithdraw.objects.filter(account__user=self.request.user).order_by('-created'), url_param_name='crypto_withdraw_page')
+
+        if 'apps.investment' in settings.INSTALLED_APPS:
+            context['incomes'] = paginate(self.request, Statement.objects.filter(account__user=self.request.user, type__in=['income']).order_by('-created'), url_param_name='incomes_page')
+            context['comissions'] = paginate(self.request, Comissions.objects.filter(Q(referral__promoter=self.request.user) | Q(referral__advisor=self.request.user)).order_by('-created'), url_param_name='comissions_page')
+        
         if ORDER_EXCHANGE_MODULE_EXISTS:
             context['executed_orders'] = Orders.objects.select_related('market__base_currency__currency', 'market__currency').filter(user=self.request.user, status=Orders.STATUS.executed).order_by('-created')[0:50]
+        
         return context
 
 
