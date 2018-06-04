@@ -3,6 +3,7 @@ from decimal import Decimal
 
 from django.db import models, transaction
 from django.db.models.signals import post_save
+from django.db.models import Sum
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import JSONField
 from django.dispatch import receiver
@@ -173,6 +174,18 @@ class Accounts(TimeStampedModel, BaseModel):
     def usd_balance(self):
         usd = CurrencyPrice('coinbase')
         return usd.to_usd(self.balance)
+
+    @property
+    def total_withdraw(self):
+        return Statement.objects.filter(account__user=self.user, type__in=['withdraw']).aggregate(amount=Sum('amount'))['amount'] or Decimal('0.00')
+
+    @property
+    def total_income(self):
+        return Statement.objects.filter(account__user=self.user, type__in=['income']).aggregate(amount=Sum('amount'))['amount'] or Decimal('0.00')
+
+    @property
+    def total_comission(self):
+        return Statement.objects.filter(account__user=self.user, type__in=['comission']).aggregate(amount=Sum('amount'))['amount'] or Decimal('0.00')
 
     def new_income(self, amount, tx_id, fk):
         # Transfere o rendimento para a conta do investidor
