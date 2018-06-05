@@ -138,7 +138,7 @@ class Currencies(TimeStampedModel, BaseModel):
             'withdraw_min': self.withdraw_min, 
             'withdraw_max': self.withdraw_max, 
             'withdraw_fee': self.withdraw_fee, 
-            'withdraw_fixed_fee': self.withdraw_fee, 
+            'withdraw_fixed_fee': self.withdraw_fixed_fee, 
             'withdraw_receive_hours': self.withdraw_receive_hours,
             'tbsa_fee': self.tbsa_fee,
             'tbsa_fixed_fee': self.tbsa_fixed_fee
@@ -202,6 +202,10 @@ class Accounts(TimeStampedModel, BaseModel):
 
     def takeout(self, amount):
         self.deposit -= amount
+        self.save()
+
+    def to_deposit(self, amount):
+        self.deposit += amount
         self.save()
 
 
