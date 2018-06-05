@@ -187,7 +187,7 @@ class Accounts(TimeStampedModel, BaseModel):
     def total_comission(self):
         return Statement.objects.filter(account__user=self.user, type__in=['comission']).aggregate(amount=Sum('amount'))['amount'] or Decimal('0.00')
 
-    def new_income(self, amount, tx_id, fk):
+    def new_income(self, amount, tx_id, fk, date):
         # Transfere o rendimento para a conta do investidor
         self.deposit += amount
         self.save()
@@ -196,6 +196,8 @@ class Accounts(TimeStampedModel, BaseModel):
         statement = Statement(account_id=self.pk, amount=amount, tx_id=tx_id, fk=fk)
         statement.description = 'Income'
         statement.type = Statement.TYPES.income
+        statement.created = date
+        statement.modified = date
         statement.save()
 
         return statement
