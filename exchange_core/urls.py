@@ -33,6 +33,9 @@ urlpatterns = [
 	# URLs de endereco
 	path('address/get-regions/', views.GetRegionsView.as_view(), name='core>get-regions'),	
 	path('address/get-cities/', views.GetCitiesView.as_view(), name='core>get-cities'),	
+
+	# URLs da carteira
+	path('address/get-wallets/', views.GetWalletsView.as_view(), name='core>get-wallets'),	
 ]
 
 if settings.ENABLE_SIGNUP:

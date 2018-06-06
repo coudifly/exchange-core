@@ -68,8 +68,18 @@
 			var wallets_app = new Vue({
 				el: '#wallets-app',
 				data: {
-					wallets: {{ wallets|serialize|safe }},
-					raw_wallets: {{ wallets|serialize|safe }}
+					wallets: {},
+					raw_wallets: {}
+				},
+				mounted: function () {
+					vm = this;
+
+					this.$nextTick(function () {
+						$.get('{% url "core>get-wallets" %}', function(response) {
+							vm.raw_wallets = response.wallets;
+							vm.wallets = response.wallets;
+						});
+					})
 				},
 				methods: {
 					createAddress: function(coin, name) {
@@ -130,7 +140,7 @@
 				methods: {
 					do_search: function() {
 						wallets_app.wallets = wallets_app.raw_wallets.filter(wallet => {
-							var balance = wallet.deposit + wallet.reserved;
+							var balance = parseFloat(wallet.balance);
 
 							if (this.hide_zero_balance && balance <= 0) {
 								return false;
@@ -148,7 +158,7 @@
 
 							for (var index in wallets_app.raw_wallets) {
 								var item = wallets_app.raw_wallets[index];
-								var balance = item.deposit + item.reserved;
+								var balance = parseFloat(item.balance);
 
 								if (balance > 0) {
 									wallets_app.wallets.push(item);

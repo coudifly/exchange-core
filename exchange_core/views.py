@@ -25,6 +25,7 @@ from exchange_core.base_views import MultiFormView
 from exchange_core import forms
 from exchange_core.models import Users, Accounts, BankAccounts, Documents, Statement, CryptoWithdraw, BankWithdraw, Addresses
 from exchange_core.pagination import paginate
+from exchange_core.response import JsonResponse
 
 from cities.models import Country, Region, City
 
@@ -132,11 +133,13 @@ class ResetTokenView(account.views.PasswordResetTokenView):
 class WalletsView(TemplateView):
     template_name = 'core/wallets.html'
 
+
+@method_decorator([login_required], name='dispatch')
+class GetWalletsView(View):
     def get(self, request):
         wallets = []
-
+        
         for account in Accounts.objects.select_related('currency').filter(user=request.user).order_by('currency__order'):
-
             if account.currency.status != Currencies.STATUS.inactive:
                 icon = account.currency.icon.url if account.currency.icon else None
 
@@ -148,13 +151,14 @@ class WalletsView(TemplateView):
                     'symbol': account.currency.symbol,
                     'deposit': account.deposit,
                     'reserved': account.reserved,
+                    'balance': account.balance,
                     'withdraw_min': account.currency.withdraw_min,
                     'withdraw_max': account.currency.withdraw_max,
                     'withdraw_fee': account.currency.withdraw_fee,
                     'withdraw_receive_hours': account.currency.withdraw_receive_hours
                 })
 
-        return render(request, self.template_name, {'wallets': list(wallets)})
+        return JsonResponse({'wallets': wallets})
 
 
 @method_decorator([login_required], name='dispatch')
