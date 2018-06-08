@@ -11,7 +11,7 @@ from exchange_core.models import Users
 # Redirects the user if it yet not send the documents
 class UserDocumentsMiddleware(MiddlewareMixin):
 	ignore_paths = [
-		'/admin',
+		'/' + settings.ADMIN_URL_PREFIX,
 		reverse('set_language'),
 		'/' + getattr(settings, 'SPONSORSHIP_URL_PREFIX', '0000000000'),
 		reverse('core>logout'),
