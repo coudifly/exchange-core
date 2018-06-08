@@ -262,6 +262,7 @@ class DocumentsView(MultiFormView):
             instance = form.save(commit=False)
             instance.type = type_name
             instance.user = self.request.user
+            instance.status = Documents.STATUS.pending
             instance.save()
 
             user = self.request.user
