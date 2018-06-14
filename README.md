@@ -32,7 +32,8 @@ Used when we need to show the domain link to the user or create full urls with `
 
 Obliges the user to change its password every x days. Leave 0 (zero) for disabled it. This is a config of the [django-user-accounts](http://django-user-accounts.readthedocs.io/en/latest/usage.html?highlight=ACCOUNT_PASSWORD_EXPIRY#enabling-password-expiration) package.
 
-`MAILGUN_API_KEY=api-thisisainvalidapikey` and `MAILGUN_SENDER_DOMAIN=mg.example.com`
+`MAILGUN_API_KEY=api-thisisainvalidapikey`  
+`MAILGUN_SENDER_DOMAIN=mg.example.com`
 
 [Mailgun](https://www.mailgun.com/) is the e-mail server used by our Exchange. These two configure variables above sets the Mailgun account to be used for processing all Exchange e-mail stuff.
 
@@ -41,7 +42,9 @@ Obliges the user to change its password every x days. Leave 0 (zero) for disable
 
 This setting tells how much time the user can stay inactive. We use this for security reasons, in case of the user forget it session opened. After the time gets end, the Django automatically logout the user. The package used for add this behavior is the [django-session-security](http://django-session-security.readthedocs.io/en/latest/full.html?highlight=SESSION_SECURITY_EXPIRE_AFTER#module-session_security.settings).
 
-`AWS_ACCESS_KEY_ID=thisisainvalidapikey`, `AWS_SECRET_ACCESS_KEY=thisisainvalidapikey` and `AWS_STORAGE_BUCKET_NAME=example`
+`AWS_ACCESS_KEY_ID=thisisainvalidapikey`  
+`AWS_SECRET_ACCESS_KEY=thisisainvalidapikey`  
+`AWS_STORAGE_BUCKET_NAME=example`
 
 For handling file storage in the Exchange, we use the Amazon AWS S3 service., who does the hard work for us and make the integration between S3 and Django is the [django-storages](http://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html) package.
 
