@@ -622,6 +622,9 @@ msgid ""
 "try resending or contact us at <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
 "%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
+"Nós te enviamos um email. Se você não recebê-lo em alguns minutos, "
+"contate-nos no <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
+"%(THEME_CONTACT_EMAIL)s</a>."
 
 #: exchange_core/templates/account/password_reset_sent.html:19
 msgid "Resend"
@@ -634,6 +637,9 @@ msgid ""
 "minutes, contact us at <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
 "%(THEME_CONTACT_EMAIL)s</a>."
 msgstr ""
+"Nós te enviamos um e-mail de redefinição de senha. Se você não recebê-lo em alguns "
+"minutos, contate-nos no <a href=\"mailto:%(THEME_CONTACT_EMAIL)s\">"
+"%(THEME_CONTACT_EMAIL)s</a>."
 
 #: exchange_core/templates/account/password_reset_token.html:11
 msgid "Set your new password"
@@ -650,6 +656,8 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a <a href=\"%(url)s\">new password reset</a>."
 msgstr ""
+"O link para redefinição de senha é inválido, possivelmente porque já foi "
+"usado.  Por favor solicite uma <a href=\"%(url)s\">nova redefinição de senha</a>."
 
 #: exchange_core/templates/account/settings.html:12
 msgid "My Avatar"
@@ -683,6 +691,7 @@ msgstr "Clique aqui para saber o porque"
 msgid ""
 "This bank account will be used for the withdrawals made with the BRL account"
 msgstr ""
+"Essa conta bancária será usada para saques feitos pela conta BRL"
 
 #: exchange_core/templates/account/signup-form.html:32
 #: exchange_core/templates/two_factor/core/login.html:99
@@ -772,7 +781,7 @@ msgstr ""
 
 #: exchange_core/templates/core/documents.html:25
 msgid "Disapproved Documents"
-msgstr ""
+msgstr "Documentos Desaprovados"
 
 #: exchange_core/templates/core/documents.html:26
 msgid ""
@@ -789,38 +798,38 @@ msgstr ""
 
 #: exchange_core/templates/core/documents.html:38
 msgid "Drivers License or ID - Front"
-msgstr ""
+msgstr "Carteira de Motorista ou RG - Frente"
 
 #: exchange_core/templates/core/documents.html:53
 #: exchange_core/templates/core/documents.html:84
 #: exchange_core/templates/core/documents.html:116
 #: exchange_core/templates/core/documents.html:148
 msgid "Upload"
-msgstr ""
+msgstr "Upload"
 
 #: exchange_core/templates/core/documents.html:70
 msgid "Drivers License or ID - Back"
-msgstr ""
+msgstr "Carteira de Motorista ou RG - Verso"
 
 #: exchange_core/templates/core/documents.html:102
 msgid "Document Selfie"
-msgstr ""
+msgstr "Selfie com o RG"
 
 #: exchange_core/templates/core/documents.html:134
 msgid "Proof of Residence"
-msgstr ""
+msgstr "Comprovante de Residência"
 
 #: exchange_core/templates/core/index.html:107
 msgid "Change for this"
-msgstr ""
+msgstr "Mudar para este"
 
 #: exchange_core/templates/core/index.html:129
 msgid "Hi, "
-msgstr ""
+msgstr "Olá, "
 
 #: exchange_core/templates/core/index.html:134
 msgid "Two Factor Auth"
-msgstr ""
+msgstr "Autenticação em 2 Passos"
 
 #: exchange_core/templates/core/index.html:144
 msgid "Settings"
