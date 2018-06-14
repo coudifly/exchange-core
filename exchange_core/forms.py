@@ -101,8 +101,8 @@ class ChangePasswordForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_repeat_password(self):
-        password = self.cleaned_data['password']
-        repeat_password = self.cleaned_data['repeat_password']
+        password = self.data['password'].strip()
+        repeat_password = self.data['repeat_password'].strip()
 
         if password != repeat_password:
             raise forms.ValidationError(_("The passwords aren't equals"))
