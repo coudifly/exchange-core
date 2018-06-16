@@ -1,6 +1,7 @@
 import importlib
 
 from django.conf import settings
+from django.urls import include, path
 from django.urls.resolvers import URLPattern
 from django.db import connection
 from functools import wraps
@@ -28,3 +29,11 @@ def close_db_connection(f):
         connection.close()
         return f_return
     return func_wrapper
+
+
+def generate_patterns(urlpatterns):
+    for app_name in settings.INSTALLED_APPS:
+        if app_name.startswith('exchange_'):
+            urls_path = app_name + '.urls'
+            urlpatterns.append(path('', include(urls_path)))
+    return urlpatterns
