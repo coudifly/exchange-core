@@ -55,10 +55,10 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			{% include "core/forms/field.html" with field=form.zipcode %}
+			{% include "core/forms/field.html" with field=form.zipcode model="zipcode" %}
 		</div>
 		<div class="col-md-8">
-			{% include "core/forms/field.html" with field=form.address %}
+			{% include "core/forms/field.html" with field=form.address model="address" %}
 		</div>
 		<div class="col-md-2">
 			{% include "core/forms/field.html" with field=form.number %}
@@ -67,7 +67,7 @@
 			{% include "core/forms/field.html" with field=form.complement %}
 		</div>
 		<div class="col-md-5">
-			{% include "core/forms/field.html" with field=form.neighborhood %}
+			{% include "core/forms/field.html" with field=form.neighborhood model="neighborhood" %}
 		</div>
 	</div>
 </div>

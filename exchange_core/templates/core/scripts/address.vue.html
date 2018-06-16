@@ -1,20 +1,23 @@
 {% load exchange %}
 {% load i18n %}
-
+<script src="https://cdn.jsdelivr.net/npm/cep-promise/dist/cep-promise-browser.min.js"></script>
 <script>
 	jQuery(function($) {
-		var address_app = new Vue({
+		let address_app = new Vue({
 			el: '#address-app',
 			data: {
 				country: '{{ DEFAULT_ADDRESS_COUNTRY|safe }}',
 				region: '{{ request.user.addresses.first.region.pk|safe }}',
 				regions: {},
 				city: '{{ request.user.addresses.first.city.pk|safe }}',
-				cities: {}
+				cities: {},
+                zipcode: '{{ request.user.addresses.first.zipcode }}',
+                address: '{{ request.user.addresses.first.address }}',
+                neighborhood: '{{ request.user.addresses.first.neighborhood }}'
 			},
 			methods: {
 				find_regions: function(reset) {
-					var vm = this;
+					let vm = this;
 
 					if (reset) {
 						vm.region = '';
@@ -26,7 +29,7 @@
 					});
 				},
 				find_cities: function(reset) {
-					var vm = this;
+					let vm = this;
 
 					if (reset) {
 						vm.city = '';
@@ -51,7 +54,18 @@
 				},
 				region: function() {
 					this.find_cities(true);
-				}
+				},
+                zipcode: function() {
+				    let vm = this;
+				    let code = vm.zipcode;
+
+				    if (code && code.length >= 8) {
+				        cep(code).then((data) => {
+				            vm.address = data.street;
+				            vm.neighborhood = data.neighborhood;
+                        });
+                    }
+                }
 			}
 		});
 	});

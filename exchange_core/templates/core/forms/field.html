@@ -4,7 +4,12 @@
 	{% with WIDGET_ERROR_CLASS='parsley-error' %}
 		<div class="form-group {% if field.errors %}has-error has-danger{% endif %}">
 			<label for="{{ field.name }}" class="{{ css_classes }}">{{ field.label }}</label>
-			{% render_field field class="form-control" placeholder=field.label %}
+			{% if model %}
+				{% render_field field class="form-control" placeholder=field.label v-model=model %}
+			{% else %}
+				{% render_field field class="form-control" placeholder=field.label %}
+			{% endif %}
+
 			{% if field.errors %}
 				<ul class="parsley-errors-list filled">
 					{% for error in field.errors %}
