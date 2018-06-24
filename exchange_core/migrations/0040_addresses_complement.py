@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='addresses',
             name='complement',
-            field=models.CharField(max_length=50, null=True, verbose_name='Complement'),
+            field=models.CharField(
+                max_length=50, null=True, verbose_name='Complement'),
         ),
     ]

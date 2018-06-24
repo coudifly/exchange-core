@@ -18,11 +18,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='bankaccounts',
             name='account_number_digit',
-            field=models.CharField(max_length=5, null=True, verbose_name='Digit'),
+            field=models.CharField(
+                max_length=5, null=True, verbose_name='Digit'),
         ),
         migrations.AlterField(
             model_name='bankaccounts',
             name='agency_digit',
-            field=models.CharField(max_length=5, null=True, verbose_name='Digit'),
+            field=models.CharField(
+                max_length=5, null=True, verbose_name='Digit'),
         ),
     ]

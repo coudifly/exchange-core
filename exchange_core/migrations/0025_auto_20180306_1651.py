@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='currencies',
             name='status',
-            field=models.CharField(choices=[('active', 'active'), ('inactive', 'inactive')], default='active', max_length=30, verbose_name='Status'),
+            field=models.CharField(choices=[('active', 'active'), (
+                'inactive', 'inactive')], default='active', max_length=30, verbose_name='Status'),
         ),
     ]

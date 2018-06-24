@@ -7,8 +7,10 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 class CustomJSONEncoder(DjangoJSONEncoder):
     def default(self, o):
-        if isinstance(o, UUID): return str(o)
-        if isinstance(o, Decimal): return format(o, '.8f')
+        if isinstance(o, UUID):
+            return str(o)
+        if isinstance(o, Decimal):
+            return format(o, '.8f')
         return super().default(o)
 
 

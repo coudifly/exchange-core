@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='statement',
             name='type',
-            field=models.CharField(choices=[('deposit', 'deposit'), ('reverse', 'reverse'), ('withdraw', 'withdraw'), ('income', 'income'), ('investment', 'investment'), ('tbsa', 'tbsa'), ('course_subscription', 'course_subscription')], max_length=30, verbose_name='Type'),
+            field=models.CharField(choices=[('deposit', 'deposit'), ('reverse', 'reverse'), ('withdraw', 'withdraw'), ('income', 'income'), (
+                'investment', 'investment'), ('tbsa', 'tbsa'), ('course_subscription', 'course_subscription')], max_length=30, verbose_name='Type'),
         ),
     ]

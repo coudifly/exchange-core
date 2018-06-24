@@ -14,11 +14,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='currencies',
             name='withdraw_fixed_fee',
-            field=models.DecimalField(decimal_places=8, default=Decimal('0.005'), max_digits=20, verbose_name='Withdraw Fixed Fee'),
+            field=models.DecimalField(decimal_places=8, default=Decimal(
+                '0.005'), max_digits=20, verbose_name='Withdraw Fixed Fee'),
         ),
         migrations.AlterField(
             model_name='currencies',
             name='withdraw_fee',
-            field=models.DecimalField(decimal_places=8, default=Decimal('0.005'), max_digits=20, verbose_name='Withdraw Percent Fee'),
+            field=models.DecimalField(decimal_places=8, default=Decimal(
+                '0.005'), max_digits=20, verbose_name='Withdraw Percent Fee'),
         ),
     ]

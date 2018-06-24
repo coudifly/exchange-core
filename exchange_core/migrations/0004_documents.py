@@ -18,13 +18,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Documents',
             fields=[
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('created', model_utils.fields.AutoCreatedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='created')),
+                ('modified', model_utils.fields.AutoLastModifiedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='modified')),
+                ('id', models.UUIDField(default=uuid.uuid4,
+                                        editable=False, primary_key=True, serialize=False)),
                 ('file', models.ImageField(upload_to='')),
-                ('type', models.CharField(choices=[('driver', 'driver'), ('id', 'id'), ('selfie', 'selfie'), ('contract', 'contract')], max_length=20)),
-                ('status', models.CharField(choices=[('pending', 'pending'), ('disapproved', 'disapproved'), ('approved', 'approved')], max_length=20)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='documents', to=settings.AUTH_USER_MODEL)),
+                ('type', models.CharField(choices=[('driver', 'driver'), ('id', 'id'), (
+                    'selfie', 'selfie'), ('contract', 'contract')], max_length=20)),
+                ('status', models.CharField(choices=[('pending', 'pending'), (
+                    'disapproved', 'disapproved'), ('approved', 'approved')], max_length=20)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                           related_name='documents', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,

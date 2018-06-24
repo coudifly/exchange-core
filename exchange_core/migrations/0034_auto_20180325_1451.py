@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='currencies',
             name='type',
-            field=models.CharField(choices=[('checking', 'checking'), ('investment', 'investment')], default='checking', max_length=20),
+            field=models.CharField(choices=[(
+                'checking', 'checking'), ('investment', 'investment')], default='checking', max_length=20),
         ),
         migrations.AlterField(
             model_name='currencies',

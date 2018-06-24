@@ -9,27 +9,28 @@ class MultiFormView(TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
-        
+
         for form_name, form in self.forms.items():
             form_kwargs = self.get_form_kwargs(form_name)
             form_kwargs['auto_id'] = form_name + '_%s'
 
             if form_kwargs.get('instance'):
-                context[form_name + '_instance'] = form_kwargs.get('instance') 
+                context[form_name + '_instance'] = form_kwargs.get('instance')
 
             context['form_' + form_name] = form(**form_kwargs)
 
         get_view_data_method = self.get_method('get_view_data')
-        
+
         if get_view_data_method:
             context.update(get_view_data_method())
-        
+
         return context
 
     def get_form_kwargs(self, form_name):
         form_kwargs = {}
         form_base_instance_method = self.get_method('get_instance')
-        form_instance_method = self.get_method('get_{}_instance'.format(form_name))
+        form_instance_method = self.get_method(
+            'get_{}_instance'.format(form_name))
         form_kwargs_method = self.get_method('get_{}_kwargs'.format(form_name))
 
         if form_base_instance_method:
@@ -63,12 +64,11 @@ class MultiFormView(TemplateView):
         if form.is_valid():
             form_valid_method = self.get_method(self.form_name + '_form_valid')
             form_base_valid_method = self.get_method('form_valid')
-            
+
             if form_valid_method:
                 return form_valid_method(form)
             elif form_base_valid_method:
                 return form_base_valid_method(form, self.form_name)
-
 
         context = self.get_context_data()
         context['form_' + self.form_name] = form

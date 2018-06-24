@@ -8,4 +8,4 @@ register = Library()
 @register.filter(is_safe=True)
 def language_css_class(lang):
     if lang in settings.LANGUAGE_CSS_CLASSES:
-    	return settings.LANGUAGE_CSS_CLASSES[lang]
+        return settings.LANGUAGE_CSS_CLASSES[lang]

@@ -13,26 +13,31 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='bankwithdraw',
             name='status',
-            field=models.CharField(choices=[('requested', 'requested'), ('reversed', 'reversed'), ('paid', 'paid')], default='requested', max_length=20),
+            field=models.CharField(choices=[('requested', 'requested'), (
+                'reversed', 'reversed'), ('paid', 'paid')], default='requested', max_length=20),
         ),
         migrations.AlterField(
             model_name='cryptowithdraw',
             name='status',
-            field=models.CharField(choices=[('requested', 'requested'), ('reversed', 'reversed'), ('paid', 'paid')], default='requested', max_length=20),
+            field=models.CharField(choices=[('requested', 'requested'), (
+                'reversed', 'reversed'), ('paid', 'paid')], default='requested', max_length=20),
         ),
         migrations.AlterField(
             model_name='statement',
             name='type',
-            field=models.CharField(choices=[('deposit', 'deposit'), ('reverse', 'reverse'), ('withdraw', 'withdraw')], max_length=30, verbose_name='Type'),
+            field=models.CharField(choices=[('deposit', 'deposit'), ('reverse', 'reverse'), (
+                'withdraw', 'withdraw')], max_length=30, verbose_name='Type'),
         ),
         migrations.AlterField(
             model_name='users',
             name='document_1',
-            field=models.CharField(blank=True, max_length=50, null=True, unique=True),
+            field=models.CharField(
+                blank=True, max_length=50, null=True, unique=True),
         ),
         migrations.AlterField(
             model_name='users',
             name='document_2',
-            field=models.CharField(blank=True, max_length=50, null=True, unique=True),
+            field=models.CharField(
+                blank=True, max_length=50, null=True, unique=True),
         ),
     ]

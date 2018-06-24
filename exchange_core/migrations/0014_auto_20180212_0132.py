@@ -14,17 +14,20 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='currencies',
             name='withdraw_fee',
-            field=models.DecimalField(decimal_places=8, default=Decimal('0.00'), max_digits=20, verbose_name='Max Withdraw'),
+            field=models.DecimalField(decimal_places=8, default=Decimal(
+                '0.00'), max_digits=20, verbose_name='Max Withdraw'),
         ),
         migrations.AddField(
             model_name='currencies',
             name='withdraw_max',
-            field=models.DecimalField(decimal_places=8, default=Decimal('0.00'), max_digits=20, verbose_name='Max Withdraw'),
+            field=models.DecimalField(decimal_places=8, default=Decimal(
+                '0.00'), max_digits=20, verbose_name='Max Withdraw'),
         ),
         migrations.AddField(
             model_name='currencies',
             name='withdraw_min',
-            field=models.DecimalField(decimal_places=8, default=Decimal('0.00'), max_digits=20, verbose_name='Min Withdraw'),
+            field=models.DecimalField(decimal_places=8, default=Decimal(
+                '0.00'), max_digits=20, verbose_name='Min Withdraw'),
         ),
         migrations.AddField(
             model_name='currencies',

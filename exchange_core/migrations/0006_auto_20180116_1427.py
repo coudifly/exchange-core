@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='documents',
             name='type',
-            field=models.CharField(choices=[('id_front', 'id_front'), ('id_back', 'id_back'), ('selfie', 'selfie'), ('contract', 'contract')], max_length=20),
+            field=models.CharField(choices=[('id_front', 'id_front'), ('id_back', 'id_back'), (
+                'selfie', 'selfie'), ('contract', 'contract')], max_length=20),
         ),
     ]

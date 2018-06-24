@@ -15,12 +15,14 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='bankwithdraw',
             name='account_number_digit',
-            field=models.CharField(max_length=5, null=True, verbose_name='Account number digit'),
+            field=models.CharField(
+                max_length=5, null=True, verbose_name='Account number digit'),
         ),
         migrations.AddField(
             model_name='bankwithdraw',
             name='agency_digit',
-            field=models.CharField(max_length=5, null=True, verbose_name='Agency Digit'),
+            field=models.CharField(
+                max_length=5, null=True, verbose_name='Agency Digit'),
         ),
         migrations.AlterField(
             model_name='addresses',
@@ -30,12 +32,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='addresses',
             name='city',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to=settings.CITIES_CITY_MODEL, verbose_name='City'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='addresses', to=settings.CITIES_CITY_MODEL, verbose_name='City'),
         ),
         migrations.AlterField(
             model_name='addresses',
             name='country',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to=settings.CITIES_COUNTRY_MODEL, verbose_name='Country'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='addresses', to=settings.CITIES_COUNTRY_MODEL, verbose_name='Country'),
         ),
         migrations.AlterField(
             model_name='addresses',
@@ -50,12 +54,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='addresses',
             name='region',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to='cities.Region', verbose_name='State'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='addresses', to='cities.Region', verbose_name='State'),
         ),
         migrations.AlterField(
             model_name='addresses',
             name='type',
-            field=models.CharField(choices=[('account', 'account')], default='account', max_length=20, verbose_name='Type'),
+            field=models.CharField(choices=[(
+                'account', 'account')], default='account', max_length=20, verbose_name='Type'),
         ),
         migrations.AlterField(
             model_name='addresses',
@@ -65,6 +71,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='statement',
             name='type',
-            field=models.CharField(choices=[('deposit', 'deposit'), ('reverse', 'reverse'), ('withdraw', 'withdraw'), ('income', 'income'), ('investment', 'investment')], max_length=30, verbose_name='Type'),
+            field=models.CharField(choices=[('deposit', 'deposit'), ('reverse', 'reverse'), ('withdraw', 'withdraw'), (
+                'income', 'income'), ('investment', 'investment')], max_length=30, verbose_name='Type'),
         ),
     ]

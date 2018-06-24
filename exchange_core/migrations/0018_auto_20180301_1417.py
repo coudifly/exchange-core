@@ -21,17 +21,24 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Addresses',
             fields=[
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('created', model_utils.fields.AutoCreatedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='created')),
+                ('modified', model_utils.fields.AutoLastModifiedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='modified')),
+                ('id', models.UUIDField(default=uuid.uuid4,
+                                        editable=False, primary_key=True, serialize=False)),
                 ('address', models.CharField(max_length=100)),
                 ('number', models.CharField(max_length=20)),
                 ('neighborhood', models.CharField(max_length=50)),
                 ('zipcode', models.CharField(max_length=10)),
-                ('type', models.CharField(choices=[('account', 'account')], default='account', max_length=20)),
-                ('city', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to=settings.CITIES_CITY_MODEL)),
-                ('country', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to=settings.CITIES_COUNTRY_MODEL)),
-                ('region', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to='cities.Region')),
+                ('type', models.CharField(choices=[
+                 ('account', 'account')], default='account', max_length=20)),
+                ('city', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                           related_name='addresses', to=settings.CITIES_CITY_MODEL)),
+                ('country', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                              related_name='addresses', to=settings.CITIES_COUNTRY_MODEL)),
+                ('region', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                             related_name='addresses', to='cities.Region')),
             ],
             options={
                 'abstract': False,
@@ -40,12 +47,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Companies',
             fields=[
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('created', model_utils.fields.AutoCreatedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='created')),
+                ('modified', model_utils.fields.AutoLastModifiedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='modified')),
+                ('id', models.UUIDField(default=uuid.uuid4,
+                                        editable=False, primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
-                ('document_1', models.CharField(blank=True, max_length=50, null=True)),
-                ('document_2', models.CharField(blank=True, max_length=50, null=True)),
+                ('document_1', models.CharField(
+                    blank=True, max_length=50, null=True)),
+                ('document_2', models.CharField(
+                    blank=True, max_length=50, null=True)),
             ],
             options={
                 'abstract': False,
@@ -64,21 +76,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='users',
             name='type',
-            field=models.CharField(choices=[('person', 'person'), ('company', 'company')], default='person', max_length=11, null=True),
+            field=models.CharField(choices=[(
+                'person', 'person'), ('company', 'company')], default='person', max_length=11, null=True),
         ),
         migrations.AlterField(
             model_name='users',
             name='status',
-            field=models.CharField(choices=[('created', 'created'), ('approved_documentation', 'approved_documentation'), ('inactive', 'inactive')], default='created', max_length=30, verbose_name='Status'),
+            field=models.CharField(choices=[('created', 'created'), ('approved_documentation', 'approved_documentation'), (
+                'inactive', 'inactive')], default='created', max_length=30, verbose_name='Status'),
         ),
         migrations.AddField(
             model_name='companies',
             name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='companies', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='companies', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='addresses',
             name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='addresses', to=settings.AUTH_USER_MODEL),
         ),
     ]

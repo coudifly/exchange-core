@@ -13,11 +13,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='currencies',
             name='status',
-            field=models.CharField(choices=[('active', 'active'), ('active', 'active'), ('inactive', 'inactive'), ('inactive', 'inactive')], default='active', max_length=30, verbose_name='Status'),
+            field=models.CharField(choices=[('active', 'active'), ('active', 'active'), ('inactive', 'inactive'), (
+                'inactive', 'inactive')], default='active', max_length=30, verbose_name='Status'),
         ),
         migrations.AlterField(
             model_name='users',
             name='status',
-            field=models.CharField(choices=[('created', 'created'), ('approved_documentation', 'approved_documentation'), ('inactive', 'inactive'), ('disapproved_documentation', 'disapproved_documentation')], default='created', max_length=30, verbose_name='Status'),
+            field=models.CharField(choices=[('created', 'created'), ('approved_documentation', 'approved_documentation'), ('inactive', 'inactive'), (
+                'disapproved_documentation', 'disapproved_documentation')], default='created', max_length=30, verbose_name='Status'),
         ),
     ]

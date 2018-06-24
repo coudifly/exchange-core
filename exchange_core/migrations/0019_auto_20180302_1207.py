@@ -14,16 +14,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='bankwithdraw',
             name='profit',
-            field=models.DecimalField(decimal_places=8, default=Decimal('0.00'), max_digits=20),
+            field=models.DecimalField(
+                decimal_places=8, default=Decimal('0.00'), max_digits=20),
         ),
         migrations.AddField(
             model_name='cryptowithdraw',
             name='profit',
-            field=models.DecimalField(decimal_places=8, default=Decimal('0.00'), max_digits=20),
+            field=models.DecimalField(
+                decimal_places=8, default=Decimal('0.00'), max_digits=20),
         ),
         migrations.AlterField(
             model_name='statement',
             name='type',
-            field=models.CharField(choices=[('deposit', 'deposit'), ('withdraw', 'withdraw')], max_length=30, verbose_name='Type'),
+            field=models.CharField(choices=[(
+                'deposit', 'deposit'), ('withdraw', 'withdraw')], max_length=30, verbose_name='Type'),
         ),
     ]

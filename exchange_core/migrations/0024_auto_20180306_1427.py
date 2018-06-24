@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='users',
             name='status',
-            field=models.CharField(choices=[('created', 'created'), ('approved_documentation', 'approved_documentation'), ('inactive', 'inactive'), ('disapproved_documentation', 'disapproved_documentation')], default='created', max_length=30, verbose_name='Status'),
+            field=models.CharField(choices=[('created', 'created'), ('approved_documentation', 'approved_documentation'), ('inactive', 'inactive'), (
+                'disapproved_documentation', 'disapproved_documentation')], default='created', max_length=30, verbose_name='Status'),
         ),
     ]

@@ -12,7 +12,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='documents',
-            options={'ordering': ['status'], 'verbose_name': 'Document', 'verbose_name_plural': 'Documents'},
+            options={'ordering': [
+                'status'], 'verbose_name': 'Document', 'verbose_name_plural': 'Documents'},
         ),
         migrations.AlterField(
             model_name='currencies',

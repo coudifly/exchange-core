@@ -18,12 +18,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Withdrawals',
             fields=[
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('created', model_utils.fields.AutoCreatedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='created')),
+                ('modified', model_utils.fields.AutoLastModifiedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='modified')),
+                ('id', models.UUIDField(default=uuid.uuid4,
+                                        editable=False, primary_key=True, serialize=False)),
                 ('address', models.CharField(max_length=255)),
-                ('balance', models.DecimalField(decimal_places=8, default=Decimal('0.00'), max_digits=20)),
-                ('amount', models.DecimalField(decimal_places=8, default=Decimal('0.00'), max_digits=20)),
+                ('balance', models.DecimalField(decimal_places=8,
+                                                default=Decimal('0.00'), max_digits=20)),
+                ('amount', models.DecimalField(decimal_places=8,
+                                               default=Decimal('0.00'), max_digits=20)),
                 ('status', models.CharField(default='requested', max_length=20)),
             ],
             options={
@@ -37,6 +42,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='withdrawals',
             name='account',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='withdrawals', to='exchange_core.Accounts'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='withdrawals', to='exchange_core.Accounts'),
         ),
     ]

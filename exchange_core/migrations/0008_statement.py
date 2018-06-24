@@ -18,13 +18,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Statement',
             fields=[
-                ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False, verbose_name='created')),
-                ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False, verbose_name='modified')),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('description', models.CharField(max_length=100, verbose_name='Description')),
-                ('amount', models.DecimalField(decimal_places=8, default=Decimal('0.00'), max_digits=20)),
-                ('type', models.CharField(choices=[('deposit', 'deposit'), ('withdrawal', 'withdrawal')], max_length=30, verbose_name='Type')),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='statement', to='exchange_core.Accounts', verbose_name='Account')),
+                ('created', model_utils.fields.AutoCreatedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='created')),
+                ('modified', model_utils.fields.AutoLastModifiedField(
+                    default=django.utils.timezone.now, editable=False, verbose_name='modified')),
+                ('id', models.UUIDField(default=uuid.uuid4,
+                                        editable=False, primary_key=True, serialize=False)),
+                ('description', models.CharField(
+                    max_length=100, verbose_name='Description')),
+                ('amount', models.DecimalField(decimal_places=8,
+                                               default=Decimal('0.00'), max_digits=20)),
+                ('type', models.CharField(choices=[
+                 ('deposit', 'deposit'), ('withdrawal', 'withdrawal')], max_length=30, verbose_name='Type')),
+                ('account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                              related_name='statement', to='exchange_core.Accounts', verbose_name='Account')),
             ],
             options={
                 'verbose_name': 'Statement',

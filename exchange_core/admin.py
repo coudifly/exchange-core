@@ -32,7 +32,9 @@ def approve_documents(modeladmin, request, queryset):
         queryset.update(status=Users.STATUS.approved_documentation)
     messages.success(request, _("Documentation approved for users"))
 
-approve_documents.short_description = _("Approve documentation for selected users")
+
+approve_documents.short_description = _(
+    "Approve documentation for selected users")
 
 
 def disapprove_documents(modeladmin, request, queryset):
@@ -40,7 +42,9 @@ def disapprove_documents(modeladmin, request, queryset):
         queryset.update(status=Users.STATUS.disapproved_documentation)
     messages.success(request, _("Documentation disapproved for users"))
 
-disapprove_documents.short_description = _("Disapprove documentation for selected users")
+
+disapprove_documents.short_description = _(
+    "Disapprove documentation for selected users")
 
 
 @admin.register(Users)
@@ -50,7 +54,7 @@ class UsersAdmin(BaseAdmin):
     search_fields = ['username', 'email', 'document_1', 'document_2']
     ordering = ('-created',)
     exclude = ['password']
-    readonly_fields = ['last_login', 'profile', 'status',]
+    readonly_fields = ['last_login', 'profile', 'status', ]
     actions = [approve_documents, disapprove_documents]
 
 
@@ -61,7 +65,8 @@ class CompaniesAdmin(BaseAdmin):
 
 @admin.register(Currencies)
 class CurrenciesAdmin(BaseAdmin):
-    list_display = ['name', 'symbol', 'type', 'icon', 'withdraw_min', 'withdraw_max', 'withdraw_fee', 'withdraw_fixed_fee', 'withdraw_receive_hours']
+    list_display = ['name', 'symbol', 'type', 'icon', 'withdraw_min',
+                    'withdraw_max', 'withdraw_fee', 'withdraw_fixed_fee', 'withdraw_receive_hours']
 
 
 @admin.register(Accounts)
@@ -72,9 +77,11 @@ class AccountsAdmin(BaseAdmin):
 
 @admin.register(Documents)
 class DocumentsAdmin(BaseAdmin):
-    list_display = ['user', 'file', 'type', 'get_document_1', 'get_document_2', 'status']
+    list_display = ['user', 'file', 'type',
+                    'get_document_1', 'get_document_2', 'status']
     list_filter = ['type', 'status']
-    search_fields = ['user__username', 'user__email', 'user__document_1', 'user__document_2']
+    search_fields = ['user__username', 'user__email',
+                     'user__document_1', 'user__document_2']
 
     def get_document_1(self, obj):
         return obj.user.document_1
@@ -91,9 +98,11 @@ class DocumentsAdmin(BaseAdmin):
 
 @admin.register(BankWithdraw)
 class BankWithdrawAdmin(BaseAdmin):
-    list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'agency_digit', 'account_type', 'account_number', 'account_number_digit', 'amount', 'fee', 'status']
+    list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'agency_digit',
+                    'account_type', 'account_number', 'account_number_digit', 'amount', 'fee', 'status']
     list_filter = ['status']
-    search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
+    search_fields = ['account__user__username', 'account__user__email',
+                     'account__user__document_1', 'account_user__document_2']
     readonly_fields = ['account']
 
     def get_user(self, obj):
@@ -131,16 +140,21 @@ def reverse_crypto_withdraw(modeladmin, request, queryset):
             crypto_withdraw.status = CryptoWithdraw.STATUS.reversed
             crypto_withdraw.save()
 
-            messages.success(request, _("{} amount reversed to {}").format(abs(crypto_withdraw.amount), account.user.username))
+            messages.success(request, _("{} amount reversed to {}").format(
+                abs(crypto_withdraw.amount), account.user.username))
 
-reverse_crypto_withdraw.short_description = _("Reverse selected crypto withdraw")
+
+reverse_crypto_withdraw.short_description = _(
+    "Reverse selected crypto withdraw")
 
 
 @admin.register(CryptoWithdraw)
 class CryptoWithdrawAdmin(BaseAdmin):
-    list_display = ['get_user', 'get_document_1', 'get_document_2', 'deposit', 'reserved', 'get_coin', 'amount', 'fee', 'status']
+    list_display = ['get_user', 'get_document_1', 'get_document_2',
+                    'deposit', 'reserved', 'get_coin', 'amount', 'fee', 'status']
     list_filter = ['status']
-    search_fields = ['account__user__username', 'account__user__email', 'account__user__document_1', 'account_user__document_2']
+    search_fields = ['account__user__username', 'account__user__email',
+                     'account__user__document_1', 'account_user__document_2']
     actions = [reverse_crypto_withdraw]
     readonly_fields = ['account']
 

@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='documents',
             name='reason',
-            field=models.CharField(max_length=100, null=True, verbose_name='Disapproved reason'),
+            field=models.CharField(
+                max_length=100, null=True, verbose_name='Disapproved reason'),
         ),
     ]

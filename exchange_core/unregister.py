@@ -13,14 +13,14 @@ from account.models import (
     SignupCode,
 )
 from cities.models import (
-	Continent, 
-	Country, 
-	Region, 
-	Subregion, 
-	City, 
-	District,
-	PostalCode, 
-	AlternativeName
+    Continent,
+    Country,
+    Region,
+    Subregion,
+    City,
+    District,
+    PostalCode,
+    AlternativeName
 )
 
 admin.site.unregister(Account)
@@ -31,7 +31,7 @@ admin.site.unregister(PasswordExpiry)
 admin.site.unregister(PasswordHistory)
 admin.site.unregister(Continent)
 admin.site.unregister(Country)
-admin.site.unregister(Region )
+admin.site.unregister(Region)
 admin.site.unregister(Subregion)
 admin.site.unregister(City)
 admin.site.unregister(District)

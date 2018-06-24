@@ -14,16 +14,19 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='currencies',
             name='icon',
-            field=models.ImageField(blank=True, null=True, upload_to=exchange_core.models.get_file_path, verbose_name='Icon'),
+            field=models.ImageField(
+                blank=True, null=True, upload_to=exchange_core.models.get_file_path, verbose_name='Icon'),
         ),
         migrations.AlterField(
             model_name='documents',
             name='file',
-            field=models.ImageField(upload_to=exchange_core.models.get_file_path),
+            field=models.ImageField(
+                upload_to=exchange_core.models.get_file_path),
         ),
         migrations.AlterField(
             model_name='users',
             name='avatar',
-            field=models.ImageField(blank=True, upload_to=exchange_core.models.get_file_path),
+            field=models.ImageField(
+                blank=True, upload_to=exchange_core.models.get_file_path),
         ),
     ]

@@ -52,7 +52,8 @@ class SignupView(account.views.SignupView):
         if self.request.method == 'POST':
             country = self.request.POST['country']
             region = self.request.POST['region']
-            form = forms.AddressForm(self.request.POST, country=country, region=region)
+            form = forms.AddressForm(
+                self.request.POST, country=country, region=region)
         return form
 
     def get_context_data(self, **kwargs):
@@ -65,7 +66,7 @@ class SignupView(account.views.SignupView):
         if form_address and not form_address.is_valid():
             return render(self.request, self.template_name, self.get_context_data())
         self.form_address = form_address
-        
+
         with transaction.atomic():
             return super().form_valid(*args, **kwargs)
 
@@ -86,7 +87,8 @@ class SignupView(account.views.SignupView):
 
 class ResendConfirmationEmailView(account.views.SignupView):
     def post(self, request):
-        email_address = get_object_or_404(EmailAddress, email=request.POST['email'], verified=False)
+        email_address = get_object_or_404(
+            EmailAddress, email=request.POST['email'], verified=False)
         email_address.send_confirmation(site=get_current_site(self.request))
         messages.success(request, _("Confirmation e-mail resent!"))
         self.created_user = email_address.user
@@ -106,7 +108,8 @@ class ResetPasswordView(account.views.PasswordResetView):
             password_reset_url = "{0}://{1}{2}".format(
                 protocol,
                 current_site.domain,
-                reverse("core>reset-token", kwargs=dict(uidb36=str(user.pk), token=token))
+                reverse("core>reset-token",
+                        kwargs=dict(uidb36=str(user.pk), token=token))
             )
             hookset.send_password_reset_email([user.email], {
                 "user": user,
@@ -138,7 +141,7 @@ class WalletsView(TemplateView):
 class GetWalletsView(View):
     def get(self, request):
         wallets = []
-        
+
         for account in Accounts.objects.select_related('currency').filter(user=request.user).order_by('currency__order'):
             if account.currency.status != Currencies.STATUS.inactive:
                 icon = account.currency.icon.url if account.currency.icon else None
@@ -174,28 +177,31 @@ class AccountSettingsView(MultiFormView):
     }
 
     pass_user = [
-        'change_password'
+        'change_password',
+        'user',
     ]
 
     def get_bank_account_instance(self):
-        bank_accounts = BankAccounts.objects.filter(account__currency__symbol=settings.BRL_CURRENCY_SYMBOL, account__user=self.request.user)
+        bank_accounts = BankAccounts.objects.filter(
+            account__currency__symbol=settings.BRL_CURRENCY_SYMBOL, account__user=self.request.user)
         if bank_accounts.exists():
             return bank_accounts.first()
 
     def bank_account_form_valid(self, form):
-        account = Accounts.objects.get(currency__symbol=settings.BRL_CURRENCY_SYMBOL, user=self.request.user)
+        account = Accounts.objects.get(
+            currency__symbol=settings.BRL_CURRENCY_SYMBOL, user=self.request.user)
         bank_account = form.save(commit=False)
         bank_account.account = account
         bank_account.save()
 
-        messages.success(self.request, _('Your bank account settings has been updated'))
+        messages.success(self.request, _(
+            'Your bank account settings has been updated'))
         return redirect(reverse('core>settings'))
 
     def get_address_kwargs(self):
         country = self.request.POST.get('country')
         region = self.request.POST.get('region')
         return {'country': country, 'region': region}
-        
 
     def get_address_instance(self):
         addresses = Addresses.objects.filter(user=self.request.user)
@@ -229,7 +235,8 @@ class AccountSettingsView(MultiFormView):
         instance = form.save(commit=False)
         instance.profile['has_personal'] = True
         instance.save()
-        messages.success(self.request, _('Your personal data has been updated'))
+        messages.success(self.request, _(
+            'Your personal data has been updated'))
         return redirect(reverse('core>settings'))
 
     def change_password_form_valid(self, form):
@@ -253,7 +260,8 @@ class DocumentsView(MultiFormView):
     }
 
     def get_instance(self, type_name):
-        documents = Documents.objects.select_related('user').filter(user=self.request.user, type=type_name)
+        documents = Documents.objects.select_related(
+            'user').filter(user=self.request.user, type=type_name)
         if documents.exists():
             return documents.first()
 
@@ -281,20 +289,25 @@ class StatementView(TemplateView):
 
     def get_context_data(self):
         context = super().get_context_data()
-        context['statement'] = paginate(self.request, Statement.objects.filter(account__user=self.request.user, type__in=['deposit', 'withdraw', 'reverse']).order_by('-created'), url_param_name='statement_page')
-        context['bank_withdraw'] = paginate(self.request, BankWithdraw.objects.filter(account__user=self.request.user).order_by('-created'), url_param_name='bank_withdraw_page')
-        context['crypto_withdraw'] = paginate(self.request, CryptoWithdraw.objects.filter(account__user=self.request.user).order_by('-created'), url_param_name='crypto_withdraw_page')
+        context['statement'] = paginate(self.request, Statement.objects.filter(account__user=self.request.user, type__in=[
+                                        'deposit', 'withdraw', 'reverse']).order_by('-created'), url_param_name='statement_page')
+        context['bank_withdraw'] = paginate(self.request, BankWithdraw.objects.filter(
+            account__user=self.request.user).order_by('-created'), url_param_name='bank_withdraw_page')
+        context['crypto_withdraw'] = paginate(self.request, CryptoWithdraw.objects.filter(
+            account__user=self.request.user).order_by('-created'), url_param_name='crypto_withdraw_page')
 
         if ORDER_EXCHANGE_MODULE_EXISTS:
-            context['executed_orders'] = Orders.objects.select_related('market__base_currency__currency', 'market__currency').filter(user=self.request.user, status=Orders.STATUS.executed).order_by('-created')[0:50]
-        
+            context['executed_orders'] = Orders.objects.select_related('market__base_currency__currency', 'market__currency').filter(
+                user=self.request.user, status=Orders.STATUS.executed).order_by('-created')[0:50]
+
         return context
 
 
 @method_decorator([json_view], name='dispatch')
 class GetRegionsView(View):
     def get(self, request):
-        country = request.GET.get('country', settings.DEFAULT_ADDRESS_COUNTRY).replace('.', '')
+        country = request.GET.get(
+            'country', settings.DEFAULT_ADDRESS_COUNTRY).replace('.', '')
         regions = [{'pk': '', 'name': _("-- Select your region --")}]
 
         for region in Region.objects.filter(country_id=country).order_by('name'):

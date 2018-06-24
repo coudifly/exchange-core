@@ -14,11 +14,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='currencies',
             name='tbsa_withdraw_fee',
-            field=models.DecimalField(decimal_places=8, default=Decimal('0.005'), help_text='Transfer between system accounts', max_digits=20, verbose_name='TBSA Withdraw Percent Fee'),
+            field=models.DecimalField(decimal_places=8, default=Decimal(
+                '0.005'), help_text='Transfer between system accounts', max_digits=20, verbose_name='TBSA Withdraw Percent Fee'),
         ),
         migrations.AddField(
             model_name='currencies',
             name='tbsa_withdraw_fixed_fee',
-            field=models.DecimalField(decimal_places=8, default=Decimal('0.005'), help_text='Transfer between system accounts', max_digits=20, verbose_name='TBSA Withdraw Fixed Fee'),
+            field=models.DecimalField(decimal_places=8, default=Decimal(
+                '0.005'), help_text='Transfer between system accounts', max_digits=20, verbose_name='TBSA Withdraw Fixed Fee'),
         ),
     ]

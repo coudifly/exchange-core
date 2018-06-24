@@ -13,12 +13,14 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='bankaccounts',
             name='account_number_digit',
-            field=models.CharField(max_length=5, null=True, verbose_name='Account number digit'),
+            field=models.CharField(
+                max_length=5, null=True, verbose_name='Account number digit'),
         ),
         migrations.AddField(
             model_name='bankaccounts',
             name='agency_digit',
-            field=models.CharField(max_length=5, null=True, verbose_name='Agency Digit'),
+            field=models.CharField(
+                max_length=5, null=True, verbose_name='Agency Digit'),
         ),
         migrations.AddField(
             model_name='statement',
@@ -28,6 +30,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='statement',
             name='type',
-            field=models.CharField(choices=[('deposit', 'deposit'), ('reverse', 'reverse'), ('withdraw', 'withdraw'), ('income', 'income')], max_length=30, verbose_name='Type'),
+            field=models.CharField(choices=[('deposit', 'deposit'), ('reverse', 'reverse'), (
+                'withdraw', 'withdraw'), ('income', 'income')], max_length=30, verbose_name='Type'),
         ),
     ]
