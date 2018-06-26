@@ -59,6 +59,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
         max_length=20, null=True, blank=True, verbose_name=_("Mobile phone"))
 
     objects = CustomUserManager()
+    is_test = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
