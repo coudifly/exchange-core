@@ -142,7 +142,7 @@ class GetWalletsView(View):
     def get(self, request):
         wallets = []
 
-        for account in Accounts.objects.select_related('currency').filter(user=request.user): #.order_by('currency__order'):
+        for account in Accounts.objects.select_related('currency').filter(user=request.user):
             if account.currency.status != Currencies.STATUS.inactive:
                 icon = account.currency.icon.url if account.currency.icon else None
 
