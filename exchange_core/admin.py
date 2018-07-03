@@ -2,7 +2,7 @@ from django.contrib import admin, messages
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
-from exchange_core.models import Users, Companies, Currencies, Accounts, Documents, BankWithdraw, CryptoWithdraw
+from exchange_core.models import Users, Companies, Currencies, Accounts, Documents, BankWithdraw, CryptoWithdraw, Statement
 
 
 class BaseAdmin(admin.ModelAdmin):
