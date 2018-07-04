@@ -281,6 +281,7 @@ class BankAccounts(TimeStampedModel, BaseModel):
 class BaseWithdraw(models.Model):
     STATUS = Choices('requested', 'reversed', 'paid')
 
+    code = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
         '0.00'), verbose_name=_("Deposit"))
     reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
