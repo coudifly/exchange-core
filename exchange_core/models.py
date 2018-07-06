@@ -193,8 +193,7 @@ class Accounts(TimeStampedModel, BaseModel):
         '0.00'), verbose_name=_("Deposit"))
     reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
         '0.00'), verbose_name=_("Reserved"))
-    deposit_address = models.CharField(
-        max_length=255, null=True, blank=True, verbose_name=_("Deposit address"))
+    deposit_address = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name=_("Deposit address"))
     address_id = models.CharField(
         max_length=255, null=True, blank=True, verbose_name=_("Address ID"))
 
