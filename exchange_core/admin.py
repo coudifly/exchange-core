@@ -2,7 +2,7 @@ from django.contrib import admin, messages
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
 
-from exchange_core.models import Users, Companies, Currencies, Accounts, Documents, BankWithdraw, CryptoWithdraw
+from exchange_core.models import Users, Companies, Currencies, Accounts, Documents, BankWithdraw, CryptoWithdraw, Statement
 
 
 class BaseAdmin(admin.ModelAdmin):
@@ -127,21 +127,32 @@ class BankWithdrawAdmin(BaseAdmin):
 def reverse_crypto_withdraw(modeladmin, request, queryset):
     with transaction.atomic():
         for crypto_withdraw in queryset.select_related('account__user', 'account__currency'):
-            account = crypto_withdraw.account
-            account.deposit += abs(crypto_withdraw.amount)
-            account.save()
+            with transaction.atomic():
+                if crypto_withdraw.status == CryptoWithdraw.STATUS.reversed:
+                    print('1')
+                    continue
 
-            statement = Statement()
-            statement.account = account
-            statement.type = Statement.TYPES.reverse
-            statement.description = _("Reverse")
-            statement.save()
+                if Statement.objects.filter(fk=crypto_withdraw.code, type=Statement.TYPES.reverse).exists():
+                    print('2')
+                    continue
 
-            crypto_withdraw.status = CryptoWithdraw.STATUS.reversed
-            crypto_withdraw.save()
+                account = crypto_withdraw.account
+                account.deposit += abs(crypto_withdraw.amount)
+                account.save()
 
-            messages.success(request, _("{} amount reversed to {}").format(
-                abs(crypto_withdraw.amount), account.user.username))
+                statement = Statement()
+                statement.account = account
+                statement.type = Statement.TYPES.reverse
+                statement.description = "Reverse"
+                statement.amount = abs(crypto_withdraw.amount)
+                statement.fk = crypto_withdraw.code
+                statement.save()
+
+                crypto_withdraw.status = CryptoWithdraw.STATUS.reversed
+                crypto_withdraw.save()
+
+                messages.success(request, _("{} amount reversed to {}").format(
+                    abs(crypto_withdraw.amount), account.user.username))
 
 
 reverse_crypto_withdraw.short_description = _(
@@ -156,7 +167,7 @@ class CryptoWithdrawAdmin(BaseAdmin):
     search_fields = ['account__user__username', 'account__user__email',
                      'account__user__document_1', 'account_user__document_2']
     actions = [reverse_crypto_withdraw]
-    readonly_fields = ['account']
+    readonly_fields = ['account', 'status']
 
     def get_coin(self, obj):
         return obj.account.currency.name
@@ -169,6 +180,43 @@ class CryptoWithdrawAdmin(BaseAdmin):
 
     get_user.short_description = _("Username")
     get_user.admin_order_field = "account__user__username"
+
+    def get_document_1(self, obj):
+        return obj.account.user.document_1
+
+    get_document_1.short_description = _("CPF")
+    get_document_1.admin_order_field = "user__document_1"
+
+    def get_document_2(self, obj):
+        return obj.account.user.document_2
+
+    get_document_2.short_description = _("RG")
+    get_document_2.admin_order_field = "user__document_2"
+
+
+@admin.register(Statement)
+class StatementAdmin(BaseAdmin):
+    list_display = ['get_user', 'get_name', 'get_document_1', 'get_document_2',
+                    'description', 'amount', 'fk', 'tx_id']
+    list_filter = ['type']
+    search_fields = ['account__user__username', 'account__user__email',
+                     'account__user__document_1', 'account_user__document_2']
+    readonly_fields = ['account', 'type', 'fk', 'tx_id']
+
+    def get_coin(self, obj):
+        return obj.account.currency.name
+
+    get_coin.short_description = _("Currency")
+    get_coin.admin_order_field = "account__currency__name"
+
+    def get_user(self, obj):
+        return obj.account.user.username
+
+    def get_name(self, obj):
+        return obj.account.user.get_full_name()
+
+    get_name.short_description = _("Name")
+    get_name.admin_order_field = "account__user__first_name"
 
     def get_document_1(self, obj):
         return obj.account.user.document_1
