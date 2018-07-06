@@ -294,6 +294,7 @@ class BaseWithdraw(models.Model):
         max_length=20, default=STATUS.requested, choices=STATUS, verbose_name=_("Status"))
     tx_id = models.CharField(max_length=150, null=True,
                              blank=True, verbose_name=_("Transaction id"))
+    description = models.CharField(max_length=100, null=True, verbose_name=_("Description"))
 
     @property
     def status_name(self):
