@@ -158,6 +158,7 @@ class GetWalletsView(View):
                     'withdraw_min': account.currency.withdraw_min,
                     'withdraw_max': account.currency.withdraw_max,
                     'withdraw_fee': account.currency.withdraw_fee,
+                    'withdraw_fixed_fee': account.currency.withdraw_fixed_fee,
                     'withdraw_receive_hours': account.currency.withdraw_receive_hours
                 })
 
