@@ -197,11 +197,13 @@ class CryptoWithdrawAdmin(BaseAdmin):
 @admin.register(Statement)
 class StatementAdmin(BaseAdmin):
     list_display = ['get_user', 'get_name', 'get_document_1', 'get_document_2',
-                    'description', 'amount', 'fk', 'tx_id']
+                    'description', 'amount', 'fk', 'tx_id', 'created']
     list_filter = ['type']
-    search_fields = ['account__user__username', 'account__user__email',
-                     'account__user__document_1', 'account_user__document_2']
+    search_fields = ['description', 'type',]
     readonly_fields = ['account', 'type', 'fk', 'tx_id']
+
+    def has_delete_permission(self, request, obj=None):
+        return True
 
     def get_coin(self, obj):
         return obj.account.currency.name

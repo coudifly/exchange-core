@@ -11,6 +11,7 @@ from model_utils import Choices
 from model_utils.models import TimeStampedModel
 from cities.models import Country, Region, City
 from extended_choices import Choices as EChoices
+from simple_history.models import HistoricalRecords
 
 from exchange_core.managers import CustomUserManager
 from exchange_core.choices import BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES
@@ -157,6 +158,7 @@ class Currencies(TimeStampedModel, BaseModel):
     withdraw_receive_hours = models.IntegerField(
         default=48, verbose_name=_("Withdraw receive hours"))
     order = models.IntegerField(default=100, verbose_name=_("Order"))
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name = _("Currency")
@@ -196,6 +198,7 @@ class Accounts(TimeStampedModel, BaseModel):
     deposit_address = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Deposit address"))
     address_id = models.CharField(
         max_length=255, null=True, blank=True, verbose_name=_("Address ID"))
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name = _('Currency account')
@@ -270,6 +273,7 @@ class BankAccounts(TimeStampedModel, BaseModel):
         max_length=5, null=True, verbose_name=_("Digit"))
     account = models.ForeignKey(Accounts, related_name='bank_accounts',
                                 on_delete=models.CASCADE, verbose_name=_("Account"))
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name = _("Bank account")
@@ -332,6 +336,7 @@ class BankWithdraw(TimeStampedModel, BaseWithdraw, BaseModel):
         max_length=5, null=True, verbose_name=_("Digit"))
     account = models.ForeignKey(Accounts, related_name='bank_withdraw',
                                 on_delete=models.CASCADE, verbose_name=_("Account"))
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name = _("Bank withdraw")
@@ -343,6 +348,7 @@ class CryptoWithdraw(TimeStampedModel, BaseWithdraw):
     address = models.CharField(max_length=255, verbose_name=_("Address"))
     account = models.ForeignKey(Accounts, related_name='crypto_withdraw', verbose_name=_(
         "Account"), on_delete=models.CASCADE)
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name = _("Crypto withdraw")

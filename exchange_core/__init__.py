@@ -85,6 +85,7 @@ settings.INSTALLED_APPS += [
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
     'dj_pagination',
+    'simple_history',
     'two_factor',
     'django_extensions',
     'widget_tweaks',
@@ -107,6 +108,7 @@ settings.MIDDLEWARE += [
     'exchange_core.middleware.UserDocumentsMiddleware',
     'exchange_core.middleware.CheckUserLoggedInMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 # Defines the user default Model

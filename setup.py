@@ -31,6 +31,7 @@ REQUIREMENTS = [
     'django-localflavor',
     'django-mathfilters',
     'django-redis-sessions',
+    'django-simple-history',
     'gevent>=1.2.2',
     'psycogreen',
     'gunicorn',
