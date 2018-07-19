@@ -32,6 +32,7 @@ REQUIREMENTS = [
     'django-mathfilters',
     'django-redis-sessions',
     'django-simple-history',
+    'django-admin-select2',
     'gevent>=1.2.2',
     'psycogreen',
     'gunicorn',

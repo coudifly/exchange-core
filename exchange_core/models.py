@@ -75,6 +75,10 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
         verbose_name = _("User")
         verbose_name_plural = _("Users")
 
+    @property
+    def name(self):
+        return self.first_name + ' ' + self.last_name
+
     # Retorna Yes/No se o usuario tem uma conta bancaria associada a sua conta BRL
     @property
     def has_br_bank_account(self):
@@ -206,7 +210,8 @@ class Accounts(TimeStampedModel, BaseModel):
         ordering = ['currency__name']
 
     def __str__(self):
-        return '{} - {}'.format(self.user.username, self.currency.symbol)
+        return '{}/{} - {}/{}'.format(self.user.name, self.user.username, self.currency.symbol,
+                                      self.currency.type.title())
 
     @property
     def balance(self):
@@ -224,15 +229,19 @@ class Accounts(TimeStampedModel, BaseModel):
 
     @property
     def total_withdraw(self):
-        return Statement.objects.filter(account__user=self.user, type__in=['withdraw']).aggregate(amount=Sum('amount'))['amount'] or Decimal('0.00')
+        return Statement.objects.filter(account__user=self.user, type__in=['withdraw']).aggregate(amount=Sum('amount'))[
+                   'amount'] or Decimal('0.00')
 
     @property
     def total_income(self):
-        return Statement.objects.filter(account__user=self.user, type__in=['income']).aggregate(amount=Sum('amount'))['amount'] or Decimal('0.00')
+        return Statement.objects.filter(account__user=self.user, type__in=['income']).aggregate(amount=Sum('amount'))[
+                   'amount'] or Decimal('0.00')
 
     @property
     def total_comission(self):
-        return Statement.objects.filter(account__user=self.user, type__in=['comission']).aggregate(amount=Sum('amount'))['amount'] or Decimal('0.00')
+        return \
+        Statement.objects.filter(account__user=self.user, type__in=['comission']).aggregate(amount=Sum('amount'))[
+            'amount'] or Decimal('0.00')
 
     def new_income(self, amount, tx_id, fk, date):
         # Transfere o rendimento para a conta do investidor
