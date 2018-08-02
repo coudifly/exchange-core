@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 __VERSION__ = '0.1'
 
 REQUIREMENTS = [
-    'django==2.*',
+    'django>=2.1',
     'whitenoise',
     'boto3',
     'django-model-utils',
@@ -11,7 +11,6 @@ REQUIREMENTS = [
     'lxml',
     'cssselect',
     'html5lib',
-    'django-two-factor-auth',
     'dj_database_url',
     'dj-pagination',
     'prettyconf',
@@ -23,7 +22,6 @@ REQUIREMENTS = [
     'django-storages',
     'django-jsonview',
     'django-templated-email',
-    'django-bootstrap-pagination',
     'django-extended-choices',
     'easy-thumbnails',
     'phonenumbers',

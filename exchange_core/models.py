@@ -48,7 +48,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
                               choices=STATUS.choices, verbose_name=_("Status"))
     avatar = models.ImageField(
         upload_to=get_file_path, blank=True, verbose_name=_("Avatar"))
-    profile = JSONField(null=True, blank=True, default={},
+    profile = JSONField(null=True, blank=True, default=dict,
                         verbose_name=_("Profile data"))
     type = models.CharField(max_length=11, choices=TYPE.choices,
                             default=TYPE.person, null=True, blank=False, verbose_name=_("Type"))
