@@ -1,7 +1,4 @@
-import swapper
-
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
 from django_otp.plugins.otp_static.models import StaticDevice
 from two_factor.models import PhoneDevice
 from account.models import (
