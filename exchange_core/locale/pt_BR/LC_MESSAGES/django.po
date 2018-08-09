@@ -195,7 +195,7 @@ msgstr "Usuário"
 
 #: exchange_core/models.py:58
 msgid "Users"
-msgstr "Users"
+msgstr "Usuários"
 
 #: exchange_core/models.py:80 exchange_core/models.py:88
 #: exchange_core/models.py:278
