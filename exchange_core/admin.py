@@ -1,8 +1,10 @@
 from django.contrib import admin, messages
 from django.utils.translation import ugettext_lazy as _
 from django.db import transaction
+from simple_history.admin import SimpleHistoryAdmin
 
-from exchange_core.models import Users, Companies, Currencies, Accounts, Documents, BankWithdraw, CryptoWithdraw, Statement
+from exchange_core.models import (Users, Companies, Currencies, Accounts,
+                                  Documents, BankWithdraw, CryptoWithdraw, Statement)
 
 
 class BaseAdmin(admin.ModelAdmin):
@@ -64,13 +66,13 @@ class CompaniesAdmin(BaseAdmin):
 
 
 @admin.register(Currencies)
-class CurrenciesAdmin(BaseAdmin):
+class CurrenciesAdmin(BaseAdmin, SimpleHistoryAdmin):
     list_display = ['name', 'code', 'type', 'icon', 'withdraw_min',
                     'withdraw_max', 'withdraw_fee', 'withdraw_fixed_fee', 'withdraw_receive_hours']
 
 
 @admin.register(Accounts)
-class AccountsAdmin(BaseAdmin):
+class AccountsAdmin(BaseAdmin, SimpleHistoryAdmin):
     list_display = ['user', 'currency', 'balance', 'deposit', 'reserved']
     search_fields = ['user__username', 'user__email']
 
@@ -97,7 +99,7 @@ class DocumentsAdmin(BaseAdmin):
 
 
 @admin.register(BankWithdraw)
-class BankWithdrawAdmin(BaseAdmin):
+class BankWithdrawAdmin(BaseAdmin, SimpleHistoryAdmin):
     list_display = ['get_user', 'get_document_1', 'get_document_2', 'bank', 'agency', 'agency_digit',
                     'account_type', 'account_number', 'account_number_digit', 'amount', 'fee', 'status']
     list_filter = ['status']
@@ -160,7 +162,7 @@ reverse_crypto_withdraw.short_description = _(
 
 
 @admin.register(CryptoWithdraw)
-class CryptoWithdrawAdmin(BaseAdmin):
+class CryptoWithdrawAdmin(BaseAdmin, SimpleHistoryAdmin):
     list_display = ['get_user', 'get_document_1', 'get_document_2',
                     'deposit', 'reserved', 'get_coin', 'amount', 'fee', 'status']
     list_filter = ['status']
