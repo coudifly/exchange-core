@@ -83,7 +83,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     @property
     def has_br_bank_account(self):
         br_account = self.accounts.get(
-            currency__symbol=settings.BRL_CURRENCY_SYMBOL)
+            currency__code=settings.BRL_CURRENCY_SYMBOL)
         return 'yes' if br_account.bank_accounts.exists() else 'no'
 
     @property
@@ -139,7 +139,7 @@ class Currencies(TimeStampedModel, BaseModel):
     TYPES = Choices('checking', 'investment')
 
     name = models.CharField(max_length=100, verbose_name=_("Name"))
-    symbol = models.CharField(max_length=10, verbose_name=_("Symbol"))
+    code = models.CharField(max_length=10, verbose_name=_("Code"))
     type = models.CharField(max_length=20, choices=TYPES,
                             default=TYPES.checking, verbose_name=_("Type"))
     icon = models.ImageField(upload_to=get_file_path,
@@ -168,7 +168,7 @@ class Currencies(TimeStampedModel, BaseModel):
         verbose_name = _("Currency")
         verbose_name_plural = _("Currencies")
         ordering = ['name']
-        unique_together = (('symbol', 'type'),)
+        unique_together = (('code', 'type'),)
 
     def __str__(self):
         return self.name
