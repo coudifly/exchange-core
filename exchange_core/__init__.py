@@ -1,4 +1,5 @@
 import os
+import raven
 import dj_database_url
 import django_otp.plugins.otp_totp
 
@@ -79,6 +80,7 @@ settings.ENABLE_SIGNUP = config(
 # https://github.com/yourlabs/django-session-security/
 # django.contrib.sites is required by django-user-accounts
 settings.INSTALLED_APPS += [
+    'raven.contrib.django.raven_compat',
     'django.contrib.humanize',
     'django.contrib.sites',
     'django_otp',
@@ -109,6 +111,11 @@ settings.MIDDLEWARE += [
     'dj_pagination.middleware.PaginationMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
+
+# For sentry config
+settings.RAVEN_CONFIG = {
+    'dsn': config('RAVEN_DSN')
+}
 
 # Defines the user default Model
 settings.AUTH_USER_MODEL = PACKAGE_NAME + '.Users'
