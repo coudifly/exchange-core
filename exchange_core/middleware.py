@@ -3,8 +3,6 @@ from django.urls import reverse
 from django.http import HttpResponsePermanentRedirect
 from django.conf import settings
 
-from session_security.middleware import SessionSecurityMiddleware
-
 from exchange_core.models import Users
 
 
@@ -49,8 +47,3 @@ class CheckUserLoggedInMiddleware(MiddlewareMixin):
         if not request.user.is_authenticated:
             return
         return HttpResponsePermanentRedirect(settings.LOGIN_REDIRECT_URL)
-
-
-class CoreSessionSecurityMiddleware(SessionSecurityMiddleware):
-    def process_request(self, *args, **kwargs):
-        super().process_request(*args, **kwargs)

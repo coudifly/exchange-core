@@ -2,7 +2,6 @@ import uuid
 
 from django.contrib.auth import get_user_model
 from django.contrib import messages
-from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from django.conf import settings
@@ -12,7 +11,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
 from django.db import transaction
-from django.db.models import Q
 from jsonview.decorators import json_view
 from account.decorators import login_required
 from account.models import EmailAddress
@@ -27,9 +25,8 @@ from exchange_core.models import Users, Accounts, BankAccounts, Documents, State
 from exchange_core.pagination import paginate
 from exchange_core.response import JsonResponse
 
-from cities.models import Country, Region, City
+from cities.models import Region, City
 
-# Importa do modulo Orderbook e armazena se o modulo existe
 try:
     from exchange_orderbook.models import Orders
     ORDER_EXCHANGE_MODULE_EXISTS = True

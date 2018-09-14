@@ -1,5 +1,4 @@
 import os
-import raven
 import dj_database_url
 import django_otp.plugins.otp_totp
 
@@ -23,14 +22,12 @@ config = Configuration(starting_path=settings.BASE_DIR)
 # Overwrite default Json encoder for Decimal and UUID support
 JSONEncoder_default = JSONEncoder.default
 
-
 def JSONEncoder_new(self, o):
     if isinstance(o, UUID):
         return str(o)
     if isinstance(o, Decimal):
         return format(o, '.8f')
     return JSONEncoder_default(self, o)
-
 
 JSONEncoder.default = JSONEncoder_new
 
@@ -47,19 +44,16 @@ default_app_config = PACKAGE_NAME + '.apps.Config'
 settings.PROJECT_NAME = config('PROJECT_NAME')
 
 # System admins receive the email errors
-settings.ADMINS = [(v, v)
-                   for v in config('ADMINS', default=[], cast=config.list)]
+settings.ADMINS = [(v, v) for v in config('ADMINS', default=[], cast=config.list)]
 
 # Configure the default home view for be visualized by the users
 settings.HOME_VIEW = config('HOME_VIEW', default='core>wallets')
 
 # Configure the Google Analytics tracking id
-settings.GOOGLE_ANALYTICS_TRACK_ID = config(
-    'GOOGLE_ANALYTICS_TRACK_ID', default=None)
+settings.GOOGLE_ANALYTICS_TRACK_ID = config('GOOGLE_ANALYTICS_TRACK_ID', default=None)
 
 # Configure the obligation for require the user documents from users new account
-settings.REQUIRE_USER_DOCUMENTS = config(
-    'REQUIRE_USER_DOCUMENTS', default=True, cast=config.boolean)
+settings.REQUIRE_USER_DOCUMENTS = config('REQUIRE_USER_DOCUMENTS', default=True, cast=config.boolean)
 
 # URLs who should be ignored by the exchange middlewares
 settings.IGNORE_PATHS = config('IGNORE_PATHS', default=[], cast=config.list)
@@ -105,7 +99,7 @@ settings.MIDDLEWARE += [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
     'account.middleware.ExpiredPasswordMiddleware',
-    'exchange_core.middleware.CoreSessionSecurityMiddleware',
+    'session_security.middleware.SessionSecurityMiddleware',
     'exchange_core.middleware.UserDocumentsMiddleware',
     'exchange_core.middleware.CheckUserLoggedInMiddleware',
     'dj_pagination.middleware.PaginationMiddleware',
@@ -159,8 +153,8 @@ settings.ACCOUNT_SETTINGS_REDIRECT_URL = 'core>settings'
 settings.ACCOUNT_EMAIL_UNIQUE = True
 settings.ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 settings.ACCOUNT_EMAIL_CONFIRMATION_URL = 'core>email-confirm'
-settings.ACCOUNT_PASSWORD_EXPIRY = config('ACCOUNT_PASSWORD_EXPIRY',
-                                          cast=int)  # As senhas expiram em x dias e precisam ser trocas após esse tempo
+# The password of user expires based on the below config
+settings.ACCOUNT_PASSWORD_EXPIRY = config('ACCOUNT_PASSWORD_EXPIRY', cast=int)
 settings.ACCOUNT_PASSWORD_USE_HISTORY = False
 
 # Django Anymail config
@@ -176,10 +170,8 @@ settings.EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
 # Django session security config
 settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-settings.SESSION_SECURITY_EXPIRE_AFTER = config('SESSION_SECURITY_EXPIRE_AFTER',
-                                                cast=int)  # Define o tempo de inatividade máximo do usuário, caso ele ultrapasse esse tempo, ele deverá fazer login novamente
-settings.SESSION_SECURITY_WARN_AFTER = config(
-    'SESSION_SECURITY_WARN_AFTER', cast=int)
+settings.SESSION_SECURITY_EXPIRE_AFTER = config('SESSION_SECURITY_EXPIRE_AFTER', cast=int)
+settings.SESSION_SECURITY_WARN_AFTER = config('SESSION_SECURITY_WARN_AFTER', cast=int)
 
 # Django passwords config
 settings.PASSWORD_MIN_LENGTH = 8
@@ -212,34 +204,23 @@ settings.THUMBNAIL_ALIASES = {
 settings.STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Security options
-settings.SECURE_HSTS_SECONDS = config(
-    'SECURE_HSTS_SECONDS', default=True, cast=config.boolean)
-settings.SECURE_CONTENT_TYPE_NOSNIFF = config(
-    'SECURE_CONTENT_TYPE_NOSNIFF', default=True, cast=config.boolean)
-settings.SECURE_BROWSER_XSS_FILTER = config(
-    'SECURE_BROWSER_XSS_FILTER', default=True, cast=config.boolean)
-settings.SECURE_SSL_REDIRECT = config(
-    'SECURE_SSL_REDIRECT', default=True, cast=config.boolean)
-settings.SECURE_HSTS_PRELOAD = config(
-    'SECURE_HSTS_PRELOAD', default=True, cast=config.boolean)
-settings.SECURE_HSTS_INCLUDE_SUBDOMAINS = config(
-    'SECURE_HSTS_INCLUDE_SUBDOMAINS', default=True, cast=config.boolean)
-settings.SESSION_COOKIE_SECURE = config(
-    'SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
-settings.SESSION_COOKIE_HTTPONLY = config(
-    'SESSION_COOKIE_HTTPONLY', default=True, cast=config.boolean)
-settings.CSRF_COOKIE_SECURE = config(
-    'CSRF_COOKIE_SECURE', default=True, cast=config.boolean)
-settings.CSRF_COOKIE_HTTPONLY = config(
-    'CSRF_COOKIE_HTTPONLY', default=True, cast=config.boolean)
+settings.SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=True, cast=config.boolean)
+settings.SECURE_CONTENT_TYPE_NOSNIFF = config('SECURE_CONTENT_TYPE_NOSNIFF', default=True, cast=config.boolean)
+settings.SECURE_BROWSER_XSS_FILTER = config('SECURE_BROWSER_XSS_FILTER', default=True, cast=config.boolean)
+settings.SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=config.boolean)
+settings.SECURE_HSTS_PRELOAD = config('SECURE_HSTS_PRELOAD', default=True, cast=config.boolean)
+settings.SECURE_HSTS_INCLUDE_SUBDOMAINS = config('SECURE_HSTS_INCLUDE_SUBDOMAINS', default=True, cast=config.boolean)
+settings.SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=config.boolean)
+settings.SESSION_COOKIE_HTTPONLY = config('SESSION_COOKIE_HTTPONLY', default=True, cast=config.boolean)
+settings.CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=True, cast=config.boolean)
+settings.CSRF_COOKIE_HTTPONLY = config('CSRF_COOKIE_HTTPONLY', default=True, cast=config.boolean)
 settings.X_FRAME_OPTIONS = config('X_FRAME_OPTIONS', default='DENY')
 
 # Configure the URL prefix for exchange admin
 settings.ADMIN_URL_PREFIX = config('ADMIN_URL_PREFIX', default='admin/')
 
 # I18N config
-settings.LANGUAGE_CSS_CLASSES = config(
-    'LANGUAGE_CSS_CLASSES', default='', cast=pairs)
+settings.LANGUAGE_CSS_CLASSES = config('LANGUAGE_CSS_CLASSES', default=None, cast=pairs)
 settings.LOCALE_PATHS = (os.path.join(settings.BASE_DIR, 'locale'),)
 settings.LANGUAGE_CODE = 'en'
 settings.LANGUAGES = [
@@ -261,9 +242,7 @@ settings.GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH', default=None)
 settings.CITIES_LOCALES = ['LANGUAGES']
 settings.CITIES_POSTAL_CODES = []
 settings.CITIES_SKIP_CITIES_WITH_EMPTY_REGIONS = True
-settings.DEFAULT_ADDRESS_COUNTRY = config(
-    'DEFAULT_ADDRESS_COUNTRY', default=3469034)
+settings.DEFAULT_ADDRESS_COUNTRY = config('DEFAULT_ADDRESS_COUNTRY', default=3469034)
 
 # https://docs.djangoproject.com/en/2.0/ref/settings/#csrf-failure-view
-settings.CSRF_FAILURE_VIEW = lambda *args, **kwargs: redirect(
-    reverse(settings.LOGIN_REDIRECT_URL))
+settings.CSRF_FAILURE_VIEW = lambda *args, **kwargs: redirect(reverse(settings.LOGIN_REDIRECT_URL))
