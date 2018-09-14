@@ -34,6 +34,7 @@ REQUIREMENTS = [
     'gevent>=1.2.2',
     'psycogreen',
     'gunicorn',
+    'raven',
 ]
 
 setup(
