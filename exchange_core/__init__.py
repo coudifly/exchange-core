@@ -231,7 +231,7 @@ settings.LANGUAGES = [
 
 # L10N config
 settings.USE_L10N = True
-settings.USE_THOUSAND_SEPARATOR = True
+settings.USE_THOUSAND_SEPARATOR = config('USE_THOUSAND_SEPARATOR', default=False, cast=config.boolean)
 
 # GDAL library config
 settings.GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH', default=None)

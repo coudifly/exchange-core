@@ -1,4 +1,6 @@
-# Lista dos bancos brasileiros com seus respectivos códigos
+from django.utils.translation import ugettext_lazy as _
+
+# Brazilian banks list
 BR_BANKS_CHOICES = [
     ('1', '1 - Banco do Brasil S.A.'),
     ('3', '3 - Banco da Amazônia S.A.'),
@@ -158,8 +160,26 @@ BR_BANKS_CHOICES = [
     ('757', '757 - Banco KEB do Brasil S.A.')
 ]
 
-# Tipos de contas bancárias
+# Bralizian banks account types
 BR_ACCOUNT_TYPES_CHOICES = [
     ('corrente', 'Corrente'),
     ('poupanca', 'Poupança')
 ]
+
+# Type of currency types
+CHECKING_TYPE = 'checking'
+INVESTMENT_TYPE = 'investment'
+
+CURRENCY_TYPE_CHOICES = (
+    (CHECKING_TYPE, _("Checking")),
+    (INVESTMENT_TYPE, _("Investment"))
+)
+
+# Currency states
+ACTIVE_STATE = 'active'
+INACTIVE_STATE = 'inactive'
+
+STATE_CHOICES = (
+    (ACTIVE_STATE, _("Active")),
+    (INACTIVE_STATE, _("Inativo"))
+)

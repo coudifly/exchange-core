@@ -67,7 +67,7 @@ class CompaniesAdmin(BaseAdmin):
 
 @admin.register(Currencies)
 class CurrenciesAdmin(BaseAdmin, SimpleHistoryAdmin):
-    list_display = ['name', 'code', 'type', 'icon', 'withdraw_min',
+    list_display = ['name', 'code', 'prefix', 'sufix', 'type', 'icon', 'withdraw_min',
                     'withdraw_max', 'withdraw_fee', 'withdraw_fixed_fee', 'withdraw_receive_hours']
 
 

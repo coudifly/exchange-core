@@ -14,7 +14,8 @@ from extended_choices import Choices as EChoices
 from simple_history.models import HistoricalRecords
 
 from exchange_core.managers import CustomUserManager
-from exchange_core.choices import BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES
+from exchange_core.choices import (BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES, CURRENCY_TYPE_CHOICES,
+                                   CHECKING_TYPE, STATE_CHOICES, ACTIVE_STATE)
 from exchange_core.rates import CurrencyPrice
 
 
@@ -33,10 +34,8 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     STATUS = EChoices(
         ('created', 'created', _("Created")),
         ('inactive', 'inactive', _("Inactive")),
-        ('approved_documentation', 'approved_documentation',
-         _("Approved documentation")),
-        ('disapproved_documentation', 'disapproved_documentation',
-         _("Disapproved documentation")),
+        ('approved_documentation', 'approved_documentation', _("Approved documentation")),
+        ('disapproved_documentation', 'disapproved_documentation', _("Disapproved documentation")),
     )
 
     TYPE = EChoices(
@@ -44,20 +43,13 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
         ('company', 'company', _("Company")),
     )
 
-    status = models.CharField(max_length=30, default=STATUS.created,
-                              choices=STATUS.choices, verbose_name=_("Status"))
-    avatar = models.ImageField(
-        upload_to=get_file_path, blank=True, verbose_name=_("Avatar"))
-    profile = JSONField(null=True, blank=True, default=dict,
-                        verbose_name=_("Profile data"))
-    type = models.CharField(max_length=11, choices=TYPE.choices,
-                            default=TYPE.person, null=True, blank=False, verbose_name=_("Type"))
-    document_1 = models.CharField(
-        max_length=50, null=True, blank=True, unique=True, verbose_name=_("Document 1"))
-    document_2 = models.CharField(
-        max_length=50, null=True, blank=True, unique=True, verbose_name=_("Document 2"))
-    mobile_phone = models.CharField(
-        max_length=20, null=True, blank=True, verbose_name=_("Mobile phone"))
+    status = models.CharField(max_length=30, default=STATUS.created, choices=STATUS.choices, verbose_name=_("Status"))
+    avatar = models.ImageField(upload_to=get_file_path, blank=True, verbose_name=_("Avatar"))
+    profile = JSONField(null=True, blank=True, default=dict, verbose_name=_("Profile data"))
+    type = models.CharField(max_length=11, choices=TYPE.choices, default=TYPE.person, null=True, blank=False, verbose_name=_("Type"))
+    document_1 = models.CharField(max_length=50, null=True, blank=True, unique=True, verbose_name=_("Document 1"))
+    document_2 = models.CharField(max_length=50, null=True, blank=True, unique=True, verbose_name=_("Document 2"))
+    mobile_phone = models.CharField(max_length=20, null=True, blank=True, verbose_name=_("Mobile phone"))
 
     objects = CustomUserManager()
     is_test = models.BooleanField(default=False)
@@ -89,7 +81,7 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     @property
     def br_bank_account(self):
         br_account = self.accounts.get(
-            currency__symbol=settings.BRL_CURRENCY_SYMBOL)
+            currency__code=settings.BRL_CURRENCY_SYMBOL)
         if br_account.bank_accounts.exists():
             return br_account.bank_accounts.first()
 
@@ -97,23 +89,16 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
 class Addresses(TimeStampedModel, BaseModel):
     TYPES = Choices('account')
 
-    user = models.ForeignKey(Users, related_name='addresses',
-                             on_delete=models.CASCADE, verbose_name=_("User"))
-    country = models.ForeignKey(
-        Country, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("Country"))
-    region = models.ForeignKey(
-        Region, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("State"))
-    city = models.ForeignKey(City, related_name='addresses',
-                             on_delete=models.CASCADE, verbose_name=_("City"))
+    user = models.ForeignKey(Users, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("User"))
+    country = models.ForeignKey(Country, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("Country"))
+    region = models.ForeignKey(Region, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("State"))
+    city = models.ForeignKey(City, related_name='addresses', on_delete=models.CASCADE, verbose_name=_("City"))
     address = models.CharField(max_length=100, verbose_name=_("Address"))
     number = models.CharField(max_length=20, verbose_name=_("Number"))
-    neighborhood = models.CharField(
-        max_length=50, verbose_name=_("Neighborhood"))
+    neighborhood = models.CharField(max_length=50, verbose_name=_("Neighborhood"))
     zipcode = models.CharField(max_length=10, verbose_name=_("Zipcode"))
-    complement = models.CharField(
-        max_length=50, null=True, verbose_name=_("Complement"))
-    type = models.CharField(max_length=20, choices=TYPES,
-                            default=TYPES.account, verbose_name=_("Type"))
+    complement = models.CharField(max_length=50, null=True, verbose_name=_("Complement"))
+    type = models.CharField(max_length=20, choices=TYPES, default=TYPES.account, verbose_name=_("Type"))
 
     class Meta:
         verbose_name = _("Address")
@@ -121,13 +106,10 @@ class Addresses(TimeStampedModel, BaseModel):
 
 
 class Companies(TimeStampedModel, BaseModel):
-    user = models.ForeignKey(Users, related_name='companies',
-                             on_delete=models.CASCADE, verbose_name=_("User"))
+    user = models.ForeignKey(Users, related_name='companies', on_delete=models.CASCADE, verbose_name=_("User"))
     name = models.CharField(max_length=100, verbose_name=_("Fancy name"))
-    document_1 = models.CharField(
-        max_length=50, null=True, blank=True, verbose_name=_("Document 1"))
-    document_2 = models.CharField(
-        max_length=50, null=True, blank=True, verbose_name=_("Document 2"))
+    document_1 = models.CharField(max_length=50, null=True, blank=True, verbose_name=_("Document 1"))
+    document_2 = models.CharField(max_length=50, null=True, blank=True, verbose_name=_("Document 2"))
 
     class Meta:
         verbose_name = _("Company")
@@ -135,32 +117,24 @@ class Companies(TimeStampedModel, BaseModel):
 
 
 class Currencies(TimeStampedModel, BaseModel):
-    STATUS = Choices('active', 'inactive')
-    TYPES = Choices('checking', 'investment')
-
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     code = models.CharField(max_length=10, verbose_name=_("Code"))
-    type = models.CharField(max_length=20, choices=TYPES,
-                            default=TYPES.checking, verbose_name=_("Type"))
-    icon = models.ImageField(upload_to=get_file_path,
-                             null=True, blank=True, verbose_name=_("Icon"))
-    status = models.CharField(
-        max_length=30, default=STATUS.active, choices=STATUS, verbose_name=_("Status"))
-    withdraw_min = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.0'), verbose_name=_("Withdraw Min"))
-    withdraw_max = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '1000000.00'), verbose_name=_("Withdraw Max"))
-    withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.0'), verbose_name=_("Withdraw Percent Fee"))
-    withdraw_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.0'), verbose_name=_("Withdraw Fixed Fee"))
+    prefix = models.CharField(max_length=10, null=True, verbose_name=_("Prefix"), help_text=_("This will be appended before the amount of this currency in the entire system"))
+    sufix = models.CharField(max_length=10, null=True, verbose_name=_("Sufix"), help_text=_("This will be appended after the amount of this currency in the entire system"))
+    is_fiat = models.BooleanField(default=False, verbose_name=_("Is FIAT"), help_text=_("Mark this field if the currency is a fiduciary one"))
+    type = models.CharField(max_length=20, choices=CURRENCY_TYPE_CHOICES, default=CHECKING_TYPE, verbose_name=_("Type"))
+    icon = models.ImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=_("Icon"))
+    state = models.CharField(max_length=30, default=ACTIVE_STATE, choices=STATE_CHOICES, verbose_name=_("Status"))
+    withdraw_min = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("Withdraw Min"))
+    withdraw_max = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('1000000.00'), verbose_name=_("Withdraw Max"))
+    withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("Withdraw Percent Fee"))
+    withdraw_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("Withdraw Fixed Fee"))
+    withdraw_receive_hours = models.IntegerField(default=48, verbose_name=_("Withdraw receive hours"))
+
     # Transfer between system accounts
-    tbsa_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.0'), verbose_name=_("TBSA Percent Fee"), help_text=_("Transfer between system accounts"))
-    tbsa_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.0'), verbose_name=_("TBSA Fixed Fee"), help_text=_("Transfer between system accounts"))
-    withdraw_receive_hours = models.IntegerField(
-        default=48, verbose_name=_("Withdraw receive hours"))
+    tbsa_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("TBSA Percent Fee"), help_text=_("Transfer between system accounts"))
+    tbsa_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("TBSA Fixed Fee"), help_text=_("Transfer between system accounts"))
+
     order = models.IntegerField(default=100, verbose_name=_("Order"))
     history = HistoricalRecords()
 
@@ -191,17 +165,12 @@ class Currencies(TimeStampedModel, BaseModel):
 
 
 class Accounts(TimeStampedModel, BaseModel):
-    currency = models.ForeignKey(Currencies, related_name='accounts', verbose_name=_(
-        "Currency"), on_delete=models.CASCADE)
-    user = models.ForeignKey(Users, related_name='accounts', null=True, verbose_name=_(
-        "User"), on_delete=models.CASCADE)
-    deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.00'), verbose_name=_("Deposit"))
-    reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.00'), verbose_name=_("Reserved"))
+    currency = models.ForeignKey(Currencies, related_name='accounts', verbose_name=_("Currency"), on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, related_name='accounts', null=True, verbose_name=_("User"), on_delete=models.CASCADE)
+    deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Deposit"))
+    reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Reserved"))
     deposit_address = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Deposit address"))
-    address_id = models.CharField(
-        max_length=255, null=True, blank=True, verbose_name=_("Address ID"))
+    address_id = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Address ID"))
     history = HistoricalRecords()
 
     class Meta:
@@ -210,8 +179,7 @@ class Accounts(TimeStampedModel, BaseModel):
         ordering = ['currency__name']
 
     def __str__(self):
-        return '{}/{} - {}/{}'.format(self.user.name, self.user.username, self.currency.symbol,
-                                      self.currency.type.title())
+        return '{}/{} - {}/{}'.format(self.user.name, self.user.username, self.currency.code,  self.currency.type.title())
 
     @property
     def balance(self):
@@ -239,9 +207,7 @@ class Accounts(TimeStampedModel, BaseModel):
 
     @property
     def total_comission(self):
-        return \
-        Statement.objects.filter(account__user=self.user, type__in=['comission']).aggregate(amount=Sum('amount'))[
-            'amount'] or Decimal('0.00')
+        return Statement.objects.filter(account__user=self.user, type__in=['comission']).aggregate(amount=Sum('amount'))['amount'] or Decimal('0.00')
 
     def new_income(self, amount, tx_id, fk, date):
         # Transfere o rendimento para a conta do investidor
@@ -269,19 +235,13 @@ class Accounts(TimeStampedModel, BaseModel):
 
 
 class BankAccounts(TimeStampedModel, BaseModel):
-    bank = models.CharField(
-        max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
+    bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
     agency = models.CharField(max_length=10, verbose_name=_("Agency"))
-    agency_digit = models.CharField(
-        max_length=5, null=True, verbose_name=_("Digit"))
-    account_type = models.CharField(
-        max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES, verbose_name=_("Account type"))
-    account_number = models.CharField(
-        max_length=20, verbose_name=_("Account number"))
-    account_number_digit = models.CharField(
-        max_length=5, null=True, verbose_name=_("Digit"))
-    account = models.ForeignKey(Accounts, related_name='bank_accounts',
-                                on_delete=models.CASCADE, verbose_name=_("Account"))
+    agency_digit = models.CharField(max_length=5, null=True, verbose_name=_("Digit"))
+    account_type = models.CharField(max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES, verbose_name=_("Account type"))
+    account_number = models.CharField(max_length=20, verbose_name=_("Account number"))
+    account_number_digit = models.CharField(max_length=5, null=True, verbose_name=_("Digit"))
+    account = models.ForeignKey(Accounts, related_name='bank_accounts', on_delete=models.CASCADE, verbose_name=_("Account"))
     history = HistoricalRecords()
 
     class Meta:
@@ -294,18 +254,12 @@ class BaseWithdraw(models.Model):
     STATUS = Choices('requested', 'reversed', 'paid')
 
     code = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
-    deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.00'), verbose_name=_("Deposit"))
-    reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.00'), verbose_name=_("Reserved"))
-    amount = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.00'), verbose_name=_("Amount"))
-    fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.00'), verbose_name=_("Fee"))
-    status = models.CharField(
-        max_length=20, default=STATUS.requested, choices=STATUS, verbose_name=_("Status"))
-    tx_id = models.CharField(max_length=150, null=True,
-                             blank=True, verbose_name=_("Transaction id"))
+    deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Deposit"))
+    reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Reserved"))
+    amount = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Amount"))
+    fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Fee"))
+    status = models.CharField(max_length=20, default=STATUS.requested, choices=STATUS, verbose_name=_("Status"))
+    tx_id = models.CharField(max_length=150, null=True, blank=True, verbose_name=_("Transaction id"))
     description = models.CharField(max_length=100, null=True, verbose_name=_("Description"))
 
     @property
@@ -332,19 +286,13 @@ class BaseWithdraw(models.Model):
 
 # Saques bancários
 class BankWithdraw(TimeStampedModel, BaseWithdraw, BaseModel):
-    bank = models.CharField(
-        max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
+    bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
     agency = models.CharField(max_length=10, verbose_name=_("Agency"))
-    agency_digit = models.CharField(
-        max_length=5, null=True, verbose_name=_("Digit"))
-    account_type = models.CharField(
-        max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES, verbose_name=_("Account type"))
-    account_number = models.CharField(
-        max_length=20, verbose_name=_("Account number"))
-    account_number_digit = models.CharField(
-        max_length=5, null=True, verbose_name=_("Digit"))
-    account = models.ForeignKey(Accounts, related_name='bank_withdraw',
-                                on_delete=models.CASCADE, verbose_name=_("Account"))
+    agency_digit = models.CharField(max_length=5, null=True, verbose_name=_("Digit"))
+    account_type = models.CharField(max_length=20, choices=BR_ACCOUNT_TYPES_CHOICES, verbose_name=_("Account type"))
+    account_number = models.CharField(max_length=20, verbose_name=_("Account number"))
+    account_number_digit = models.CharField(max_length=5, null=True, verbose_name=_("Digit"))
+    account = models.ForeignKey(Accounts, related_name='bank_withdraw',on_delete=models.CASCADE, verbose_name=_("Account"))
     history = HistoricalRecords()
 
     class Meta:
@@ -355,8 +303,7 @@ class BankWithdraw(TimeStampedModel, BaseWithdraw, BaseModel):
 # Saques de criptomoedas
 class CryptoWithdraw(TimeStampedModel, BaseWithdraw):
     address = models.CharField(max_length=255, verbose_name=_("Address"))
-    account = models.ForeignKey(Accounts, related_name='crypto_withdraw', verbose_name=_(
-        "Account"), on_delete=models.CASCADE)
+    account = models.ForeignKey(Accounts, related_name='crypto_withdraw', verbose_name=_("Account"), on_delete=models.CASCADE)
     history = HistoricalRecords()
 
     class Meta:
@@ -369,15 +316,11 @@ class Documents(TimeStampedModel, BaseModel):
     TYPES = Choices('id_front', 'id_back', 'selfie', 'contract', 'residence')
     STATUS = Choices('pending', 'disapproved', 'approved')
 
-    user = models.ForeignKey(Users, related_name='documents', verbose_name=_(
-        "User"), on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, related_name='documents', verbose_name=_("User"), on_delete=models.CASCADE)
     file = models.ImageField(upload_to=get_file_path, verbose_name=_("File"))
-    type = models.CharField(
-        max_length=20, choices=TYPES, verbose_name=_("Type"))
-    status = models.CharField(
-        max_length=20, choices=STATUS, default=STATUS.pending, verbose_name=_("Status"))
-    reason = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Disapproved reason"))
+    type = models.CharField(max_length=20, choices=TYPES, verbose_name=_("Type"))
+    status = models.CharField(max_length=20, choices=STATUS, default=STATUS.pending, verbose_name=_("Status"))
+    reason = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Disapproved reason"))
 
     class Meta:
         verbose_name = _("Document")
@@ -399,25 +342,16 @@ class Documents(TimeStampedModel, BaseModel):
             return 'alert-success'
 
 
-# Extrato das contas
+# Account statement
 class Statement(TimeStampedModel, BaseModel):
-    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income',
-                    'investment', 'tbsa', 'course_subscription')
+    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income', 'investment', 'tbsa', 'course_subscription')
 
-    account = models.ForeignKey(
-        Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
-    description = models.CharField(
-        max_length=100, verbose_name=_("Description"))
-    amount = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal(
-        '0.00'), verbose_name=_("Amount"))
-    type = models.CharField(
-        max_length=30, choices=TYPES, verbose_name=_("Type"))
-    # Campo usado para armazenar o id das transactions e checar se uma transacao ja foi processada ou nao
-    tx_id = models.CharField(max_length=150, null=True,
-                             blank=True, verbose_name=_("Transaction id"))
-    # Chave estrangeira para outro registro
-    fk = models.UUIDField(null=True, blank=True,
-                          editable=False, verbose_name=_("Foreign key"))
+    account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
+    description = models.CharField(max_length=100, verbose_name=_("Description"))
+    amount = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Amount"))
+    type = models.CharField(max_length=30, choices=TYPES, verbose_name=_("Type"))
+    tx_id = models.CharField(max_length=150, null=True, blank=True, verbose_name=_("Transaction id"))
+    fk = models.UUIDField(null=True, blank=True, editable=False, verbose_name=_("Foreign key"))
 
     class Meta:
         verbose_name = _("Statement")
