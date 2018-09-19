@@ -158,7 +158,7 @@ def reverse_crypto_withdraw(_, request, queryset):
                 if withdraw.status == CryptoWithdraw.STATUS.reversed:
                     continue
 
-                if Statement.objects.filter(fk=withdraw.code, type=Statement.TYPES.reverse).exists():
+                if Statement.objects.filter(fk=withdraw.pk, type=Statement.TYPES.reverse).exists():
                     continue
 
                 account = withdraw.account
@@ -170,7 +170,7 @@ def reverse_crypto_withdraw(_, request, queryset):
                 statement.type = Statement.TYPES.reverse
                 statement.description = "Reverse"
                 statement.amount = abs(withdraw.amount)
-                statement.fk = withdraw.code
+                statement.fk = withdraw.pk
                 statement.save()
 
                 withdraw.status = CryptoWithdraw.STATUS.reversed
