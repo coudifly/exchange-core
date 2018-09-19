@@ -106,6 +106,9 @@ settings.MIDDLEWARE += [
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
+# Django simple history
+settings.SIMPLE_HISTORY_HISTORY_ID_USE_UUID = True
+
 # For sentry config
 settings.RAVEN_CONFIG = {
     'dsn': config('RAVEN_DSN')

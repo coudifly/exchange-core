@@ -169,8 +169,7 @@ class Accounts(TimeStampedModel, BaseModel):
     user = models.ForeignKey(Users, related_name='accounts', null=True, verbose_name=_("User"), on_delete=models.CASCADE)
     deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Deposit"))
     reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Reserved"))
-    deposit_address = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Deposit address"))
-    address_id = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Address ID"))
+    address = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Address"))
     history = HistoricalRecords()
 
     class Meta:
@@ -184,46 +183,6 @@ class Accounts(TimeStampedModel, BaseModel):
     @property
     def balance(self):
         return self.deposit + self.reserved
-
-    @property
-    def br_balance(self):
-        br = CurrencyPrice('mercadobitcoin')
-        return br.to_br(self.balance)
-
-    @property
-    def usd_balance(self):
-        usd = CurrencyPrice('coinbase')
-        return usd.to_usd(self.balance)
-
-    @property
-    def total_withdraw(self):
-        return Statement.objects.filter(account__user=self.user, type__in=['withdraw']).aggregate(amount=Sum('amount'))[
-                   'amount'] or Decimal('0.00')
-
-    @property
-    def total_income(self):
-        return Statement.objects.filter(account__user=self.user, type__in=['income']).aggregate(amount=Sum('amount'))[
-                   'amount'] or Decimal('0.00')
-
-    @property
-    def total_comission(self):
-        return Statement.objects.filter(account__user=self.user, type__in=['comission']).aggregate(amount=Sum('amount'))['amount'] or Decimal('0.00')
-
-    def new_income(self, amount, tx_id, fk, date):
-        # Transfere o rendimento para a conta do investidor
-        self.deposit += amount
-        self.save()
-
-        # Cria o extrato do rendimento para o investidor
-        statement = Statement(account_id=self.pk,
-                              amount=amount, tx_id=tx_id, fk=fk)
-        statement.description = 'Income'
-        statement.type = Statement.TYPES.income
-        statement.created = date
-        statement.modified = date
-        statement.save()
-
-        return statement
 
     def takeout(self, amount):
         self.deposit -= amount
@@ -250,10 +209,9 @@ class BankAccounts(TimeStampedModel, BaseModel):
 
 
 # Base class para saques
-class BaseWithdraw(models.Model):
+class BaseWithdraw(BaseModel):
     STATUS = Choices('requested', 'reversed', 'paid')
 
-    code = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Deposit"))
     reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Reserved"))
     amount = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Amount"))
@@ -262,22 +220,9 @@ class BaseWithdraw(models.Model):
     tx_id = models.CharField(max_length=150, null=True, blank=True, verbose_name=_("Transaction id"))
     description = models.CharField(max_length=100, null=True, verbose_name=_("Description"))
 
-    @property
-    def status_name(self):
-        return self.status.title()
-
-    @property
-    def status_class(self):
-        if self.status == self.STATUS.requested:
-            return 'warning'
-        if self.status == self.STATUS.paid:
-            return 'success'
-        if self.status == self.STATUS.reversed:
-            return 'info'
-
     # Valor do saque com desconto do fee cobrado
     @property
-    def amount_with_discount(self):
+    def net_amount(self):
         return abs(self.amount) - abs(self.fee)
 
     class Meta:
@@ -285,7 +230,7 @@ class BaseWithdraw(models.Model):
 
 
 # Saques bancários
-class BankWithdraw(TimeStampedModel, BaseWithdraw, BaseModel):
+class BankWithdraw(TimeStampedModel, BaseWithdraw):
     bank = models.CharField(max_length=10, choices=BR_BANKS_CHOICES, verbose_name=_("Bank"))
     agency = models.CharField(max_length=10, verbose_name=_("Agency"))
     agency_digit = models.CharField(max_length=5, null=True, verbose_name=_("Digit"))
