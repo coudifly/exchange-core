@@ -119,8 +119,8 @@ class Companies(TimeStampedModel, BaseModel):
 class Currencies(TimeStampedModel, BaseModel):
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     code = models.CharField(max_length=10, verbose_name=_("Code"))
-    prefix = models.CharField(max_length=10, null=True, verbose_name=_("Prefix"), help_text=_("This will be appended before the amount of this currency in the entire system"))
-    sufix = models.CharField(max_length=10, null=True, verbose_name=_("Sufix"), help_text=_("This will be appended after the amount of this currency in the entire system"))
+    prefix = models.CharField(max_length=10, null=True, blank=True, verbose_name=_("Prefix"), help_text=_("This will be appended before the amount of this currency in the entire system"))
+    sufix = models.CharField(max_length=10, null=True, blank=True, verbose_name=_("Sufix"), help_text=_("This will be appended after the amount of this currency in the entire system"))
     is_fiat = models.BooleanField(default=False, verbose_name=_("Is FIAT"), help_text=_("Mark this field if the currency is a fiduciary one"))
     type = models.CharField(max_length=20, choices=CURRENCY_TYPE_CHOICES, default=CHECKING_TYPE, verbose_name=_("Type"))
     icon = models.ImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=_("Icon"))

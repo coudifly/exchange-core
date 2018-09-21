@@ -28,7 +28,7 @@
                 <tr>
                     <th class="bd-t-0"><i class="zmdi zmdi-image"></i> {% trans "Icon" %}</th>
                     <th class="bd-t-0"><i class="zmdi zmdi-label-alt"></i> {% trans "Name" %}</th>
-                    <th class="bd-t-0"><i class="zmdi zmdi-info"></i> {% trans "Symbol" %}</th>
+                    <th class="bd-t-0"><i class="zmdi zmdi-info"></i> {% trans "Code" %}</th>
                     <th class="bd-t-0"><i class="zmdi zmdi-balance"></i> {% trans "Balance" %}</th>
                     <th class="bd-t-0"><i class="zmdi zmdi-money"></i> {% trans "Deposit" %}</th>
                     <th class="bd-t-0"><i class="zmdi zmdi-money"></i> {% trans "Reserved" %}</th>
@@ -39,15 +39,15 @@
                 <tr v-for="item in wallets">
                     <td><img :src="item.icon" width="30"></td>
                     <td><a :href="'https://coinmarketcap.com/currencies/' + item.slug + '/'" target="_blank" v-text="item.name"></a></td>
-                    <td v-text="item.symbol"></td>
+                    <td v-text="item.code"></td>
                     <td v-text="item.balance"></td>
                     <td v-text="item.deposit"></td>
                     <td v-text="item.reserved"></td>
                     <td>
-                        <a href="#" @click.prevent="createAddress(item.symbol, item.name)" :title="'{% trans "Deposit " %}' + item.symbol" class="btn btn-sm waves-effect waves-light btn-outline-primary">
+                        <a href="#" @click.prevent="createAddress(item.code, item.name)" :title="'{% trans "Deposit " %}' + item.code" class="btn btn-sm waves-effect waves-light btn-outline-primary">
                             <i class="fa fa-plus"></i>
                         </a>
-                        <a href="#" @click.prevent="createWithdraw(item, item.symbol, item.name, item.deposit)" :title="'{% trans "Withdrawal " %}' + item.symbol" class="btn btn-sm waves-effect waves-light btn-outline-danger">
+                        <a href="#" @click.prevent="createWithdraw(item, item.code, item.name, item.deposit)" :title="'{% trans "Withdrawal " %}' + item.code" class="btn btn-sm waves-effect waves-light btn-outline-danger">
                             <i class="fa fa-minus"></i>
                         </a>
                     </td>

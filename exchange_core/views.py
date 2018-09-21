@@ -14,7 +14,6 @@ from django.db import transaction
 from jsonview.decorators import json_view
 from account.decorators import login_required
 from account.models import EmailAddress
-from exchange_core.models import Currencies
 from account.hooks import hookset
 
 import account.views
@@ -24,11 +23,13 @@ from exchange_core import forms
 from exchange_core.models import Users, Accounts, BankAccounts, Documents, Statement, CryptoWithdraw, BankWithdraw, Addresses
 from exchange_core.pagination import paginate
 from exchange_core.response import JsonResponse
+from exchange_core.choices import ACTIVE_STATE
 
 from cities.models import Region, City
 
 try:
     from exchange_orderbook.models import Orders
+    from exchange_orderbook.choices import EXECUTED_STATE
     ORDER_EXCHANGE_MODULE_EXISTS = True
 except (ImportError, RuntimeError):
     ORDER_EXCHANGE_MODULE_EXISTS = False
@@ -93,7 +94,6 @@ class ResendConfirmationEmailView(account.views.SignupView):
 
 
 class ResetPasswordView(account.views.PasswordResetView):
-
     def send_email(self, email):
         User = get_user_model()
         protocol = getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http")
@@ -139,25 +139,24 @@ class GetWalletsView(View):
     def get(self, request):
         wallets = []
 
-        for account in Accounts.objects.select_related('currency').filter(user=request.user):
-            if account.currency.status != Currencies.STATUS.inactive:
-                icon = account.currency.icon.url if account.currency.icon else None
+        for account in Accounts.objects.select_related('currency').filter(user=request.user, currency__state=ACTIVE_STATE):
+            icon = account.currency.icon.url if account.currency.icon else None
 
-                wallets.append({
-                    'pk': account.pk,
-                    'icon': icon,
-                    'name': account.currency.name,
-                    'slug': slugify(account.currency.name),
-                    'symbol': account.currency.symbol,
-                    'deposit': account.deposit,
-                    'reserved': account.reserved,
-                    'balance': account.balance,
-                    'withdraw_min': account.currency.withdraw_min,
-                    'withdraw_max': account.currency.withdraw_max,
-                    'withdraw_fee': account.currency.withdraw_fee,
-                    'withdraw_fixed_fee': account.currency.withdraw_fixed_fee,
-                    'withdraw_receive_hours': account.currency.withdraw_receive_hours
-                })
+            wallets.append({
+                'pk': account.pk,
+                'icon': icon,
+                'name': account.currency.name,
+                'slug': slugify(account.currency.name),
+                'code': account.currency.code,
+                'deposit': account.deposit,
+                'reserved': account.reserved,
+                'balance': account.balance,
+                'withdraw_min': account.currency.withdraw_min,
+                'withdraw_max': account.currency.withdraw_max,
+                'withdraw_fee': account.currency.withdraw_fee,
+                'withdraw_fixed_fee': account.currency.withdraw_fixed_fee,
+                'withdraw_receive_hours': account.currency.withdraw_receive_hours
+            })
 
         return JsonResponse({'wallets': wallets})
 
@@ -181,19 +180,18 @@ class AccountSettingsView(MultiFormView):
 
     def get_bank_account_instance(self):
         bank_accounts = BankAccounts.objects.filter(
-            account__currency__symbol=settings.BRL_CURRENCY_SYMBOL, account__user=self.request.user)
+            account__currency__code=settings.BRL_CURRENCY_SYMBOL, account__user=self.request.user)
         if bank_accounts.exists():
             return bank_accounts.first()
 
     def bank_account_form_valid(self, form):
         account = Accounts.objects.get(
-            currency__symbol=settings.BRL_CURRENCY_SYMBOL, user=self.request.user)
+            currency__code=settings.BRL_CURRENCY_SYMBOL, user=self.request.user)
         bank_account = form.save(commit=False)
         bank_account.account = account
         bank_account.save()
 
-        messages.success(self.request, _(
-            'Your bank account settings has been updated'))
+        messages.success(self.request, _('Your bank account settings has been updated'))
         return redirect(reverse('core>settings'))
 
     def get_address_kwargs(self):
@@ -295,8 +293,8 @@ class StatementView(TemplateView):
             account__user=self.request.user).order_by('-created'), url_param_name='crypto_withdraw_page')
 
         if ORDER_EXCHANGE_MODULE_EXISTS:
-            context['executed_orders'] = Orders.objects.select_related('market__base_currency__currency', 'market__currency').filter(
-                user=self.request.user, status=Orders.STATUS.executed).order_by('-created')[0:50]
+            context['executed_orders'] = Orders.objects.select_related('currency_pair__base_currency__currency', 'currency_pair__quote_currency').filter(
+                user=self.request.user, state=EXECUTED_STATE).order_by('-created')[0:50]
 
         return context
 
