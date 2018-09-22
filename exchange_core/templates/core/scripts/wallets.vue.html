@@ -83,7 +83,7 @@
 				},
 				methods: {
 					createAddress: function(coin, name) {
-						if (coin == '{{ BRL_CURRENCY_SYMBOL }}') {
+						if (coin == '{{ BRL_CURRENCY_CODE }}') {
 							window.location.href = '{% url "payments>bank-deposit" %}';
 							return;
 						}
@@ -106,7 +106,7 @@
 						});
 					},
 					createWithdraw: function(currency, coin, name, deposit) {
-						if (coin == '{{ BRL_CURRENCY_SYMBOL }}' && '{{ request.user.has_br_bank_account }}' == 'no') {
+						if (coin == '{{ BRL_CURRENCY_CODE }}' && '{{ request.user.has_br_bank_account }}' == 'no') {
 							swal({
 								title: '{% trans "You must have a BRL bank account configured for your account" %}',
 								showCancelButton: true,
@@ -124,7 +124,7 @@
 							withdraw_amount_modal.modal('show');
 							withdraw_app.available_amount = deposit;
 							withdraw_app.coin = coin;
-							withdraw_app.is_br_withdraw = coin == '{{ BRL_CURRENCY_SYMBOL }}';
+							withdraw_app.is_br_withdraw = coin == '{{ BRL_CURRENCY_CODE }}';
 							withdraw_app.currency = currency;
 						}
 					}

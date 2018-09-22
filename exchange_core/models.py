@@ -75,13 +75,13 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     @property
     def has_br_bank_account(self):
         br_account = self.accounts.get(
-            currency__code=settings.BRL_CURRENCY_SYMBOL)
+            currency__code=settings.BRL_CURRENCY_CODE)
         return 'yes' if br_account.bank_accounts.exists() else 'no'
 
     @property
     def br_bank_account(self):
         br_account = self.accounts.get(
-            currency__code=settings.BRL_CURRENCY_SYMBOL)
+            currency__code=settings.BRL_CURRENCY_CODE)
         if br_account.bank_accounts.exists():
             return br_account.bank_accounts.first()
 
