@@ -43,7 +43,7 @@
           			<tr>
           				<th>{% trans "Created" %}</th>
           				<th>{% trans "Coin" %}</th>
-          				<th>{% trans "Symbol" %}</th>
+          				<th>{% trans "Code" %}</th>
           				<th>{% trans "Description" %}</th>
           				<th>{% trans "Amount" %}</th>
           			</tr>
@@ -53,7 +53,7 @@
           				<tr>
           					<td>{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
           					<td>{{ item.account.currency.name }}</td>
-          					<td>{{ item.account.currency.symbol }}</td>
+          					<td>{{ item.account.currency.code }}</td>
           					<td>{{ item.description }}</td>
           					<td>{{ item.amount }}</td>
           				</tr>
@@ -78,9 +78,9 @@
                   <tr>
                     <td>{{ item.modified }}</td>
                     <td>{{ item.type_name }}</td>
-                    <td>{{ item.price }} - {{ item.market.base_currency.currency.symbol }}</td>
-                    <td>{{ item.amount }} - {{ item.market.currency.symbol }}</td>
-                    <td>{{ item.total|floatformat:8 }} - {{ item.market.base_currency.currency.symbol }}</td>
+                    <td>{{ item.price }} - {{ item.market.base_currency.currency.code }}</td>
+                    <td>{{ item.amount }} - {{ item.market.currency.code }}</td>
+                    <td>{{ item.total|floatformat:8 }} - {{ item.market.base_currency.currency.code }}</td>
                   </tr>
                 {% endfor %}
               </tbody>
@@ -93,7 +93,7 @@
           			<tr>
           				<th>{% trans "Created" %}</th>
           				<th>{% trans "Coin" %}</th>
-          				<th>{% trans "Symbol" %}</th>
+          				<th>{% trans "Code" %}</th>
           				<th>{% trans "Deposit" %}</th>
           				<th>{% trans "Reserved" %}</th>
           				<th>{% trans "Address" %}</th>
@@ -106,7 +106,7 @@
           				<tr>
           					<td>{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
           					<td>{{ item.account.currency.name }}</td>
-          					<td>{{ item.account.currency.symbol }}</td>
+          					<td>{{ item.account.currency.code }}</td>
           					<td>{{ item.deposit }}</td>
           					<td>{{ item.reserved }}</td>
           					<td>{{ item.address }}</td>
@@ -123,7 +123,7 @@
           			<tr>
           				<th>{% trans "Created" %}</th>
           				<th>{% trans "Coin" %}</th>
-          				<th>{% trans "Symbol" %}</th>
+          				<th>{% trans "Code" %}</th>
           				<th>{% trans "Deposit" %}</th>
           				<th>{% trans "Reserved" %}</th>
           				<th>{% trans "Amount" %}</th>
@@ -139,7 +139,7 @@
           				<tr>
           					<td>{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
           					<td>{{ item.account.currency.name }}</td>
-          					<td>{{ item.account.currency.symbol }}</td>
+          					<td>{{ item.account.currency.code }}</td>
           					<td>{{ item.deposit }}</td>
           					<td>{{ item.reserved }}</td>
           					<td>{{ item.amount }}</td>

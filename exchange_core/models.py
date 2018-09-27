@@ -16,7 +16,6 @@ from simple_history.models import HistoricalRecords
 from exchange_core.managers import CustomUserManager
 from exchange_core.choices import (BR_BANKS_CHOICES, BR_ACCOUNT_TYPES_CHOICES, CURRENCY_TYPE_CHOICES,
                                    CHECKING_TYPE, STATE_CHOICES, ACTIVE_STATE)
-from exchange_core.rates import CurrencyPrice
 
 
 def get_file_path(instance, filename):
@@ -75,13 +74,13 @@ class Users(TimeStampedModel, AbstractUser, BaseModel):
     @property
     def has_br_bank_account(self):
         br_account = self.accounts.get(
-            currency__code=settings.BRL_CURRENCY_SYMBOL)
+            currency__code=settings.BRL_CURRENCY_CODE)
         return 'yes' if br_account.bank_accounts.exists() else 'no'
 
     @property
     def br_bank_account(self):
         br_account = self.accounts.get(
-            currency__code=settings.BRL_CURRENCY_SYMBOL)
+            currency__code=settings.BRL_CURRENCY_CODE)
         if br_account.bank_accounts.exists():
             return br_account.bank_accounts.first()
 
@@ -130,6 +129,7 @@ class Currencies(TimeStampedModel, BaseModel):
     withdraw_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("Withdraw Percent Fee"))
     withdraw_fixed_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("Withdraw Fixed Fee"))
     withdraw_receive_hours = models.IntegerField(default=48, verbose_name=_("Withdraw receive hours"))
+    withdraw_auto_approve = models.BooleanField(default=False, verbose_name=_("Auto approve withdraw"), help_text=_("Mark this if the withdraw must be automatically approved by the system"))
 
     # Transfer between system accounts
     tbsa_fee = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.0'), verbose_name=_("TBSA Percent Fee"), help_text=_("Transfer between system accounts"))

@@ -180,13 +180,13 @@ class AccountSettingsView(MultiFormView):
 
     def get_bank_account_instance(self):
         bank_accounts = BankAccounts.objects.filter(
-            account__currency__code=settings.BRL_CURRENCY_SYMBOL, account__user=self.request.user)
+            account__currency__code=settings.BRL_CURRENCY_CODE, account__user=self.request.user)
         if bank_accounts.exists():
             return bank_accounts.first()
 
     def bank_account_form_valid(self, form):
         account = Accounts.objects.get(
-            currency__code=settings.BRL_CURRENCY_SYMBOL, user=self.request.user)
+            currency__code=settings.BRL_CURRENCY_CODE, user=self.request.user)
         bank_account = form.save(commit=False)
         bank_account.account = account
         bank_account.save()
