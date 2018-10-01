@@ -10,8 +10,8 @@ from exchange_core.models import Users
 class UserDocumentsMiddleware(MiddlewareMixin):
     ignore_paths = [
         '/' + settings.ADMIN_URL_PREFIX,
-        reverse('set_language'),
         '/' + getattr(settings, 'SPONSORSHIP_URL_PREFIX', '0000000000'),
+        reverse('set_language'),
         reverse('core>logout'),
         reverse('core>documents'),
         reverse('core>settings'),

@@ -9,6 +9,7 @@ def exchange(request):
         'BRL_CURRENCY_CODE': settings.BRL_CURRENCY_CODE,
         'GOOGLE_ANALYTICS_TRACK_ID': settings.GOOGLE_ANALYTICS_TRACK_ID,
         'DOMAIN': settings.DOMAIN,
+        'HOME_VIEW': settings.HOME_VIEW,
         'BR_DEPOSIT_MIN': settings.BR_DEPOSIT_MIN,
         'BR_DEPOSIT_MAX': settings.BR_DEPOSIT_MAX,
         'BR_DEPOSIT_DAILY_LIMIT': settings.BR_DEPOSIT_DAILY_LIMIT,
