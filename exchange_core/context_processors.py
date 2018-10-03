@@ -10,6 +10,7 @@ def exchange(request):
         'GOOGLE_ANALYTICS_TRACK_ID': settings.GOOGLE_ANALYTICS_TRACK_ID,
         'DOMAIN': settings.DOMAIN,
         'HOME_VIEW': settings.HOME_VIEW,
+        'ENABLE_SIGNUP_ADDRESS': settings.ENABLE_SIGNUP_ADDRESS,
         'BR_DEPOSIT_MIN': settings.BR_DEPOSIT_MIN,
         'BR_DEPOSIT_MAX': settings.BR_DEPOSIT_MAX,
         'BR_DEPOSIT_DAILY_LIMIT': settings.BR_DEPOSIT_DAILY_LIMIT,

@@ -19,12 +19,14 @@
 	    {% endfor %}
     </div>
 
-    <h4 style="margin-top: 20px;">{% trans "Address" %}</h4>
-    <hr>
+    {% if ENABLE_SIGNUP_ADDRESS %}
+        <h4 style="margin-top: 20px;">{% trans "Address" %}</h4>
+        <hr>
 
-    {% with WIDGET_ERROR_CLASS='parsley-error' %}
-          {% include "core/forms/address.html" with form=form_address %}
-    {% endwith %}
+        {% with WIDGET_ERROR_CLASS='parsley-error' %}
+              {% include "core/forms/address.html" with form=form_address %}
+        {% endwith %}
+    {% endif %}
     
 
     <div class="form-group text-center row m-t-10">

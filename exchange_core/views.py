@@ -44,6 +44,8 @@ class SignupView(account.views.SignupView):
     form_class = forms.SignupForm
 
     def proccess_address_form(self):
+        if not settings.ENABLE_SIGNUP_ADDRESS:
+            return
         if not getattr(self, '_use_address', True):
             return
         form = forms.AddressForm(country=None, region=None)
@@ -78,9 +80,10 @@ class SignupView(account.views.SignupView):
         user.mobile_phone = form.cleaned_data['mobile_phone']
         user.save()
 
-        form_address = self.form_address.save(commit=False)
-        form_address.user = user
-        form_address.save()
+        if settings.ENABLE_SIGNUP_ADDRESS:
+            form_address = self.form_address.save(commit=False)
+            form_address.user = user
+            form_address.save()
 
 
 class ResendConfirmationEmailView(account.views.SignupView):

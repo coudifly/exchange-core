@@ -62,8 +62,10 @@ settings.IGNORE_PATHS = config('IGNORE_PATHS', default=[], cast=config.list)
 settings.DOMAIN = config('DOMAIN', default='example.com')
 
 # Enable/disable signup
-settings.ENABLE_SIGNUP = config(
-    'ENABLE_SIGNUP', default=True, cast=config.boolean)
+settings.ENABLE_SIGNUP = config('ENABLE_SIGNUP', default=True, cast=config.boolean)
+
+# Enable/disable address in signup
+settings.ENABLE_SIGNUP_ADDRESS = config('ENABLE_SIGNUP_ADDRESS', default=True, cast=config.boolean)
 
 # https://github.com/Bouke/django-two-factor-auth
 # https://github.com/django-extensions/django-extensions
