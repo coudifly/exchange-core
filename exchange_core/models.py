@@ -2,7 +2,6 @@ import uuid
 from decimal import Decimal
 
 from django.db import models
-from django.db.models import Sum
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import JSONField
 from django.utils.translation import ugettext_lazy as _
@@ -210,7 +209,11 @@ class BankAccounts(TimeStampedModel, BaseModel):
 
 # Base class para saques
 class BaseWithdraw(BaseModel):
-    STATUS = Choices('requested', 'reversed', 'paid')
+    STATUS = EChoices(
+        ('requested', 'requested', _("Requested")),
+        ('reversed', 'reversed', _("Reversed")),
+        ('paid', 'paid', _("Paid"))
+    )
 
     deposit = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Deposit"))
     reserved = models.DecimalField(max_digits=20, decimal_places=8, default=Decimal('0.00'), verbose_name=_("Reserved"))
@@ -258,8 +261,18 @@ class CryptoWithdraw(TimeStampedModel, BaseWithdraw):
 
 # Documentos
 class Documents(TimeStampedModel, BaseModel):
-    TYPES = Choices('id_front', 'id_back', 'selfie', 'contract', 'residence')
-    STATUS = Choices('pending', 'disapproved', 'approved')
+    TYPES = EChoices(
+        ('id_front', 'id_front', _("ID front")),
+        ('id_back', 'id_back', _("ID back")),
+        ('selfie', 'selfie', _("Selfie with ID")),
+        ('social_contract', 'social_contract', _("Social contract")),
+        ('residence', 'residence', _("Proof of address"))
+    )
+    STATUS = EChoices(
+        ('pending', 'pending', _("Pending")),
+        ('disapproved', 'disapproved', _("Disapproved")),
+        ('approved', 'approved', _("Approved"))
+    )
 
     user = models.ForeignKey(Users, related_name='documents', verbose_name=_("User"), on_delete=models.CASCADE)
     file = models.ImageField(upload_to=get_file_path, verbose_name=_("File"))
@@ -272,24 +285,17 @@ class Documents(TimeStampedModel, BaseModel):
         verbose_name_plural = _("Documents")
         ordering = ['status']
 
-    @property
-    def status_title(self):
-        return self.status.title()
-
-    # Propriedade para pegar a classe de alerta no template
-    @property
-    def status_alert_class(self):
-        if self.status == self.STATUS.pending:
-            return 'alert-warning'
-        if self.status == self.STATUS.disapproved:
-            return 'alert-danger'
-        if self.status == self.STATUS.approved:
-            return 'alert-success'
-
 
 # Account statement
 class Statement(TimeStampedModel, BaseModel):
-    TYPES = Choices('deposit', 'reverse', 'withdraw', 'income', 'investment', 'tbsa', 'course_subscription')
+    TYPES = EChoices(
+        ('deposit', 'deposit', ("Deposit")),
+        ('reversed', 'reversed', _("Reversed")),
+        ('withdraw', 'withdraw', _("Withdraw")),
+        ('income', 'income', _("Income")),
+        ('investment', 'investment', _("Investment")),
+        ('tbsa', 'tbsa', _("TBSA"))
+    )
 
     account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
     description = models.CharField(max_length=100, verbose_name=_("Description"))

@@ -289,7 +289,7 @@ class StatementView(TemplateView):
     def get_context_data(self):
         context = super().get_context_data()
         context['statement'] = paginate(self.request, Statement.objects.filter(account__user=self.request.user, type__in=[
-                                        'deposit', 'withdraw', 'reverse']).order_by('-created'), url_param_name='statement_page')
+                                        'deposit', 'withdraw', 'reversed']).order_by('-created'), url_param_name='statement_page')
         context['bank_withdraw'] = paginate(self.request, BankWithdraw.objects.filter(
             account__user=self.request.user).order_by('-created'), url_param_name='bank_withdraw_page')
         context['crypto_withdraw'] = paginate(self.request, CryptoWithdraw.objects.filter(

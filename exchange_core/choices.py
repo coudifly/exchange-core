@@ -183,3 +183,15 @@ STATE_CHOICES = (
     (ACTIVE_STATE, _("Active")),
     (INACTIVE_STATE, _("Inativo"))
 )
+
+# Documents
+ID_FRONT_TYPE = 'id_front'
+ID_BACK_TYPE = 'id_back'
+SELFIE_TYPE = 'selfie'
+CONTRACT_TYPE = 'contract'
+RESIDENCE_TYPE = 'residence'
+
+DOCUMENT_TYPE_CHOICES = (
+    (ACTIVE_STATE, _("Active")),
+    (INACTIVE_STATE, _("Inativo"))
+)
