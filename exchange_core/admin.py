@@ -126,7 +126,8 @@ class BankWithdrawAdmin(BaseAdmin, SimpleHistoryAdmin):
         'account_number',
         'account_number_digit',
         'amount',
-        'fee'
+        'fee',
+        'net_amount',
     ]
     list_filter = ['status']
     readonly_fields = ['account']
