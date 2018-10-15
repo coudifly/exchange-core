@@ -456,7 +456,7 @@ msgstr "Contas bancárias"
 
 #: exchange_core/models.py:213
 msgid "Requested"
-msgstr ""
+msgstr "Solicitado"
 
 #: exchange_core/models.py:214 exchange_core/models.py:293
 msgid "Reversed"
