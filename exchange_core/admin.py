@@ -128,6 +128,7 @@ class BankWithdrawAdmin(BaseAdmin, SimpleHistoryAdmin):
         'amount',
         'fee',
         'net_amount',
+        'status',
     ]
     list_filter = ['status']
     readonly_fields = ['account']
@@ -197,6 +198,7 @@ class CryptoWithdrawAdmin(BaseAdmin, SimpleHistoryAdmin):
         'get_coin',
         'amount',
         'fee',
+        'net_amount',
         'status'
     ]
     search_fields = [
