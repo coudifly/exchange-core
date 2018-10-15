@@ -126,8 +126,7 @@ class BankWithdrawAdmin(BaseAdmin, SimpleHistoryAdmin):
         'account_number',
         'account_number_digit',
         'amount',
-        'fee',
-        'status'
+        'fee'
     ]
     list_filter = ['status']
     readonly_fields = ['account']
@@ -186,7 +185,7 @@ reverse_crypto_withdraw.short_description = _("Reverse selected crypto withdraw"
 @admin.register(CryptoWithdraw)
 class CryptoWithdrawAdmin(BaseAdmin, SimpleHistoryAdmin):
     actions = [reverse_crypto_withdraw]
-    readonly_fields = ['account', 'status']
+    readonly_fields = ['account']
     list_filter = ['status']
     list_display = [
         'get_user',
