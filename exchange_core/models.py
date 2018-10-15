@@ -289,7 +289,7 @@ class Documents(TimeStampedModel, BaseModel):
 # Account statement
 class Statement(TimeStampedModel, BaseModel):
     TYPES = EChoices(
-        ('deposit', 'deposit', ("Deposit")),
+        ('deposit', 'deposit', _("Deposit")),
         ('reversed', 'reversed', _("Reversed")),
         ('withdraw', 'withdraw', _("Withdraw")),
         ('income', 'income', _("Income")),

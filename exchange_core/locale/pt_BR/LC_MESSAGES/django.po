@@ -1102,7 +1102,7 @@ msgstr "Ações"
 
 #: exchange_core/templates/core/wallets.html:47
 msgid "Deposit "
-msgstr "Depósito"
+msgstr "Depósito "
 
 #: exchange_core/templates/core/wallets.html:50
 msgid "Withdrawal "
