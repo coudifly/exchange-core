@@ -177,8 +177,7 @@ def reverse_crypto_withdraw(_, request, queryset):
                 withdraw.status = CryptoWithdraw.STATUS.reversed
                 withdraw.save()
 
-                msg = _("{} amount reversed to {}").format(abs(withdraw.amount), account.user.username)
-                messages.success(request, msg)
+                messages.success(request, _("Withdraw successfully reversed"))
 
 
 reverse_crypto_withdraw.short_description = _("Reverse selected crypto withdraw")

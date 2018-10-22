@@ -998,7 +998,7 @@ msgstr "Carteiras"
 
 #: exchange_core/templates/core/index.html:178
 msgid "Orderbook"
-msgstr "Livro de Ofertas"
+msgstr "Comprar/Vender"
 
 #: exchange_core/templates/core/index.html:189
 msgid "Comissions"
