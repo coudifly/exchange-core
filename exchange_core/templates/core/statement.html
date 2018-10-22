@@ -77,10 +77,10 @@
                 {% for item in executed_orders %}
                   <tr>
                     <td>{{ item.modified }}</td>
-                    <td>{{ item.type_name }}</td>
+                    <td>{{ item.side }}</td>
                     <td>{{ item.price }} - {{ item.market.base_currency.currency.code }}</td>
-                    <td>{{ item.amount }} - {{ item.market.currency.code }}</td>
-                    <td>{{ item.total|floatformat:8 }} - {{ item.market.base_currency.currency.code }}</td>
+                    <td>{{ item.qty }} - {{ item.market.currency.code }}</td>
+                    <td>{{ item.amount|floatformat:8 }} - {{ item.market.base_currency.currency.code }}</td>
                   </tr>
                 {% endfor %}
               </tbody>
