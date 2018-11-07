@@ -98,7 +98,6 @@ settings.INSTALLED_APPS += [
 
 # Add the Two Factor middlewares for enable two steps authentication
 settings.MIDDLEWARE += [
-    'graphql_jwt.middleware.JSONWebTokenMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
@@ -119,9 +118,11 @@ settings.RAVEN_CONFIG = {
 }
 
 # GraphQL
-
 settings.GRAPHENE = {
-    'SCHEMA': PACKAGE_NAME + '.schema.schema'
+    'SCHEMA': PACKAGE_NAME + '.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
 
 settings.AUTHENTICATION_BACKENDS += [

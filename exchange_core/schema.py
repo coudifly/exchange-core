@@ -24,18 +24,16 @@ class Account(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    me = graphene.List(User)
+    me = graphene.Field(User)
     currency = graphene.List(Currency)
     account = graphene.List(Account)
 
     @login_required
-    def resolve_user(self, info):
-        user = info.context.user
-        return Users.objects.filter(pk=user.pk)
+    def resolve_me(self, info):
+        return Users.objects.get(pk=info.context.user.pk)
 
     @login_required
     def resolve_currency(self, info):
-        user = info.context.user
         return Currencies.objects.filter(state=ACTIVE_STATE)
 
     @login_required
