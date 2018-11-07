@@ -4,6 +4,8 @@ __VERSION__ = '0.1'
 
 REQUIREMENTS = [
     'django>=2.1',
+    'graphene-django>=2.0',
+    'django-graphql-jwt',
     'whitenoise',
     'boto3',
     'django-model-utils',

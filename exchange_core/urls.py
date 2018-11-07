@@ -1,6 +1,7 @@
 from django.urls import re_path, path, include
 from django.conf import settings
 from django.contrib import admin
+from graphene_django.views import GraphQLView
 from two_factor.urls import urlpatterns as tf_urls
 from account.views import ConfirmEmailView, PasswordResetView, LogoutView, SettingsView
 
@@ -10,6 +11,9 @@ from . import views
 urlpatterns = [
     # URLs do admin
     path(settings.ADMIN_URL_PREFIX, admin.site.urls),
+
+    # GraphQL
+    re_path(r'^graphql', GraphQLView.as_view(graphiql=True)),
 
     # i18n
     path('i18n/', include('django.conf.urls.i18n')),

@@ -39,6 +39,17 @@
             }
         });
     });
+
+    var waitForEl = function(selector, callback) {
+        var el = jQuery(selector);
+        if (el.length) {
+          callback(el);
+        } else {
+          setTimeout(function() {
+            waitForEl(selector, callback);
+          }, 100);
+        }
+      };
 </script>
 
 

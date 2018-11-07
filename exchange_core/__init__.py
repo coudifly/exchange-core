@@ -77,6 +77,7 @@ settings.ENABLE_SIGNUP_ADDRESS = config('ENABLE_SIGNUP_ADDRESS', default=True, c
 # django.contrib.sites is required by django-user-accounts
 settings.INSTALLED_APPS += [
     'raven.contrib.django.raven_compat',
+    'graphene_django',
     'django.contrib.humanize',
     'django.contrib.sites',
     'django_otp',
@@ -97,6 +98,7 @@ settings.INSTALLED_APPS += [
 
 # Add the Two Factor middlewares for enable two steps authentication
 settings.MIDDLEWARE += [
+    'graphql_jwt.middleware.JSONWebTokenMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
@@ -115,6 +117,17 @@ settings.SIMPLE_HISTORY_HISTORY_ID_USE_UUID = True
 settings.RAVEN_CONFIG = {
     'dsn': config('RAVEN_DSN')
 }
+
+# GraphQL
+
+settings.GRAPHENE = {
+    'SCHEMA': PACKAGE_NAME + '.schema.schema'
+}
+
+settings.AUTHENTICATION_BACKENDS += [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Defines the user default Model
 settings.AUTH_USER_MODEL = PACKAGE_NAME + '.Users'
