@@ -5,14 +5,14 @@
 
 {% block head %}
 	<style>
-		.tx-12 {
-			font-size: 12px;
+		.tx-11 {
+			font-size: 11px;
 		}
 	</style>
 {% endblock %}
 
 {% block content %}
-  <h6 class="page-title">{% trans "Statement" %}</h6>
+  <h6 class="page-title"><i class="zmdi zmdi-attachment-alt"></i> {% trans "Statement" %}</h6>
       
   <div>
         
@@ -20,26 +20,26 @@
         <div class="os-tabs-controls">
           <ul class="nav nav-tabs smaller">
             <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#tab_overview" aria-expanded="true">{% trans "Overview" %}</a>
+              <a class="nav-link active" data-toggle="tab" href="#tab_overview" aria-expanded="true"><i class="fas fa-eye"></i> {% trans "Overview" %}</a>
             </li>
             {% if executed_orders is not None %}
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab_executed_orders" aria-expanded="true">{% trans "Orders History" %}</a>
+              <a class="nav-link" data-toggle="tab" href="#tab_executed_orders" aria-expanded="true"><i class="fas fa-history"></i> {% trans "Orders History" %}</a>
             </li>
             {% endif %}
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab_crypto_withdraw" aria-expanded="false">{% trans "Crypto Withdrawals" %}</a>
+              <a class="nav-link" data-toggle="tab" href="#tab_crypto_withdraw" aria-expanded="false"><i class="fas fa-arrow-alt-circle-down"></i> {% trans "Crypto Withdrawals" %}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab_br_withdraw" aria-expanded="false">{% trans "BRL Withdrawals" %}</a>
+              <a class="nav-link" data-toggle="tab" href="#tab_br_withdraw" aria-expanded="false"><i class="fas fa-arrow-alt-circle-down"></i> {% trans "BRL Withdrawals" %}</a>
             </li>
           </ul>
           </ul>
         </div>
         <div class="tab-content card-box">
           <div class="tab-pane active" id="tab_overview" aria-expanded="true">
-          	<table class="table table-bordered table-v2 table-striped">
-          		<thead>
+          	<table class="table table-bordered table-v2 table-striped table-sm">
+          		<thead class="text-uppercase tx-11">
           			<tr>
           				<th>{% trans "Created" %}</th>
           				<th>{% trans "Coin" %}</th>
@@ -48,7 +48,7 @@
           				<th>{% trans "Amount" %}</th>
           			</tr>
           		</thead>
-          		<tbody class="tx-12">
+          		<tbody class="tx-11">
           			{% for item in statement %}
           				<tr>
           					<td>{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
@@ -63,8 +63,8 @@
           </div>
           {% if executed_orders is not None %}
           <div class="tab-pane" id="tab_executed_orders" aria-expanded="true">
-            <table class="table table-bordered table-v2 table-striped">
-              <thead>
+            <table class="table table-bordered table-v2 table-striped table-sm">
+              <thead class="text-uppercase tx-11">
                 <tr>
                   <th>{% trans "Date" %}</th>
                   <th>{% trans "Type" %}</th>
@@ -73,7 +73,7 @@
                   <th>{% trans "Total" %}</th>
                 </tr>
               </thead>
-              <tbody class="tx-12">
+              <tbody class="tx-11">
                 {% for item in executed_orders %}
                   <tr>
                     <td>{{ item.modified }}</td>
@@ -88,8 +88,8 @@
           </div>
           {% endif %}
           <div class="tab-pane" id="tab_crypto_withdraw" aria-expanded="false">
-          	<table class="table table-bordered table-v2 table-striped">
-          		<thead>
+          	<table class="table table-bordered table-v2 table-striped table-sm">
+          		<thead class="text-uppercase tx-11">
           			<tr>
           				<th>{% trans "Created" %}</th>
           				<th>{% trans "Coin" %}</th>
@@ -101,7 +101,7 @@
           				<th>{% trans "Status" %}</th>
           			</tr>
           		</thead>
-          		<tbody class="tx-12">
+          		<tbody class="tx-11">
           			{% for item in crypto_withdraw %}
           				<tr>
           					<td>{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>
@@ -118,8 +118,8 @@
           	</table>
           </div>
           <div class="tab-pane" id="tab_br_withdraw">
-          	<table class="table table-bordered table-v2 table-striped">
-          		<thead>
+          	<table class="table table-bordered table-v2 table-striped table-sm">
+          		<thead class="text-uppercase tx-11">
           			<tr>
           				<th>{% trans "Created" %}</th>
           				<th>{% trans "Coin" %}</th>
@@ -134,7 +134,7 @@
           				<th>{% trans "Status" %}</th>
           			</tr>
           		</thead>
-          		<tbody class="tx-12">
+          		<tbody class="tx-11">
           			{% for item in bank_withdraw %}
           				<tr>
           					<td>{{ item.created|date:"SHORT_DATETIME_FORMAT" }}</td>

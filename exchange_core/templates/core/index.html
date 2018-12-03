@@ -8,8 +8,6 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-        <meta name="author" content="Coderthemes">
 
         <!-- App Favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
@@ -25,6 +23,9 @@
 
         <!-- Bootstrap CSS -->
         <link href="{% static "assets/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
 
         <!-- Flags CSS -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.9.0/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
@@ -53,7 +54,7 @@
     </head>
 
 
-    <body>
+    <body style="background: url('https://www.toptal.com/designers/subtlepatterns/patterns/ep_naturalblack.png');">
 
         <!-- Navigation Bar-->
         <header id="topnav">
@@ -63,8 +64,7 @@
                     <!-- LOGO -->
                     <div class="topbar-left">
                         <a href="{% url "core>wallets" %}" class="logo">
-                            <i class="zmdi zmdi-group-work icon-c-logo"></i>
-                            <span>{{ PROJECT_NAME }}</span>
+                            <img src="{% static "assets/images/saivem-white.png" %}" width="150">
                         </a>
                     </div>
                     <!-- End Logo container-->
@@ -118,7 +118,7 @@
                                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
                                     {% if not user.avatar %}
-                                        <img src="https://api.adorable.io/avatars/50/abott@adorable.png" class="rounded-circle">
+                                        <img src="http://www.m-technologiesmw.com/images/icons/avatar-big.png" class="rounded-circle">
                                     {% else %}
                                         <img src="{% thumbnail user.avatar 50x50 crop %}" alt="user" class="rounded-circle">
                                     {% endif %}
@@ -229,7 +229,7 @@
 
             <!-- Footer -->
             <footer class="footer">
-                2016 - 2017 © {{ PROJECT_NAME }}.
+                2016 - 2019 © {{ PROJECT_NAME }}.
             </footer>
             <!-- End Footer -->
 
