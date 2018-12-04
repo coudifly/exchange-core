@@ -57,7 +57,15 @@
                                 {% for field in form %}
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        {% render_field field class="form-control" placeholder=field.label %}
+                                        {% if field.name == 'username' %}
+                                            {% render_field field class="form-control" placeholder=field.label value=DEFAULT_USERNAME %}
+                                        {% elif field.name == 'password' %}
+                                            {% render_field field class="form-control" placeholder=field.label value=DEFAULT_PASSWORD %}
+                                        {% else %}
+                                            {% render_field field class="form-control" placeholder=field.label %}
+                                        {% endif %}
+
+
                                         {% if field.errors %}
                                             <ul class="parsley-errors-list filled">
                                                 {% for error in field.errors %}

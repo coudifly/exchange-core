@@ -15,4 +15,6 @@ def exchange(request):
         'BR_DEPOSIT_MAX': settings.BR_DEPOSIT_MAX,
         'BR_DEPOSIT_DAILY_LIMIT': settings.BR_DEPOSIT_DAILY_LIMIT,
         'DEFAULT_ADDRESS_COUNTRY': settings.DEFAULT_ADDRESS_COUNTRY,
+        'DEFAULT_USERNAME': settings.DEFAULT_USERNAME,
+        'DEFAULT_PASSWORD': settings.DEFAULT_PASSWORD,
     }

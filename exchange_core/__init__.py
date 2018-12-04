@@ -265,3 +265,7 @@ settings.DEFAULT_ADDRESS_COUNTRY = config('DEFAULT_ADDRESS_COUNTRY', default=346
 
 # https://docs.djangoproject.com/en/2.0/ref/settings/#csrf-failure-view
 settings.CSRF_FAILURE_VIEW = lambda *args, **kwargs: redirect(reverse(settings.LOGIN_REDIRECT_URL))
+
+# Default user data
+settings.DEFAULT_USERNAME = config('DEFAULT_USERNAME', default='')
+settings.DEFAULT_PASSWORD = config('DEFAULT_PASSWORD', default='')
