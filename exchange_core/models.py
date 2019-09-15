@@ -177,8 +177,8 @@ class Accounts(TimeStampedModel, BaseModel):
     history = HistoricalRecords()
 
     class Meta:
-        verbose_name = _('Currency account')
-        verbose_name_plural = _('Currencies accounts')
+        verbose_name = _('Account')
+        verbose_name_plural = _('Accounts')
         ordering = ['currency__name']
 
     def __str__(self):
@@ -249,8 +249,8 @@ class BankWithdraw(TimeStampedModel, BaseWithdraw):
     history = HistoricalRecords()
 
     class Meta:
-        verbose_name = _("Bank withdraw")
-        verbose_name_plural = _("Bank withdrawals")
+        verbose_name = _("Withdrawal - Fiat")
+        verbose_name_plural = _("Withdrawals - Fiat")
 
 
 # Saques de criptomoedas
@@ -260,8 +260,8 @@ class CryptoWithdraw(TimeStampedModel, BaseWithdraw):
     history = HistoricalRecords()
 
     class Meta:
-        verbose_name = _("Crypto withdraw")
-        verbose_name_plural = _("Crypto withdrawals")
+        verbose_name = _("Withdrawal - Cryptocurrency")
+        verbose_name_plural = _("Withdrawals - Cryptocurrency")
 
 
 # Documentos
