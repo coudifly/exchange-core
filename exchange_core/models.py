@@ -115,6 +115,11 @@ class Companies(TimeStampedModel, BaseModel):
 
 
 class Currencies(TimeStampedModel, BaseModel):
+    TYPES = EChoices(
+        ('checking', 'checking', _("Checking")),
+        ('investment', 'investment', _("Investment"))
+    )
+
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     code = models.CharField(max_length=10, verbose_name=_("Code"))
     prefix = models.CharField(max_length=10, null=True, blank=True, verbose_name=_("Prefix"), help_text=_("This will be appended before the amount of this currency in the entire system"))
@@ -144,11 +149,11 @@ class Currencies(TimeStampedModel, BaseModel):
         unique_together = (('code', 'type'),)
 
     def __str__(self):
-        return self.name
+        return self.name + ' - ' + self.type_title
 
     @property
     def type_title(self):
-        return self.type.title() + ' Account'
+        return self.type.title()
 
     @property
     def dict(self):
