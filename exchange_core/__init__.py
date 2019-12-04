@@ -12,14 +12,9 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from django.urls import reverse
-from prettyconf.configuration import Configuration
 from prettyconf import config
-from prettyconf.loaders import RecursiveSearch
 
 from exchange_core.casts import pairs, redis_url
-
-# Tells to prettyconf  the path of .env in case of env vars not exists for given configuration
-config.loaders = [RecursiveSearch(starting_path=settings.BASE_DIR)]
 
 # Overwrite default Json encoder for Decimal and UUID support
 JSONEncoder_default = JSONEncoder.default
