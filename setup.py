@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 __VERSION__ = '0.1'
 
 REQUIREMENTS = [
-    'django>=2.1',
+    'django==2.*',
     'graphene-django>=2.0',
     'django-graphql-jwt',
     'whitenoise',
