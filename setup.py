@@ -19,7 +19,7 @@ REQUIREMENTS = [
     'psycopg2-binary',
     'django-extensions',
     'django-user-accounts',
-    'django-anymail==1.2',
+    'django-anymail==1.2.1',
     'django-passwords',
     'django-storages',
     'django-jsonview',
