@@ -132,8 +132,7 @@ settings.AUTH_USER_MODEL = PACKAGE_NAME + '.Users'
 
 # Defines the two factor template to be used for login
 settings.LOGIN_URL = 'two_factor:login'
-settings.LOGIN_REDIRECT_URL = reverse_lazy(
-    config('LOGIN_REDIRECT_URL', default='core>wallets'))
+settings.LOGIN_REDIRECT_URL = reverse_lazy(config('LOGIN_REDIRECT_URL'))
 
 # Database config
 settings.DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'))
