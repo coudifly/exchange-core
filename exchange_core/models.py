@@ -299,7 +299,9 @@ class Statement(TimeStampedModel, BaseModel):
         ('withdraw', 'withdraw', _("Withdraw")),
         ('income', 'income', _("Income")),
         ('investment', 'investment', _("Investment")),
-        ('tbsa', 'tbsa', _("TBSA"))
+        ('tbsa', 'tbsa', _("TBSA")),
+        ('course_subscription', 'course_subscription', _("Course Subscription")),
+        ('advisor_card_request', 'advisor_card_request', _("Advisor Card Request"))
     )
 
     account = models.ForeignKey(Accounts, related_name='statement', on_delete=models.CASCADE, verbose_name=_("Account"))
